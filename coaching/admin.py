@@ -30,6 +30,31 @@ class GroupeAdmin(admin.ModelAdmin):
 admin.site.register(Groupe, GroupeAdmin)
 
 class UtilisateurAdminForm(ModelForm):
+    password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput,
+            required=False)
+    password2 = forms.CharField(label=_("Password confirmation"), 
+            widget=forms.PasswordInput, required=False)
+
+    class Meta:
+        model = Utilisateur
+        exclude = ('password',)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1", "")
+        password2 = self.cleaned_data["password2"]
+        if password1 != password2:
+            raise forms.ValidationError(_("The two password fields didn't match."))
+        return password2
+
+    def save(self, commit=True):
+        user = super(UtilisateurAdminForm, self).save(commit=False)
+        if self.cleaned_data["password1"]:
+            user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
+
+class UtilisateurClassicAdminForm(ModelForm):
     class Meta:
         model = Utilisateur
 
@@ -70,7 +95,8 @@ class UtilisateurAdmin(UserAdmin):
     form = UtilisateurAdminForm
     add_form = UtilisateurCreationForm
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
+        #(None, {'fields': ('username', 'password')}),
+        (None, {'fields': ('username', 'password1', 'password2')}),
         (_(u"Informations personnelles"), 
                 {'fields': ('last_name', 'first_name', 'email')}),
         (_(u"Paramètres"), {'fields': ('langue', 'groupe', 'fermeture')}),
