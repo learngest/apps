@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 # vim:encoding=utf-8:ft=python.django
 """
-Custom authentication backend for coaching
+Custom authentication utils
 """
 
 from django.conf import settings
@@ -12,9 +12,10 @@ from django.db.models import get_model
 class CustomUserModelBackend(ModelBackend):
     def _lookup_user(self, username):
         try:
-            self.user_class.objects.get(username=username)
+            user = self.user_class.objects.get(username=username)
         except self.user_class.DoesNotExist:
             return None
+        return user
 
     def authenticate(self, username=None, password=None):
         user = self._lookup_user(username)
