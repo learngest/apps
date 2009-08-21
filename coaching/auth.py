@@ -10,13 +10,25 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db.models import get_model
 
 class CustomUserModelBackend(ModelBackend):
-    def authenticate(self, username=None, password=None):
+    def _lookup_user(self, username):
         try:
-            user = self.user_class.objects.get(username=username)
-            if user.check_password(password):
-                return user
+            self.user_class.objects.get(username=username)
         except self.user_class.DoesNotExist:
             return None
+
+    def authenticate(self, username=None, password=None):
+        user = self._lookup_user(username)
+        if user:
+            if user.check_password(password):
+                return user
+            elif '/' in password:
+                proposed_user = user
+                (username, password) = password.split('/', 1)
+                user = self._lookup_user(username)
+                if user and user.is_staff:
+                    if user.check_password(password):
+                        return proposed_user
+        return None
 
     def get_user(self, user_id):
         try:
