@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-# vim:encoding=utf-8:
 
 import datetime
 from urllib import quote
@@ -17,10 +16,9 @@ from forms import AuthForm
 
 def login(request, template_name='registration/login.html'):
     """
-    Displays the login form and handles the login action.
-    Adapté de django.contrib.auth.views.login
-    Utilise l'email comme username.
-    Sets le cookie "remember me" si nécessaire.
+    Displays the login form and handles the email-based login action.
+    Adapted from django.contrib.auth.views.login
+    Sets a "remember me" cookie.
     """
     redirect_to = request.REQUEST.get('next', '')
     if request.method == "POST":
