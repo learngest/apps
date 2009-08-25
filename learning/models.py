@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-# vim:encoding=utf-8:ft=python.django
 
 from django.db import models
 from django.conf import settings

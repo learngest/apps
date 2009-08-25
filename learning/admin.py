@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-# vim:encoding=utf-8:ft=python.django
 
 from django.contrib import admin
 from learning.models import Module, ModuleTitre, Cours, CoursTitre, ModuleCours, Contenu
