@@ -1,0 +1,108 @@
+# -*- encoding: utf-8 -*-
+
+#import os
+import sys
+import os.path
+#import datetime
+
+from django.shortcuts import render_to_response, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.contrib.sites.models import Site
+#from django.template.defaulttags import include_is_allowed
+
+from learning.models import Cours, Module, Contenu, ModuleTitre
+
+@login_required
+def support(request, contenu_id=None):
+    """
+    Display course content.
+    """
+    LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+    if not contenu_id:
+        request.user.message_set.create(_(u"L'url demandée est invalide."))
+        HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    langue = request.GET.get('l',request.session['django_language'])
+    try:
+        contenu = Contenu.objects.get(pk=contenu_id)
+    except Contenu.DoesNotExist:
+        request.user.message_set.create(_(u"Le contenu demandé n'existe pas"))
+        HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if langue != contenu.langue:
+        try:
+            contenu = Contenu.objects.get(module=contenu.module,
+                                          type=contenu.type,
+                                          langue=contenu.langue)
+        except Contenu.DoesNotExist:
+            request.user.message_set.create(
+                _("Nous sommes désolés, ce contenu n'existe pas dans la langue demandée"))
+    site_id = getattr(settings, 'SITE_ID', 1)
+    site = Site.objects.get(id=site_id)
+    base = ''.join(('http://', site.domain))
+    contents_prefix = getattr(settings, 'CONTENTS_PREFIX', '/contents/')
+    curmod = sys.modules['__main__']
+    fonction = 'render_%s' % contenu.type
+    getattr(curmod, 
+            fonction, 'render_any')(request, contenu, base, contents_prefix)
+    
+def render_htm(request, c, base, contents_prefix):
+    """
+    Render html support
+    """
+    suffixe = os.path.join(os.path.dirname(settings.PROJECT_PATH),
+                            contents_prefix,
+                            c.module.slug,
+                            c.langue,
+                            c.ressource)
+    support_path = os.path.join(os.path.dirname(settings.PROJECT_PATH), suffixe)
+    base = os.path.join(base, suffixe)
+    if not include_is_allowed(support_path):
+        request.user.message_set.create(_(u"Le contenu demandé n'existe pas"))
+        HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    try:
+        support = open(support_path).read()
+    except IOError:
+        if settings.DEBUG:
+            support = "Unable to open file %s" % support_path
+        else:
+            support = "<!-- Unable to open file %s -->\n" % support_path
+    return render_to_response('html_support.html',{
+                                'baselink': base,
+                                'support' : support,
+                                }
+
+def render_any(request, c, base, contents_prefix):
+    if not include_is_allowed(support_path):
+        HttpResponseRedirect('/tdb/')
+    try:
+        support = open(support_path).read()
+    except IOError:
+        if settings.DEBUG:
+            support = "Unable to open file %s" % support_path
+        else:
+            support = "<!-- Unable to open file %s -->\n" % support_path
+    return render_to_response('learning/support.html',
+                                {'visiteur': v.prenom_nom(),
+                                 'client': v.groupe.client,
+                                 'vgroupe': v.groupe,
+                                 'admin': v.status,
+                                 'baselink': base,
+                                 'msg': msg,
+                                 'support': support})
+
+
+
+def render_swf(request, c, base, contents_prefix):
+    support = os.path.join('/contents',c.module.slug,c.langue,'flash',c.ressource)
+    base = os.path.join(base,'contents',c.module.slug,c.langue,'flash',c.ressource)
+    return render_to_response('learning/anim.html',
+                                {'visiteur': v.prenom_nom(),
+                                 'client': v.groupe.client,
+                                 'vgroupe': v.groupe,
+                                 'admin': v.status,
+                                 'baselink': base,
+                                 'msg': msg,
+                                 'support': support})
+

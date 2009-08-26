@@ -1,0 +1,17 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{% load adminmedia %}
+<!-- ie behaviour -->
+<style type="text/css">img {behavior: url("{% admin_media_prefix %}css/pngbehavior.htc");}</style>
+{% endblock extrastyle %}
+{% block extrahead %}
+<base href="{{ baselink }}" />
+<script type="text/javascript" src="{% admin_media_prefix %}js/support.js"></script>
+{% endblock extrahead %}
+
+{% block content %}
+<p id="aide" class="nop">{% trans "Click on the sections (sub)titles to show or hide their contents. Click on the chapter's title to show or hide the outline." %} <a href="javascript: openClose('aide',0)">{% trans "Hide this" %}</a></p>
+{{ support|safe }}
+{% endblock content %}
