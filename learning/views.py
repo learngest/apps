@@ -9,6 +9,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.template.defaulttags import include_is_allowed
@@ -70,9 +71,11 @@ def render_htm(request, c, base, contents_prefix):
         else:
             support = "<!-- Unable to open file %s -->\n" % support_path
     return render_to_response('html_support.html',{
+                                'title': c.titre,
                                 'baselink': base,
+                                'breadcrumb': c.module.titre(c.langue),
                                 'support' : support,
-                                })
+                                }, context_instance=RequestContext(request))
 
 def render_any(request, c, base, contents_prefix):
     if not include_is_allowed(support_path):

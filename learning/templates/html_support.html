@@ -11,6 +11,10 @@
 <script type="text/javascript" src="{% admin_media_prefix %}js/support.js"></script>
 {% endblock extrahead %}
 
+{% block breadcrumbs %}<div class="breadcrumbs">
+    {% trans "support" %} &gt; {{ breadcrumb }}
+</div>{% endblock %}
+{% block content_title %}{% endblock %}
 {% block content %}
 <p id="aide" class="nop">{% trans "Click on the sections (sub)titles to show or hide their contents. Click on the chapter's title to show or hide the outline." %} <a href="javascript: openClose('aide',0)">{% trans "Hide this" %}</a></p>
 {{ support|safe }}
