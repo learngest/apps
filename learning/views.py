@@ -7,20 +7,21 @@ import os.path
 
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.sites.models import Site
-#from django.template.defaulttags import include_is_allowed
+from django.template.defaulttags import include_is_allowed
 
 from learning.models import Cours, Module, Contenu, ModuleTitre
+
+LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
 @login_required
 def support(request, contenu_id=None):
     """
     Display course content.
     """
-    LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
     if not contenu_id:
         request.user.message_set.create(_(u"L'url demandée est invalide."))
         HttpResponseRedirect(LOGIN_REDIRECT_URL)
@@ -41,26 +42,26 @@ def support(request, contenu_id=None):
     site_id = getattr(settings, 'SITE_ID', 1)
     site = Site.objects.get(id=site_id)
     base = ''.join(('http://', site.domain))
-    contents_prefix = getattr(settings, 'CONTENTS_PREFIX', '/contents/')
-    curmod = sys.modules['__main__']
+    contents_prefix = getattr(settings, 'CONTENTS_PREFIX', 'contents/')
+    curmod = sys.modules['learning.views']
     fonction = 'render_%s' % contenu.type
-    getattr(curmod, 
-            fonction, 'render_any')(request, contenu, base, contents_prefix)
+    return getattr(curmod, 
+            fonction, render_any)(request, contenu, base, contents_prefix)
     
 def render_htm(request, c, base, contents_prefix):
     """
     Render html support
     """
-    suffixe = os.path.join(os.path.dirname(settings.PROJECT_PATH),
-                            contents_prefix,
+    suffixe = os.path.join( contents_prefix,
                             c.module.slug,
                             c.langue,
                             c.ressource)
-    support_path = os.path.join(os.path.dirname(settings.PROJECT_PATH), suffixe)
+    support_path = os.path.join(settings.PROJECT_PATH, suffixe)
     base = os.path.join(base, suffixe)
     if not include_is_allowed(support_path):
-        request.user.message_set.create(_(u"Le contenu demandé n'existe pas"))
-        HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        message = _("Le contenu demandé n'est pas autorisé.")
+        request.user.message_set.create( message=message)
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     try:
         support = open(support_path).read()
     except IOError:
@@ -71,7 +72,7 @@ def render_htm(request, c, base, contents_prefix):
     return render_to_response('html_support.html',{
                                 'baselink': base,
                                 'support' : support,
-                                }
+                                })
 
 def render_any(request, c, base, contents_prefix):
     if not include_is_allowed(support_path):
@@ -91,8 +92,6 @@ def render_any(request, c, base, contents_prefix):
                                  'baselink': base,
                                  'msg': msg,
                                  'support': support})
-
-
 
 def render_swf(request, c, base, contents_prefix):
     support = os.path.join('/contents',c.module.slug,c.langue,'flash',c.ressource)
