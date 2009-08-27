@@ -39,11 +39,11 @@ def support(request, contenu_id=None):
                                           langue=contenu.langue)
         except Contenu.DoesNotExist:
             request.user.message_set.create(
-                _("Nous sommes désolés, ce contenu n'existe pas dans la langue demandée"))
+                _(u"Nous sommes désolés, ce contenu n'existe pas dans la langue demandée"))
     site_id = getattr(settings, 'SITE_ID', 1)
     site = Site.objects.get(id=site_id)
     base = ''.join(('http://', site.domain))
-    contents_prefix = getattr(settings, 'CONTENTS_PREFIX', 'contents/')
+    contents_prefix = getattr(settings, 'CONTENTS_PREFIX', 'contents')
     curmod = sys.modules['learning.views']
     fonction = 'render_%s' % contenu.type
     return getattr(curmod, 
