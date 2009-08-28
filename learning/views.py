@@ -70,7 +70,7 @@ def render_htm(request, c, base, contents_prefix):
             support = "Unable to open file %s" % support_path
         else:
             support = "<!-- Unable to open file %s -->\n" % support_path
-    return render_to_response('html_support.html',{
+    return render_to_response('learning/html_support.html',{
                                 'title': c.titre,
                                 'baselink': base,
                                 'breadcrumb': c.module.titre(c.langue),
