@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-29 14:59+0200\n"
+"POT-Creation-Date: 2009-08-29 16:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,8 +50,7 @@ msgstr ""
 msgid "A user with that username already exists."
 msgstr "Un utilisateur avec ce login existe déjà."
 
-#: admin.py:128
-#: templates/coaching/change_profile.html:22
+#: admin.py:128 templates/coaching/change_profile.html:22
 msgid "Identity"
 msgstr "Informations personnelles"
 
@@ -133,13 +132,14 @@ msgid "Courses to which group members are subscribed."
 msgstr "Cours auxquels les membres du groupe sont inscrits."
 
 #: models.py:98 templates/coaching/change_profile.html:27
-#: templates/coaching/change_profile.html:29
-msgid "Valid till"
-msgstr "Valide jusqu'au"
+msgid "Expiration date"
+msgstr "Validité"
 
 #: models.py:100
 msgid "Account is valid till this date. Account is valid forever if empty."
-msgstr "Le compte est valide jusqu'à cette date. Laisser vide pour une validité permanente."
+msgstr ""
+"Le compte est valide jusqu'à cette date. Laisser vide pour une validité "
+"permanente."
 
 #: models.py:104
 msgid ""
@@ -194,6 +194,10 @@ msgstr "Nom"
 #: templates/coaching/change_profile.html:24
 msgid "First Name"
 msgstr "Prénom"
+
+#: templates/coaching/change_profile.html:29
+msgid "Valid till"
+msgstr "Valide jusqu'au"
 
 #: templates/coaching/change_profile.html:31
 msgid "No expiration date"
