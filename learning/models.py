@@ -50,8 +50,7 @@ class ModuleTitre(models.Model):
 
     class Meta:
         ordering = ['module'] 
-        verbose_name = _(u"titre du modules")
-        verbose_name_plural = _(u"titres des modules")
+        verbose_name = _("module title")
 
     def __unicode__(self):
         return '%s : %s' % (self.module, self.titre)
@@ -69,8 +68,7 @@ class Cours(models.Model):
     rang = models.IntegerField()
 
     class Meta:
-        verbose_name = _(u"cours")
-        verbose_name_plural = _(u"cours")
+        verbose_name = _("course")
         ordering = ['rang']
 
     def __unicode__(self):
@@ -92,8 +90,7 @@ class CoursTitre(models.Model):
     titre = models.CharField(max_length=100)
 
     class Meta:
-        verbose_name = _(u"titre du cours")
-        verbose_name_plural = _(u"titres des cours")
+        verbose_name = _("course title")
         ordering = ['cours'] 
 
     def __unicode__(self):
@@ -114,8 +111,7 @@ class ModuleCours(models.Model):
 
     class Meta:
         ordering = ['cours','rang']
-        verbose_name = _(u"modules d'un cours")
-        verbose_name_plural = _(u"modules des cours")
+        verbose_name = _(u"course modules")
 
     def __unicode__(self):
         return u'%s - %s - %s' % (self.cours.slug, self.module.slug, self.rang)

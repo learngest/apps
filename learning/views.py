@@ -24,13 +24,13 @@ def support(request, contenu_id=None):
     Display course content.
     """
     if not contenu_id:
-        request.user.message_set.create(_(u"L'url demandée est invalide."))
+        request.user.message_set.create(_("Requested url is invalid."))
         HttpResponseRedirect(LOGIN_REDIRECT_URL)
     langue = request.GET.get('l',request.session['django_language'])
     try:
         contenu = Contenu.objects.get(pk=contenu_id)
     except Contenu.DoesNotExist:
-        request.user.message_set.create(_(u"Le contenu demandé n'existe pas"))
+        request.user.message_set.create(_("Requested content does not exist"))
         HttpResponseRedirect(LOGIN_REDIRECT_URL)
     if langue != contenu.langue:
         try:
@@ -39,7 +39,7 @@ def support(request, contenu_id=None):
                                           langue=contenu.langue)
         except Contenu.DoesNotExist:
             request.user.message_set.create(
-                _(u"Nous sommes désolés, ce contenu n'existe pas dans la langue demandée"))
+                _("Sorry, this content is not available in your prefered language."))
     site_id = getattr(settings, 'SITE_ID', 1)
     site = Site.objects.get(id=site_id)
     base = ''.join(('http://', site.domain))
@@ -60,7 +60,7 @@ def render_htm(request, c, base, contents_prefix):
     support_path = os.path.join(settings.PROJECT_PATH, suffixe)
     base = os.path.join(base, suffixe)
     if not include_is_allowed(support_path):
-        message = _("Le contenu demandé n'est pas autorisé.")
+        message = _("You are not allowed to browse the requested content.")
         request.user.message_set.create( message=message)
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     try:
