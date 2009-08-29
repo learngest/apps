@@ -125,9 +125,9 @@ class UtilisateurAdmin(UserAdmin):
     add_form = UtilisateurCreationForm
     fieldsets = (
         (None, {'fields': ('username', 'password1', 'password2')}),
-        (_(u"Informations personnelles"), 
+        (_("Identity"), 
                 {'fields': ('last_name', 'first_name')}),
-        (_(u"Paramètres"), {'fields': ('langue', 'groupe', 'fermeture')}),
+        (_("Parameters"), {'fields': ('langue', 'groupe', 'fermeture')}),
         (_('Permissions'), {'fields': ('is_staff', 'is_active', 'is_superuser', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('Groups'), {'fields': ('groups',)}),

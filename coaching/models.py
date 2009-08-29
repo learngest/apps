@@ -95,7 +95,7 @@ class Utilisateur(User):
     """
     Utilisateur pour les applications Learngest
     """
-    fermeture = models.DateTimeField(_(u"validité"),
+    fermeture = models.DateTimeField(_("Valid till"),
         blank=True, null=True,
         help_text=_("Account is valid till this date. Account is valid forever if empty."))
     langue = models.CharField(max_length=5, choices=settings.LISTE_LANGUES, 
