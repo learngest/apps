@@ -95,13 +95,13 @@ class Utilisateur(User):
     """
     Utilisateur pour les applications Learngest
     """
-    fermeture = models.DateTimeField(_("Valid till"),
+    fermeture = models.DateTimeField(_("Expiration date"),
         blank=True, null=True,
         help_text=_("Account is valid till this date. Account is valid forever if empty."))
     langue = models.CharField(max_length=5, choices=settings.LISTE_LANGUES, 
         default='fr',
         help_text=_(
-        "User's prefered language for interface, messages and contents, required.")
+        "User's prefered language for interface, messages and contents, required."))
     groupe = models.ForeignKey(Groupe, 
         blank=True, null=True, # requis pour la création avec le lien user
         help_text=_("User's group, required and unique."))

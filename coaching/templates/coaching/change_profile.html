@@ -24,7 +24,7 @@
     <p><label for="firstname">{% trans "First Name" %}</label> {{ user.first_name }}</p>
 </fieldset>
 <fieldset>
-    <h2>{% trans "Valid till" %}</h2>
+    <h2>{% trans "Expiration date" %}</h2>
     {% if user.fermeture %}
     <p><label for="valid">{% trans "Valid till" %}</label> {{ user.fermeture }}</p>
     {% else %}
