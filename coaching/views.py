@@ -27,7 +27,7 @@ def profile(request):
             form.save()
             request.session['django_language'] = request.user.langue
             request.user.message_set.create(
-                    message=_(u"Modifications enregistrées avec succès"))
+                    message=_("Changes saved successfully."))
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
         else:
             return render_to_response('coaching/change_profile.html', {

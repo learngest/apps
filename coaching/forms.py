@@ -17,12 +17,12 @@ class UtilisateurChangeForm(forms.ModelForm):
     new_password1 = forms.CharField(max_length=15, min_length=5,
             required=False,
             widget=forms.PasswordInput,
-            label=_(u'Nouveau mot de passe'),
+            label=_("New password"),
             )
     new_password2 = forms.CharField(max_length=15, min_length=5,
             required=False,
             widget=forms.PasswordInput,
-            label=_(u'Confirmer le nouveau mot de passe'),
+            label=_("New password confirmation"),
             )
     
     def clean_new_password2(self):
@@ -31,7 +31,7 @@ class UtilisateurChangeForm(forms.ModelForm):
         if password1 or password2:
             if password1 != password2:
                 raise forms.ValidationError(
-                        _(u"Les deux mots de passe sont différents."))
+                        _("The two password fields didn't match."))
         return password2
 
     def save(self, commit=True):

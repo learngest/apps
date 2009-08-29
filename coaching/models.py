@@ -31,12 +31,12 @@ class Client(models.Model):
     """
     
     nom = models.CharField(max_length=60, unique=True,
-        help_text=_(u"Nom du client, requis."))
-    style = models.CharField(_(u"feuille de style spécifique"),
+        help_text=_("Customer name, required."))
+    style = models.CharField(_(u"Custom CSS"),
         max_length=20, null=True, blank=True,
-        help_text=_(u"Feuille de style à utiliser, facultatif."))
+        help_text=_("CSS to use with this customer."))
     contacts = models.TextField(null=True, blank=True,
-        help_text=_(u"Champ libre (contacts, téléphones, etc.), facultatif."))
+        help_text=_("Free field (contacts, tel. numbers, ...)."))
     
     class Meta:
         ordering = ['nom']
@@ -63,22 +63,22 @@ class Groupe(models.Model):
     """
 
     nom = models.CharField(max_length=60, unique=True,
-        help_text=_(u"Nom du groupe, requis."))
+        help_text=_("Group name, required."))
     administrateur = models.ForeignKey(User, blank=True, null=True, 
         related_name='groupes',
-        help_text=_(u"Utilisateur administrateur de ce groupe, facultatif."))
+        help_text=_("Group admin (an admin User)."))
     client = models.ForeignKey(Client, 
-        help_text=_(u"Client auquel appartient ce groupe, requis."))
+        help_text=_("Group customer, required."))
 
-    is_demo = models.BooleanField(_(u"groupe de démonstration"),
+    is_demo = models.BooleanField(_("Demo group"),
         default=False,
-        help_text=_(u"Si vrai, ce groupe n'a pas accès aux tests, et tous ses cours lui sont ouverts."))
-    is_open = models.BooleanField(_(u"cours ouverts par défaut"),
+        help_text=_("If True, this group is not allowed to take tests, and all courses are open."))
+    is_open = models.BooleanField(_("Open courses"),
         default=False,
-        help_text=_(u"Si vrai, tous les cours sont ouverts indépendamment des résultats aux tests."))
+        help_text=_("If True, all courses are open, whatever the tests results."))
 
     cours = models.ManyToManyField(Cours, blank=True, null=True,
-        help_text=_(u"Liste des cours auxquels les membres du groupe sont inscrits."))
+        help_text=_("Courses to which group members are subscribed."))
 
     class Meta:
         ordering = ['client', 'nom']
@@ -97,36 +97,37 @@ class Utilisateur(User):
     """
     fermeture = models.DateTimeField(_(u"validité"),
         blank=True, null=True,
-        help_text=_(u"Date jusqu'à laquelle le compte de cet utilisateur est valide. Laisser vide pour validité permanente."))
+        help_text=_("Account is valid till this date. Account is valid forever if empty."))
     langue = models.CharField(max_length=5, choices=settings.LISTE_LANGUES, 
         default='fr',
-        help_text=_(u"Langue préférée pour l'affichage des messages et contenus"))
+        help_text=_(
+        "User's prefered language for interface, messages and contents, required.")
     groupe = models.ForeignKey(Groupe, 
         blank=True, null=True, # requis pour la création avec le lien user
-        help_text=_(u"Groupe unique auquel appartient cet utilisateur"))
+        help_text=_("User's group, required and unique."))
 
     
     # desérialisation, non éditables
     nb_modules = models.IntegerField(
-            _(u"Total modules"),
+            _("# modules"),
             default=0, editable=False)
     nb_valides = models.IntegerField(
-            _(u"validés"),
+            _("# completed"),
             default=0, editable=False)
     # nb de modules validés, mais en retard
     nb_retards = models.IntegerField(
-            _(u"validés en retard"),
+            _("# completed late"),
             default=0, editable=False)
     # nb de retards courant
     nb_actuel = models.IntegerField(
-            _(u"retards courants"),
+            _("# currently late"),
             default=0, editable=False)
 
     # inutilisé, réservé
     tempspasse = models.IntegerField(blank=True, null=True, editable=False)
 
     class Meta:
-        verbose_name = _("utilisateur")
+        verbose_name = _("User")
         ordering = ('groupe',)
 
     # on conserve le manager de l'objet User
