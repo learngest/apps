@@ -9,12 +9,12 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, UserManager
 
-from django_email_auth.views import user_logged_in
+from email_auth.views import user_logged_in
 from learning.models import Cours
 
 def set_language(sender, **kwargs):
     """
-    Récup le signal user_logged_in envoyé par django_email_auth
+    Récup le signal user_logged_in envoyé par email_auth
     Place la langue favorite du user dans la session
     """
     if sender.langue:
