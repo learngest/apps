@@ -17,7 +17,7 @@ def set_language(sender, **kwargs):
     Récup le signal user_logged_in envoyé par email_auth
     Place la langue favorite du user dans la session
     """
-    if sender.langue:
+    if hasattr(sender,'langue') and sender.langue:
         kwargs['request'].session['django_language'] = sender.langue
 
 user_logged_in.connect(set_language)
