@@ -1,0 +1,11 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    {% trans "dashboard" %} {{ breadcrumb }}
+</div>{% endblock %}
+
+{% block content %}
+{% include "dashboard/calendar.html" %}
+{% endblock content %}
+

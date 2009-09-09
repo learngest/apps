@@ -2,8 +2,10 @@
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+
+from dashboard.calendrier import Calendrier
 
 @login_required
 def dashboard(request):
@@ -15,6 +17,16 @@ def dashboard(request):
     - prof
     - etudiant
     """
-    return render_to_response('base_site.html',
-                              {'title': _('Dashboard')},
+    return dashboard_etudiant(request)
+
+def dashboard_etudiant(request):
+    """
+    Tableau de bord étudiant
+    """
+    cal = Calendrier(request)
+
+    return render_to_response('dashboard/etudiant.html',
+                              {'title': _('Dashboard'),
+                               'cal': cal,},
                               context_instance=RequestContext(request))
+

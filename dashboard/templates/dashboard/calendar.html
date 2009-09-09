@@ -1,0 +1,27 @@
+<table class="calendar">
+  <tr>
+	<th><a href="?year={{ cal.prev.0 }}&month={{ cal.prev.1 }}">&laquo;</a></th>
+	<th colspan="5">{{ cal.date|date:"F" }} {{ cal.date|date:"Y" }}</th>
+	<th><a href="?year={{ cal.next.0 }}&month={{ cal.next.1 }}">&raquo;</a></th>
+  </tr>
+  <tr>
+	{% for dow in cal.weekheader %}
+	  <th>{{ dow }}</th>
+	{% endfor %}
+  </tr>
+  {% for line in cal.days %}
+  <tr>
+	{% for day in line %}
+    <td{% if day.today %} style="background: #DED; font-weight:bold;"{% endif %}>
+		{% if day.event %}
+        <a href="#{{ day.ref }}" title="{{ day.event }}" style="font-weight: bold;">{{ day.num }}</a>
+		{% else %}
+		  {% if day.num %}
+			{{ day.num }}
+		  {% endif %}
+		{% endif %}
+	  </td>
+	{% endfor %}
+  </tr>
+  {% endfor %}
+</table>  
