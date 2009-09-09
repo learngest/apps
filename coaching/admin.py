@@ -17,14 +17,14 @@ class GroupeAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('nom',)}),
         (None, {'fields': ('administrateur','client')}),
-        ('Cours', {'fields': ('cours',)}),
+#        ('Cours', {'fields': ('cours',)}),
         ('Permissions', {'fields': ('is_demo', 'is_open')}),
     )
     list_display = ('client','nom','administrateur','is_demo','is_open')
     list_display_links = ('nom',)
     list_filter = ('client',)
     search_fields = ('nom',)
-    filter_horizontal = ('cours',)
+#    filter_horizontal = ('cours',)
 
 admin.site.register(Groupe, GroupeAdmin)
 
