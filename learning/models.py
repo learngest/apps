@@ -65,11 +65,11 @@ class Cours(models.Model):
     Les cours sont également ordonnés.
     """
     slug = models.SlugField(unique=True, db_index=True)
-    rang = models.IntegerField()
+#    rang = models.IntegerField()
 
     class Meta:
         verbose_name = _("course")
-        ordering = ['rang']
+        ordering = ['slug']
 
     def __unicode__(self):
         return self.slug

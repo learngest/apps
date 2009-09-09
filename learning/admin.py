@@ -15,7 +15,7 @@ class ModuleTitreAdmin(admin.ModelAdmin):
 admin.site.register(ModuleTitre, ModuleTitreAdmin)
 
 class CoursAdmin(admin.ModelAdmin):
-    ordering = ['rang'] 
+    ordering = ['slug'] 
 admin.site.register(Cours, CoursAdmin)
 
 class CoursTitreAdmin(admin.ModelAdmin):

@@ -28,6 +28,18 @@ class GroupeAdmin(admin.ModelAdmin):
 
 admin.site.register(Groupe, GroupeAdmin)
 
+class CoursDuGroupeAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('groupe', 'cours', 'rang')}),
+        ('Dates', {'fields': ('debut', 'fin')}),
+    )
+    list_display = ('groupe','cours', 'rang', 'debut', 'fin',)
+    list_display_links = ('cours',)
+    list_filter = ('groupe',)
+    list_editable = ('debut','fin',)
+
+admin.site.register(CoursDuGroupe, CoursDuGroupeAdmin)
+
 class UtilisateurAdminForm(ModelForm):
     username = forms.EmailField(label=_("Username"), max_length=75)
     password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput,

@@ -59,7 +59,6 @@ class Groupe(models.Model):
     - is_open : les Utilisateurs du groupe peuvent consulter tous les cours, 
       indépendamment de leurs résultats aux tests.
     Un groupe is_demo est forcément is_open.
-    Un groupe est inscrit à zéro, un ou plusieurs cours.
     """
 
     nom = models.CharField(max_length=60, unique=True,
@@ -77,8 +76,8 @@ class Groupe(models.Model):
         default=False,
         help_text=_("If True, all courses are open, whatever the tests results."))
 
-    cours = models.ManyToManyField(Cours, blank=True, null=True,
-        help_text=_("Courses to which group members are subscribed."))
+#    cours = models.ManyToManyField(Cours, blank=True, null=True,
+#        help_text=_("Courses to which group members are subscribed."))
 
     class Meta:
         ordering = ['client', 'nom']
@@ -90,6 +89,34 @@ class Groupe(models.Model):
         if self.is_demo:
             self.is_open=True
         super(Groupe, self).save()
+
+class CoursDuGroupe(models.Model):
+    """
+    Les cours associés à un groupe.
+    Les cours sont ordonnés sur le rang.
+    Un cours peut avoir :
+    - une date d'ouverture au plus tôt
+    - une date de validation au plus tard
+    """
+    groupe = models.ForeignKey(Groupe,
+            help_text=_("Group, required."))
+    cours = models.ForeignKey(Cours,
+            help_text=_("Course, required."))
+    rang = models.IntegerField(_("rank"))
+    debut = models.DateTimeField(_("Opening date"),
+            blank=True, null=True,
+            help_text=_("Date at which the course will open"))
+    fin = models.DateTimeField(_("Deadline"),
+            blank=True, null=True,
+            help_text=_("Course deadline"))
+
+    class Meta:
+        ordering = ['groupe', 'rang']
+        unique_together = (('groupe', 'cours'),)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.groupe, self.cours)
+
 
 class Utilisateur(User):
     """
