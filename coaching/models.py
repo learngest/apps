@@ -113,6 +113,7 @@ class CoursDuGroupe(models.Model):
     class Meta:
         ordering = ['groupe', 'rang']
         unique_together = (('groupe', 'cours'),)
+        verbose_name_plural = _("Groups courses")
 
     def __unicode__(self):
         return "%s - %s" % (self.groupe, self.cours)

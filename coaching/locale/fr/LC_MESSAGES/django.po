@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-29 16:32+0200\n"
+"POT-Creation-Date: 2009-09-09 10:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,23 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:32 admin.py:59 admin.py:92
+#: admin.py:44 admin.py:71 admin.py:104
 msgid "Username"
 msgstr "Login"
 
-#: admin.py:33 admin.py:62 admin.py:93
+#: admin.py:45 admin.py:74 admin.py:105
 msgid "Password"
 msgstr "Mot de passe"
 
-#: admin.py:35 admin.py:63 admin.py:94
+#: admin.py:47 admin.py:75 admin.py:106
 msgid "Password confirmation"
 msgstr "Confirmation du mot de passe"
 
-#: admin.py:46 admin.py:81 admin.py:112 forms.py:34
+#: admin.py:58 admin.py:93 admin.py:124 forms.py:34
 msgid "The two password fields didn't match."
 msgstr "Les deux mots de passe ne concordent pas."
 
-#: admin.py:60
+#: admin.py:72
 msgid ""
 "Required. 30 characters or fewer. Alphanumeric characters only (letters, "
 "digits and underscores)."
@@ -40,33 +40,33 @@ msgstr ""
 "Requis. 30 caractères alphanumériques (lettre, chiffres et tiret de "
 "soulignement)."
 
-#: admin.py:61
+#: admin.py:73
 msgid "This value must contain only letters, numbers and underscores."
 msgstr ""
 "Ce champ ne peut contenir que des lettres, des chiffres ou le tiret de "
 "soulignement."
 
-#: admin.py:75 admin.py:106
+#: admin.py:87 admin.py:118
 msgid "A user with that username already exists."
 msgstr "Un utilisateur avec ce login existe déjà."
 
-#: admin.py:128 templates/coaching/change_profile.html:22
+#: admin.py:140 templates/coaching/change_profile.html:22
 msgid "Identity"
 msgstr "Informations personnelles"
 
-#: admin.py:130
+#: admin.py:142
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: admin.py:131
+#: admin.py:143
 msgid "Permissions"
 msgstr ""
 
-#: admin.py:132
+#: admin.py:144
 msgid "Important dates"
 msgstr "Dates importantes"
 
-#: admin.py:133
+#: admin.py:145
 msgid "Groups"
 msgstr "Groupes"
 
@@ -94,79 +94,107 @@ msgstr "Feuille de style (CSS) spécifique pour ce client"
 msgid "Free field (contacts, tel. numbers, ...)."
 msgstr "Champ libre (contacts, numéros de téléphone, ...)"
 
-#: models.py:66
+#: models.py:65
 msgid "Group name, required."
 msgstr "Nom du groupe, requis."
 
-#: models.py:69
+#: models.py:68
 msgid "Group admin (an admin User)."
 msgstr "Administrateur du groupe."
 
-#: models.py:71
+#: models.py:70
 msgid "Group customer, required."
 msgstr "Client auquel est rattaché ce groupe, requis."
 
-#: models.py:73
+#: models.py:72
 msgid "Demo group"
 msgstr "Groupe de démonstration"
 
-#: models.py:75
+#: models.py:74
 msgid ""
 "If True, this group is not allowed to take tests, and all courses are open."
 msgstr ""
 "Si coché, ce groupe ne peut pas faire de tests, et tous les cours sont "
 "ouverts."
 
-#: models.py:76
+#: models.py:75
 msgid "Open courses"
 msgstr "Cours ouverts"
 
-#: models.py:78
+#: models.py:77
 msgid "If True, all courses are open, whatever the tests results."
 msgstr ""
 "Si coché, tous les cours sont ouverts pour ce groupe, quels que soient les "
 "résultats aux tests."
 
-#: models.py:81
-msgid "Courses to which group members are subscribed."
-msgstr "Cours auxquels les membres du groupe sont inscrits."
+#: models.py:102
+msgid "Group, required."
+msgstr "Groupe, requis."
 
-#: models.py:98 templates/coaching/change_profile.html:27
+#: models.py:104
+msgid "Course, required."
+msgstr "Identifiant du cours, requis."
+
+#: models.py:105
+msgid "rank"
+msgstr "rang"
+
+#: models.py:106
+msgid "Opening date"
+msgstr "Date d'ouverture au plus tôt"
+
+#: models.py:108
+msgid "Date at which the course will open"
+msgstr "Date avant laquelle le cours ne sera pas disponible"
+
+#: models.py:109
+msgid "Deadline"
+msgstr "Échéance"
+
+#: models.py:111
+msgid "Course deadline"
+msgstr "Date avant laquelle le cours doit être validé."
+
+#: models.py:116
+msgid "Groups courses"
+msgstr "Cours des groupes"
+
+#: models.py:126 templates/coaching/change_profile.html:27
 msgid "Expiration date"
 msgstr "Validité"
 
-#: models.py:100
+#: models.py:128
 msgid "Account is valid till this date. Account is valid forever if empty."
 msgstr ""
 "Le compte est valide jusqu'à cette date. Laisser vide pour une validité "
 "permanente."
 
-#: models.py:104
+#: models.py:132
 msgid ""
 "User's prefered language for interface, messages and contents, required."
 msgstr "Langue préférée pour l'interace, les messages et les contenus, requis."
 
-#: models.py:107
+#: models.py:135
 msgid "User's group, required and unique."
 msgstr "Groupe de l'utilisateur, requis."
 
-#: models.py:112
+#: models.py:140
 msgid "# modules"
 msgstr "Nb de modules"
 
-#: models.py:115
+#: models.py:143
 msgid "# completed"
 msgstr "Nb validés"
 
-#: models.py:119
+#: models.py:147
 msgid "# completed late"
 msgstr "Nb validés en retard"
 
-#: models.py:123
+#: models.py:151
 msgid "# currently late"
 msgstr "Actuellement en retard"
 
-#: models.py:130
+#: models.py:158
 msgid "User"
 msgstr "Utilisateur"
 
@@ -210,3 +238,6 @@ msgstr "Langue"
 #: templates/coaching/change_profile.html:38
 msgid "Save"
 msgstr "Sauver"
+
+#~ msgid "Courses to which group members are subscribed."
+#~ msgstr "Cours auxquels les membres du groupe sont inscrits."

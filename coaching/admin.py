@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 from django import forms
 from django.forms import ModelForm
 
-from coaching.models import Client, Groupe, Utilisateur
+from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe
 
 class ClientAdmin(admin.ModelAdmin):
     search_fields = ('nom',)
@@ -36,7 +36,7 @@ class CoursDuGroupeAdmin(admin.ModelAdmin):
     list_display = ('groupe','cours', 'rang', 'debut', 'fin',)
     list_display_links = ('cours',)
     list_filter = ('groupe',)
-    list_editable = ('debut','fin',)
+    list_editable = ('rang','debut','fin',)
 
 admin.site.register(CoursDuGroupe, CoursDuGroupeAdmin)
 
