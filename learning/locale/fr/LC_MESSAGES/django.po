@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-29 16:50+0200\n"
+"POT-Creation-Date: 2009-09-09 10:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,31 +20,47 @@ msgstr ""
 msgid "module title"
 msgstr "titre du module"
 
-#: models.py:71
+#: models.py:54
+msgid "modules titles"
+msgstr "titres des modules"
+
+#: models.py:72
 msgid "course"
 msgstr "cours"
 
-#: models.py:93
+#: models.py:73
+msgid "courses"
+msgstr "cours"
+
+#: models.py:95
 msgid "course title"
 msgstr "titre du cours"
 
-#: models.py:114
+#: models.py:96
+msgid "courses titles"
+msgstr "titres des cours"
+
+#: models.py:117
 msgid "course modules"
 msgstr "modules du cours"
 
-#: views.py:27
+#: models.py:118
+msgid "courses modules"
+msgstr "modules des cours"
+
+#: views.py:28
 msgid "Requested url is invalid."
 msgstr "L'url demandée est invalide."
 
-#: views.py:33
+#: views.py:35
 msgid "Requested content does not exist"
 msgstr "Le contenu demandé n'existe pas."
 
-#: views.py:42
+#: views.py:44
 msgid "Sorry, this content is not available in your prefered language."
 msgstr "Désolé, ce contenu n'est pas disponible dans la langue demandée."
 
-#: views.py:63
+#: views.py:66
 msgid "You are not allowed to browse the requested content."
 msgstr "Vous n'êtes pas autorisé à voir le contenu demandé."
 
