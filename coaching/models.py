@@ -167,5 +167,15 @@ class Event(models.Model):
     """
     groupe = models.ForeignKey(Groupe,
             help_text=_("Group, required."))
-    date = models.DateTimeField(_("Event date, required."))
-    event = models.CharField(_("Event description, required."), max_length=128)
+    date = models.DateTimeField(_("When ?"),
+            help_text=_("Event date, required."))
+    event = models.CharField(_("Description"),
+            help_text=_("Event description, required."), max_length=128)
+
+    class Meta:
+        ordering = ['groupe', 'date']
+        verbose_name = _("Event")
+
+    def __unicode__(self):
+        return "%s - %s" % (self.groupe, self.event)
+

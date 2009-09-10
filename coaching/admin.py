@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 from django import forms
 from django.forms import ModelForm
 
-from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe
+from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event
 
 class ClientAdmin(admin.ModelAdmin):
     search_fields = ('nom',)
@@ -150,3 +150,13 @@ class UtilisateurAdmin(UserAdmin):
     search_fields = ('username', 'last_name',)
 
 admin.site.register(Utilisateur, UtilisateurAdmin)
+
+class EventAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('groupe', 'date', 'event')}),
+    )
+    list_display = ('groupe','date','event')
+    list_display_links = ('groupe',)
+    list_editable = ('date','event')
+
+admin.site.register(Event, EventAdmin)

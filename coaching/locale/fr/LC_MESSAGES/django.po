@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-09 10:57+0200\n"
+"POT-Creation-Date: 2009-09-10 11:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,7 +127,7 @@ msgstr ""
 "Si coché, tous les cours sont ouverts pour ce groupe, quels que soient les "
 "résultats aux tests."
 
-#: models.py:102
+#: models.py:102 models.py:169
 msgid "Group, required."
 msgstr "Groupe, requis."
 
@@ -159,44 +159,64 @@ msgstr "Date avant laquelle le cours doit être validé."
 msgid "Groups courses"
 msgstr "Cours des groupes"
 
-#: models.py:126 templates/coaching/change_profile.html:27
+#: models.py:125 templates/coaching/change_profile.html:27
 msgid "Expiration date"
 msgstr "Validité"
 
-#: models.py:128
+#: models.py:127
 msgid "Account is valid till this date. Account is valid forever if empty."
 msgstr ""
 "Le compte est valide jusqu'à cette date. Laisser vide pour une validité "
 "permanente."
 
-#: models.py:132
+#: models.py:131
 msgid ""
 "User's prefered language for interface, messages and contents, required."
 msgstr "Langue préférée pour l'interace, les messages et les contenus, requis."
 
-#: models.py:135
+#: models.py:134
 msgid "User's group, required and unique."
 msgstr "Groupe de l'utilisateur, requis."
 
-#: models.py:140
+#: models.py:139
 msgid "# modules"
 msgstr "Nb de modules"
 
-#: models.py:143
+#: models.py:142
 msgid "# completed"
 msgstr "Nb validés"
 
-#: models.py:147
+#: models.py:146
 msgid "# completed late"
 msgstr "Nb validés en retard"
 
-#: models.py:151
+#: models.py:150
 msgid "# currently late"
 msgstr "Actuellement en retard"
 
-#: models.py:158
+#: models.py:157
 msgid "User"
 msgstr "Utilisateur"
+
+#: models.py:170
+msgid "When ?"
+msgstr "Quand ?"
+
+#: models.py:171
+msgid "Event date, required."
+msgstr "Date de l'évènement, requis."
+
+#: models.py:172
+msgid "Description"
+msgstr ""
+
+#: models.py:173
+msgid "Event description, required."
+msgstr "Description de l'évènement, requis."
+
+#: models.py:177
+msgid "Event"
+msgstr "Évènement"
 
 #: views.py:30
 msgid "Changes saved successfully."
