@@ -118,7 +118,6 @@ class CoursDuGroupe(models.Model):
     def __unicode__(self):
         return "%s - %s" % (self.groupe, self.cours)
 
-
 class Utilisateur(User):
     """
     Utilisateur pour les applications Learngest
@@ -160,3 +159,13 @@ class Utilisateur(User):
 
     # on conserve le manager de l'objet User
     objects = UserManager()
+
+class Event(models.Model):
+    """
+    Evénements libres à ajouter au calendrier
+    Un évènement est rattaché à un groupe
+    """
+    groupe = models.ForeignKey(Groupe,
+            help_text=_("Group, required."))
+    date = models.DateTimeField(_("Event date, required."))
+    event = models.CharField(_("Event description, required."), max_length=128)
