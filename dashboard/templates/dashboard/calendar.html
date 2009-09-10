@@ -12,9 +12,9 @@
   {% for line in cal.days %}
   <tr>
 	{% for day in line %}
-    <td{% if day.today %} class="today"{% endif %}>
+    <td class="{% if day.today %}today{% endif %} {%if day.event %}{{ day.class }}{% endif %}">
 		{% if day.event %}
-		<a href="#{{ day.ref }}" title="{{ day.event }}" class="{{ day.class }}">{{ day.num }}</a>
+		<a href="#{{ day.ref }}" title="{{ day.event }}"">{{ day.num }}</a>
 		{% else %}
 		  {% if day.num %}
 			{{ day.num }}

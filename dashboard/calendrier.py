@@ -4,7 +4,7 @@ import datetime
 import calendar
 
 from django.utils.translation import ugettext as _
-from coaching.models import CoursDuGroupe 
+from coaching.models import CoursDuGroupe, Event 
 
 class Calendrier():
     """
@@ -56,7 +56,24 @@ class Calendrier():
                         if day['num'] == echeance.fin.day:
                             titre = unicode(echeance.cours.titre(self.user.langue))
                             day['event'] = _(u'Deadline for %s') % titre
+                            day['class'] = 'deadline'
                             day['ref'] = echeance.fin.strftime('%Y%m%d')
+        other_events = Event.objects.filter(
+                groupe = self.groupe,
+                date__year = self.date.year,
+                date__month = self.date.month
+                )
+        for event in other_events:
+            for week in weeklist:
+                for day in week:
+                    if day:
+                        if day['num'] == event.date.day:
+                            if 'event' in day:
+                                day['event'] = "%s - %s" % (day['event'], event.event)
+                            else:
+                                day['event'] = event.event
+                                day['class'] = 'event'
+                            day['ref'] = event.date.strftime('%Y%m%d')
         return weeklist
 
     def weekheader(self):
