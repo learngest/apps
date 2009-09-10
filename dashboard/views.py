@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 
-from dashboard.calendrier import Calendrier
+from dashboard.planning import Calendrier
 
 @login_required
 def dashboard(request):
