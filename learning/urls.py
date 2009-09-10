@@ -2,9 +2,11 @@
 
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('',
+urlpatterns = patterns('learning.views',
 #    (r'^common/(?P<slug>[a-z0-9-]+)/$', 'lg.learning.views.help_support'),
 #    (r'^support/(?P<slug>[a-z0-9-]+)/$', 'lg.learning.views.support', {'ltyp': 'htm'}),
 #    (r'^anim/(?P<slug>[a-z0-9-]+)/$', 'lg.learning.views.support', {'ltyp': 'swf'}),
-    (r'^contents/(?P<contenu_id>\d+)/$', 'learning.views.support',),
+    (r'^contents/(?P<contenu_id>\d+)/$', 'support',),
+    (r'^courses/$', 'tabcours',),
+    (r'^course/(?P<course_id>\d+)/$', 'cours',),
 )

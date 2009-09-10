@@ -160,6 +160,24 @@ class Utilisateur(User):
     # on conserve le manager de l'objet User
     objects = UserManager()
 
+    def liste_cours(self):
+        """
+        Retourne la liste des cours auxquels l'utilisateur est inscrit
+        """
+        coursqs = CoursDuGroupe.objects.filter(groupe=self.groupe)
+        for cours in coursqs:
+            cours.titre = cours.cours.titre(self.langue)
+            if not self.groupe.is_open:
+                cours.is_valid = self.is_cours_valide(cours.cours)
+        return coursqs
+
+    def is_cours_valide(self, cours):
+        """
+        Renvoie True si le cours est validé
+        """
+        #TODO
+        return False
+
 class Event(models.Model):
     """
     Evénements libres à ajouter au calendrier

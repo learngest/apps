@@ -1,0 +1,39 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{% load adminmedia %}
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/dashboard.css" />
+{% endblock extrastyle %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+	<a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt; {% trans "courses list" %} {{ breadcrumb }}
+</div>{% endblock %}
+
+{% block content %}
+<h2>{% trans "Courses list" %}</h2>
+<table class="listecours">
+  <tr>
+	  <th>{% trans "Course" %}</th>
+	  <th>{% trans "Deadline" %}</th>
+	  <th>{% trans "Valid ?" %}</th>
+  </tr>
+  <tr>
+	{% for dow in cal.weekheader %}
+	  <th>{{ dow }}</th>
+	{% endfor %}
+  </tr>
+	{% for course in cours %}
+  <tr>
+	  <td><a href="{% url learning.views.cours course.id %}">{{ course.titre }}</a></td>
+	  <td>{{ course.fin }}</td>
+	  <td>{{ course.is_valid }}</td>
+  </tr>
+	{% empty %}
+  <tr>
+	  <td colspan="3">{% trans "You are not subscribed to any course" %}</td>
+  </tr>
+	{% endfor %}
+</table>  
+{% endblock content %}
+
