@@ -14,7 +14,7 @@
 	{% for day in line %}
     <td class="{% if day.today %}today{% endif %} {%if day.event %}{{ day.class }}{% endif %}">
 		{% if day.event %}
-		<a href="#{{ day.ref }}" title="{{ day.event }}"">{{ day.num }}</a>
+		<a href="#{{ day.ref }}" title="{{ day.event }}">{{ day.num }}</a>
 		{% else %}
 		  {% if day.num %}
 			{{ day.num }}
