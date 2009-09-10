@@ -30,6 +30,13 @@ class Module(models.Model):
             mt = self.slug
         return mt
 
+    def titres(self):
+        titredict = {}
+        titreqs = self.moduletitre_set.all()
+        for titre in titreqs:
+            titredict[titre.langue] = titre.titre
+        return titredict
+
     def rang(self, cours):
         """
         Renvoie le rang de ce module dans le cours.
@@ -82,6 +89,13 @@ class Cours(models.Model):
         except CoursTitre.DoesNotExist:
             ct = self.slug
         return ct
+
+    def titres(self):
+        titredict = {}
+        titreqs = self.courstitre_set.all()
+        for titre in titreqs:
+            titredict[titre.langue] = titre.titre
+        return titredict
 
 class CoursTitre(models.Model):
     """
