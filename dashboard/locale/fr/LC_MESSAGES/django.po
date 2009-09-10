@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-09 18:48+0200\n"
+"POT-Creation-Date: 2009-09-10 15:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,47 +16,58 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: calendrier.py:28
+#: planning.py:28
 msgid "Requested date is out of range."
 msgstr "La date choisie est invalide."
 
-#: calendrier.py:58
+#: planning.py:58 planning.py:128
 #, python-format
 msgid "Deadline for %s"
 msgstr "Date limite de validation du cours %s"
 
-#: calendrier.py:66
+#: planning.py:83
 msgid "Mo"
 msgstr "Lu"
 
-#: calendrier.py:66
+#: planning.py:83
 msgid "Tu"
 msgstr "Ma"
 
-#: calendrier.py:66
+#: planning.py:83
 msgid "We"
 msgstr "Me"
 
-#: calendrier.py:66
+#: planning.py:83
 msgid "Th"
 msgstr "Je"
 
-#: calendrier.py:66
+#: planning.py:83
 msgid "Fr"
 msgstr "Ve"
 
-#: calendrier.py:66
+#: planning.py:83
 msgid "Sa"
 msgstr ""
 
-#: calendrier.py:66
+#: planning.py:83
 msgid "Su"
 msgstr "Di"
 
-#: views.py:29
-msgid "Dashboard"
-msgstr "Tableau de bord"
-
-#: templates/dashboard/etudiant.html:5
+#: views.py:30 templates/dashboard/etudiant.html:10
 msgid "dashboard"
 msgstr "tableau de bord"
+
+#: templates/dashboard/etudiant.html:15
+msgid "Your planning for the next weeks"
+msgstr "Planning des prochaines semaines"
+
+#: templates/dashboard/etudiant.html:20
+msgid "Nothing special !"
+msgstr "Rien de spécial !"
+
+#: templates/dashboard/etudiant.html:23
+msgid "Current work"
+msgstr "Travail en cours"
+
+#~ msgid "Dashboard"
+#~ msgstr "Tableau de bord"

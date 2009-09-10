@@ -12,5 +12,14 @@
 
 {% block content %}
 {% include "dashboard/calendar.html" %}
+<h2>{% trans "Your planning for the next weeks" %}</h2>
+<ul>
+{% for event in planning.events %}
+<li>{{ event.date|date:"d/m/y" }} {{event.event }}</li>
+{% empty %}
+<li>{% trans "Nothing special !" %}</li>
+{% endfor %}
+</ul>
+<h2>{% trans "Current work" %}</h2>
 {% endblock content %}
 

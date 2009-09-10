@@ -107,3 +107,29 @@ class Calendrier():
         else:
             m -= 1
         return (y,m)
+
+class Planning():
+    """
+    Planning pour les prochaines semaines
+    """
+    def __init__(self, request):
+        self.date = datetime.date.today()
+        self.user = request.user
+        self.groupe = request.user.groupe
+        self.weeks = int(request.GET.get('weeks', 4))
+        self.end = self.date + datetime.timedelta(self.weeks*7)
+
+    def events(self):
+        echeances_cours = CoursDuGroupe.objects.filter(
+                groupe = self.groupe,
+                fin__range = (self.date, self.end)
+                )
+        events = [{'date': e.fin,
+            'event': _(u'Deadline for %s') % unicode(e.cours.titre(self.user.langue))} for e in echeances_cours]
+        other_events = Event.objects.filter(
+                groupe = self.groupe,
+                date__range = (self.date, self.end)
+                )
+        events.extend(other_events)
+        events.sort()
+        return events

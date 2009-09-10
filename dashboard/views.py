@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 
-from dashboard.planning import Calendrier
+from dashboard.planning import Calendrier, Planning
 
 @login_required
 def dashboard(request):
@@ -24,9 +24,12 @@ def dashboard_etudiant(request):
     Tableau de bord étudiant
     """
     cal = Calendrier(request)
+    planning = Planning(request)
 
     return render_to_response('dashboard/etudiant.html',
-                              {'title': _('Dashboard'),
-                               'cal': cal,},
+                              {'title': _('dashboard'),
+                               'cal': cal,
+                               'planning': planning,
+                              },
                               context_instance=RequestContext(request))
 
