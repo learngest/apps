@@ -116,7 +116,8 @@ def tabcours(request):
     Tableau de l'ensemble des cours
     """
     return render_to_response('learning/liste_cours.html',{
-                                'cours' : request.user.liste_cours(),
+                                'title' : _("courses list"),
+                                'cours' : request.user.liste_cours_full(),
                                 }, context_instance=RequestContext(request))
 
 @login_required

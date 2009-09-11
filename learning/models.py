@@ -30,12 +30,12 @@ class Module(models.Model):
             mt = self.slug
         return mt
 
-    def titres(self):
-        titredict = {}
-        titreqs = self.moduletitre_set.all()
-        for titre in titreqs:
-            titredict[titre.langue] = titre.titre
-        return titredict
+#    def titres(self):
+#        titredict = {}
+#        titreqs = self.moduletitre_set.all()
+#        for titre in titreqs:
+#            titredict[titre.langue] = titre.titre
+#        return titredict
 
     def rang(self, cours):
         """
@@ -90,12 +90,11 @@ class Cours(models.Model):
             ct = self.slug
         return ct
 
-    def titres(self):
-        titredict = {}
-        titreqs = self.courstitre_set.all()
-        for titre in titreqs:
-            titredict[titre.langue] = titre.titre
-        return titredict
+    def liste_modules(self):
+        """
+        Retourne la liste des modules du cours
+        """
+        return [mc.module for mc in self.modulecours_set.all()]
 
 class CoursTitre(models.Model):
     """

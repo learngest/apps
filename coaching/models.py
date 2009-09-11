@@ -4,6 +4,8 @@
 Models de l'application coaching
 """
 
+import datetime
+
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -90,6 +92,12 @@ class Groupe(models.Model):
             self.is_open=True
         super(Groupe, self).save()
 
+    def liste_cours(self):
+        """
+        Retourne la liste des cours auxquels le groupe est inscrit
+        """
+        return [c.cours for c in self.coursdugroupe_set.all()]
+
 class CoursDuGroupe(models.Model):
     """
     Les cours associés à un groupe.
@@ -160,23 +168,66 @@ class Utilisateur(User):
     # on conserve le manager de l'objet User
     objects = UserManager()
 
-    def liste_cours(self):
+    def liste_cours_full(self):
         """
-        Retourne la liste des cours auxquels l'utilisateur est inscrit
+        Retourne tous les elts du tableau cours/modules
+        avec l'état de ceux-ci.
         """
-        coursqs = CoursDuGroupe.objects.filter(groupe=self.groupe)
-        for cours in coursqs:
-            cours.titre = cours.cours.titre(self.langue)
-            if not self.groupe.is_open:
-                cours.is_valid = self.is_cours_valide(cours.cours)
-        return coursqs
+        listecours = self.groupe.liste_cours()
+        for cours in listecours:
+            cours.ltitre = cours.titre(self.langue)
+            cours.state = self.cours_state(cours)
+            cours.is_open = self.is_cours_open(cours)
+            if cours.is_open:
+                cours.modules = cours.liste_modules()
+                for module in cours.modules:
+                        module.ltitre = module.titre(self.langue)
+        return listecours
+
+    def cours_state(self, cours):
+        """
+        Renvoie un message sur l'état du cours :
+        - validé le
+        - à valider pour le
+        - ouvert à partir du
+        - rien (si ouvert et commencé)
+        """
+        cdg = CoursDuGroupe.objects.get(cours=cours,groupe=self.groupe)
+        debut = cdg.debut
+        fin = cdg.fin
+        if debut > datetime.datetime.now():
+            return _("This course will not open before %s") % debut.strftime("%d/%m/%Y")
+        valide = self.is_cours_valide(cours)
+        if valide:
+            return _("Completed on %s") % valide.strftime("%d/%m/%Y")
+        elif fin:
+            return _("Deadline is %s") % fin.strftime("%d/%m/%Y")
+        else:
+            return ""
 
     def is_cours_valide(self, cours):
         """
-        Renvoie True si le cours est validé
+        Renvoie la date de validation si le cours est validé,
+        False sinon
         """
         #TODO
         return False
+
+    def is_cours_open(self, cours):
+        """
+        Renvoie True si le cours est ouvert :
+        - tous les cours sont ouverts pour le groupe
+        - ce cours est le premier pour le groupe
+        - le cours précédent est validé
+        """
+        if self.groupe.is_open:
+            return True
+        liste_cours = self.groupe.liste_cours()
+        rang = liste_cours.index(cours) 
+        if rang == 0:
+            return True
+        return self.is_cours_valide(liste_cours[rang-1])
+
 
 class Event(models.Model):
     """

@@ -17,9 +17,10 @@
 {% for event in planning.events %}
 <li>{{ event.date|date:"d/m/y" }} {{event.event }}</li>
 {% empty %}
-<li>{% trans "Nothing special !" %}</li>
+<li>{% trans "Nothing special so far !" %}</li>
 {% endfor %}
 </ul>
 <h2>{% trans "Current work" %}</h2>
+{% include "learning/tab_cours.html" %}
 {% endblock content %}
 

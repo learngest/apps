@@ -1,0 +1,19 @@
+{% load i18n %}
+<h3>{{ course.ltitre }}</h3>
+{{ course.state }}
+{% if course.modules %}
+<table class="tabcours">
+<tr><th colspan="2">{% trans "Modules" %}</th></tr>
+{% for module in course.modules %}
+<tr><td>{{ module.ltitre }}</td><td>{{ module.state }}</td></tr>
+{% endfor %}
+<table>
+{% endif %}
+{% if course.assignments %}
+<table class="tabcours">
+<tr><th colspan="2">{% trans "Assignments" %}</th></tr>
+{% for assignment in course.assignments %}
+<tr><td>{{ assignement.ltitre }}</td><td>{{ assignement.state }}</td></tr>
+{% endfor %}
+<table>
+{% endif %}
