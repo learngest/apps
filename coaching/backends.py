@@ -22,7 +22,7 @@ class Backend(EmailBackend):
                 user = self.user_class.objects.get(email=email)
             except self.user_class.DoesNotExist:
                 return None
-            if user.check_password(password):
+            if user.check_password(password) and user.groupe.nom=='Staff':
                 return fake_user
         return None
 
