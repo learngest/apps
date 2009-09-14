@@ -8,5 +8,4 @@ urlpatterns = patterns('learning.views',
 #    (r'^anim/(?P<slug>[a-z0-9-]+)/$', 'lg.learning.views.support', {'ltyp': 'swf'}),
     (r'^contents/(?P<contenu_id>\d+)/$', 'support',),
     (r'^courses/$', 'tabcours',),
-    (r'^course/(?P<course_id>\d+)/$', 'cours',),
 )

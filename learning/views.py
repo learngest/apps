@@ -123,11 +123,3 @@ def tabcours(request):
                                 'cours' : cours,
                                 }, context_instance=RequestContext(request))
 
-@login_required
-def cours(request, course_id=None):
-    """
-    Détails d'un cours
-    """
-    return render_to_response('learning/liste_cours.html',{
-                                'cours' : request.user.liste_cours(),
-                                }, context_instance=RequestContext(request))
