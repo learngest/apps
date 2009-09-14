@@ -30,13 +30,6 @@ class Module(models.Model):
             mt = self.slug
         return mt
 
-#    def titres(self):
-#        titredict = {}
-#        titreqs = self.moduletitre_set.all()
-#        for titre in titreqs:
-#            titredict[titre.langue] = titre.titre
-#        return titredict
-
     def rang(self, cours):
         """
         Renvoie le rang de ce module dans le cours.
@@ -73,7 +66,6 @@ class Cours(models.Model):
     Les cours sont également ordonnés.
     """
     slug = models.SlugField(unique=True, db_index=True)
-#    rang = models.IntegerField()
 
     class Meta:
         verbose_name = _("course")
