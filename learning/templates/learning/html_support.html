@@ -13,10 +13,12 @@
 {% endblock extrahead %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    {% trans "support" %} &gt; {{ breadcrumb }}
+    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt; {{ breadcrumb }}
 </div>{% endblock %}
 {% block content_title %}{% endblock %}
 {% block content %}
-<p id="aide" class="nop">{% trans "Click on the sections (sub)titles to show or hide their contents. Click on the chapter's title to show or hide the outline." %} <a href="javascript: openClose('aide',0)">{% trans "Hide this" %}</a></p>
+<ul class="messagelist">
+    <li id="aide">{% trans "Click on the sections (sub)titles to show or hide their contents. Click on the chapter's title to show or hide the outline." %} <a href="javascript: openClose('aide',0)">{% trans "Hide this" %}</a></li>
+</ul>
 {{ support|safe }}
 {% endblock content %}
