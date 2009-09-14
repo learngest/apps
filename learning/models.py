@@ -133,6 +133,14 @@ class ModuleCours(models.Model):
     def __unicode__(self):
         return u'%s - %s - %s' % (self.cours.slug, self.module.slug, self.rang)
 
+DICT_TYPE = {
+        'htm': _("html content"),
+        'swf': _("slideshow"),
+        'pdf': _("pdf document"),
+        'doc': _("printable document"),
+        'xls': _("spreadsheet")
+}
+
 class Contenu(models.Model):
     """
     Le modèle de base Contenu.
@@ -154,3 +162,9 @@ class Contenu(models.Model):
     def __unicode__(self):
         return '%s (%s)' % (self.titre, self.ressource)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return('learning.views.support', [str(self.id)])
+
+    def long_type(self):
+        return DICT_TYPE[self.type]

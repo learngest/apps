@@ -3,7 +3,9 @@
 import datetime
 
 from django.utils.translation import ugettext as _
+
 from coaching.models import CoursDuGroupe
+from learning.models import Contenu
 
 class UserModule(object):
     """
@@ -13,6 +15,9 @@ class UserModule(object):
         self.user = user
         self.module = module
         self.titre = self.module.titre(self.user.langue)
+        self.contents = Contenu.objects.filter(module=self.module,
+                langue=self.user.langue)
+        self.tests = []
 
     def date_validation(self):
         """
@@ -35,13 +40,15 @@ class UserCours(object):
         self.liste_cours = user.groupe.liste_cours()
         self.rang = self.liste_cours.index(self.cours)
         self.titre = self.cours.titre(self.user.langue)
-        self.modules = [UserModule(self.user,m) for m in self.cours.liste_modules()]
+        self.modules = [UserModule(self.user,m)
+                for m in self.cours.liste_modules()]
 
     def date_validation(self):
         """
         Renvoie la date de validation du cours
         False s'il n'est pas validé
         """
+        #TODO Rajouter le test sur les devoirs aussi
         dates =  [m.date_validation() for m in self.modules]
         if False in dates:
             return False

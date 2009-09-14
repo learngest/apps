@@ -3,10 +3,16 @@
 {{ course.state }}
 {% if course.is_open %}
 {% if course.modules %}
-<table class="tabcours">
-<tr><th colspan="2">{% trans "Modules" %}</th></tr>
+<table class="tabcours" width="80%">
+	<tr><th width="40%">{% trans "Modules" %}</th><th width="30%">{% trans "Contents" %}</th><th>{% trans "Tests" %}</th></tr>
 {% for module in course.modules %}
-<tr><td>{{ module.titre }}</td><td>{{ module.state }}</td></tr>
+<tr>
+    <td>{{ module.titre }}{% if module.is_valide %}<br />{% trans "Completed on" %} {{ module.is_valide|date:"d/m/Y" }}{% endif %}</td>
+    <td>{% for content in module.contents %}
+        <a href="{{ content.get_absolute_url }}" title="{{ content.titre }}">{{ content.long_type|capfirst }}</a> {% if not forloop.last %}<br />{% endif %}
+        {% endfor %}</td>
+    <td></td>
+</tr>
 {% endfor %}
 <table>
 {% endif %}
