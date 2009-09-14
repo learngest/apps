@@ -137,6 +137,10 @@ class Utilisateur(User):
         default='fr',
         help_text=_(
         "User's prefered language for interface, messages and contents, required."))
+
+    statut = models.IntegerField(choices=settings.LISTE_STATUTS, default=0,
+        help_text=_("User's status, required."))
+
     groupe = models.ForeignKey(Groupe, 
         blank=True, null=True, # requis pour la création avec le lien user
         help_text=_("User's group, required and unique."))

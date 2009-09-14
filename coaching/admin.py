@@ -139,7 +139,7 @@ class UtilisateurAdmin(UserAdmin):
         (None, {'fields': ('username', 'password1', 'password2')}),
         (_("Identity"), 
                 {'fields': ('last_name', 'first_name')}),
-        (_("Parameters"), {'fields': ('langue', 'groupe', 'fermeture')}),
+        (_("Parameters"), {'fields': ('statut', 'langue', 'groupe', 'fermeture')}),
         (_('Permissions'), {'fields': ('is_staff', 'is_active', 'is_superuser', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('Groups'), {'fields': ('groups',)}),
