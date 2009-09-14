@@ -15,6 +15,7 @@ from django.contrib.sites.models import Site
 from django.template.defaulttags import include_is_allowed
 
 from learning.models import Cours, Module, Contenu, ModuleTitre
+from learning.controllers import UserCours
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -115,9 +116,11 @@ def tabcours(request):
     """
     Tableau de l'ensemble des cours
     """
+    cours = [UserCours(request.user, cours) 
+            for cours in request.user.groupe.liste_cours()]
     return render_to_response('learning/liste_cours.html',{
                                 'title' : _("courses list"),
-                                'cours' : request.user.liste_cours_full(),
+                                'cours' : cours,
                                 }, context_instance=RequestContext(request))
 
 @login_required

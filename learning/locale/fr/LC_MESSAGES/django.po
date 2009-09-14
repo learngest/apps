@@ -8,13 +8,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-11 17:52+0200\n"
+"POT-Creation-Date: 2009-09-14 11:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: controllers.py:79
+#, python-format
+msgid "This course will not open before %s"
+msgstr "Ouverture possible à partir du %s"
+
+#: controllers.py:82
+#, python-format
+msgid "Completed on %s"
+msgstr "Validé le %s"
+
+#: controllers.py:84
+#, python-format
+msgid "Deadline is %s"
+msgstr "À valider pour le %s"
 
 #: models.py:60
 msgid "module title"
@@ -48,21 +63,25 @@ msgstr "modules du cours"
 msgid "courses modules"
 msgstr "modules des cours"
 
-#: views.py:28
+#: views.py:29
 msgid "Requested url is invalid."
 msgstr "L'url demandée est invalide."
 
-#: views.py:35
+#: views.py:36
 msgid "Requested content does not exist"
 msgstr "Le contenu demandé n'existe pas."
 
-#: views.py:44
+#: views.py:45
 msgid "Sorry, this content is not available in your prefered language."
 msgstr "Désolé, ce contenu n'est pas disponible dans la langue demandée."
 
-#: views.py:66
+#: views.py:67
 msgid "You are not allowed to browse the requested content."
 msgstr "Vous n'êtes pas autorisé à voir le contenu demandé."
+
+#: views.py:122 templates/learning/liste_cours.html:10
+msgid "courses list"
+msgstr "liste des cours"
 
 #: templates/learning/html_support.html:16
 msgid "support"
@@ -84,18 +103,14 @@ msgstr "Cacher ce message"
 msgid "dashboard"
 msgstr "tableau de bord"
 
-#: templates/learning/liste_cours.html:10
-msgid "courses list"
-msgstr "liste des cours"
-
-#: templates/learning/liste_cours.html:18
+#: templates/learning/liste_cours.html:17
 msgid "You are not subscribed to any course"
 msgstr "Vous n'êtes inscrit à aucun cours"
 
-#: templates/learning/tab_cours.html:6
+#: templates/learning/tab_cours.html:7
 msgid "Modules"
 msgstr ""
 
-#: templates/learning/tab_cours.html:14
+#: templates/learning/tab_cours.html:15
 msgid "Assignments"
 msgstr "Devoirs"
