@@ -1,0 +1,28 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{% load adminmedia %}
+<!-- ie behaviour -->
+<style type="text/css">img {behavior: url("{% admin_media_prefix %}css/pngbehavior.htc");}</style>
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/supports.css" />
+{% endblock extrastyle %}
+{% block extrahead %}
+<base href="{{ baselink }}" />
+<script type="text/javascript" src="{% admin_media_prefix %}js/support.js"></script>
+{% endblock extrahead %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt; {{ breadcrumb }}
+</div>{% endblock %}
+{% block content_title %}{% endblock %}
+{% block content %}
+   <object
+    type="application/x-shockwave-flash"
+	data="/{{ contents_prefix }}/startanim.swf?path=/{{ support }}"
+    width="800" height="600">
+	<param name="movie" value="/{{ contents_prefix }}/startanim.swf?path=/{{ support }}" />
+      <param name="quality" value="high" />
+      <param name="bgcolor" value="#FFFFFF" />
+   </object>
+{% endblock content %}

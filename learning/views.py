@@ -80,6 +80,29 @@ def render_htm(request, c, base, contents_prefix):
                                 'support' : support,
                                 }, context_instance=RequestContext(request))
 
+def render_swf(request, c, base, contents_prefix):
+    """
+    Render swf (flash) support
+    """
+    suffixe = os.path.join( contents_prefix,
+                            c.module.slug,
+                            c.langue,
+                            'flash',
+                            c.ressource)
+    support_path = os.path.join(settings.PROJECT_PATH, suffixe)
+    base = os.path.join(base, suffixe)
+    if not include_is_allowed(support_path):
+        request.user.message_set.create(
+                message=_("You are not allowed to browse the requested content."))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    return render_to_response('learning/swf_support.html',{
+                                'title': c.titre,
+                                'baselink': base,
+                                'contents_prefix': contents_prefix,
+                                'breadcrumb': c.module.titre(c.langue),
+                                'support' : suffixe,
+                                }, context_instance=RequestContext(request))
+
 def render_any(request, c, base, contents_prefix):
     if not include_is_allowed(support_path):
         HttpResponseRedirect('/tdb/')
@@ -91,18 +114,6 @@ def render_any(request, c, base, contents_prefix):
         else:
             support = "<!-- Unable to open file %s -->\n" % support_path
     return render_to_response('learning/support.html',
-                                {'visiteur': v.prenom_nom(),
-                                 'client': v.groupe.client,
-                                 'vgroupe': v.groupe,
-                                 'admin': v.status,
-                                 'baselink': base,
-                                 'msg': msg,
-                                 'support': support})
-
-def render_swf(request, c, base, contents_prefix):
-    support = os.path.join('/contents',c.module.slug,c.langue,'flash',c.ressource)
-    base = os.path.join(base,'contents',c.module.slug,c.langue,'flash',c.ressource)
-    return render_to_response('learning/anim.html',
                                 {'visiteur': v.prenom_nom(),
                                  'client': v.groupe.client,
                                  'vgroupe': v.groupe,
