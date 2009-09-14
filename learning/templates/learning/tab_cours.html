@@ -4,14 +4,16 @@
 {% if course.is_open %}
 {% if course.modules %}
 <table class="tabcours" width="80%">
-	<tr><th width="40%">{% trans "Modules" %}</th><th width="30%">{% trans "Contents" %}</th><th>{% trans "Tests" %}</th></tr>
+	<tr><th width="40%">{% trans "Modules" %}</th><th width="20%">{% trans "Contents" %}</th><th>{% trans "Tests" %}</th></tr>
 {% for module in course.modules %}
 <tr>
     <td>{{ module.titre }}{% if module.is_valide %}<br />{% trans "Completed on" %} {{ module.is_valide|date:"d/m/Y" }}{% endif %}</td>
     <td>{% for content in module.contents %}
-        <a href="{{ content.get_absolute_url }}" title="{{ content.titre }}">{{ content.long_type|capfirst }}</a> {% if not forloop.last %}<br />{% endif %}
-        {% endfor %}</td>
-    <td></td>
+        <a href="{{ content.get_absolute_url }}" title="{{ content.titre }}">{{ content.long_type|capfirst }}</a>{% if not forloop.last %}<br />{% endif %}{% endfor %}
+    </td>
+    <td>{% for test in module.tests %}
+        <a href="{{ test.get_absolute_url }}">{{ test.titre }}</a>{% if not forloop.last %}<br />{% endif %}{% endfor %}
+    </td>
 </tr>
 {% endfor %}
 <table>

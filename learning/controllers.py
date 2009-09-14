@@ -6,6 +6,8 @@ from django.utils.translation import ugettext as _
 
 from coaching.models import CoursDuGroupe
 from learning.models import Contenu
+from testing.models import Granule
+from testing.controllers import UserGranule
 
 class UserModule(object):
     """
@@ -17,15 +19,22 @@ class UserModule(object):
         self.titre = self.module.titre(self.user.langue)
         self.contents = Contenu.objects.filter(module=self.module,
                 langue=self.user.langue)
-        self.tests = []
+        self.tests = [UserGranule(self.user,g)
+                for g in Granule.objects.filter(module=self.module)]
 
     def date_validation(self):
         """
         Renvoie la date de validation du module
         False s'il n'est pas validé
+        None si le module n'a pas de tests
         """
-        #TODO
-        return False
+        dates =  [t.date_validation() for t in self.tests]
+        if not dates:
+            return None
+        if False in dates:
+            return False
+        else:
+            return max(dates)
 
 class UserCours(object):
     """
