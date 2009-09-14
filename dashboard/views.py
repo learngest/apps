@@ -1,7 +1,10 @@
 # -*- encoding: utf-8 -*-
 
+import sys
+
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 
@@ -17,9 +20,12 @@ def dashboard(request):
     - prof
     - etudiant
     """
-    return dashboard_etudiant(request)
+    curmod = sys.modules['dashboard.views']
+    fonction = "dashboard_%s" % request.user.get_statut_display()
+    return getattr(curmod, 
+            fonction, dashboard_student)(request)
 
-def dashboard_etudiant(request):
+def dashboard_student(request):
     """
     Tableau de bord étudiant
     """
@@ -33,3 +39,8 @@ def dashboard_etudiant(request):
                               },
                               context_instance=RequestContext(request))
 
+def dashboard_staff(request):
+    """
+    Tableau de bord staff, lien vers l'admin
+    """
+    return HttpResponseRedirect("/staff/")
