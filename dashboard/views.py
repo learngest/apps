@@ -9,6 +9,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 
 from dashboard.planning import Calendrier, Planning
+from learning.controllers import UserCours
 
 @login_required
 def dashboard(request):
@@ -31,11 +32,15 @@ def dashboard_student(request):
     """
     cal = Calendrier(request)
     planning = Planning(request)
+    course = UserCours(request.user,
+            request.user.current or request.user.groupe.liste_cours()[0])
+
 
     return render_to_response('dashboard/etudiant.html',
                               {'title': _('dashboard'),
                                'cal': cal,
                                'planning': planning,
+                               'course': course,
                               },
                               context_instance=RequestContext(request))
 
