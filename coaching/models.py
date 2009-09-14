@@ -145,6 +145,10 @@ class Utilisateur(User):
         blank=True, null=True, # requis pour la création avec le lien user
         help_text=_("User's group, required and unique."))
 
+    current = models.ForeignKey(Cours,
+        _("current work"),
+        blank=True, null=True,
+        editable=False)
     
     # desérialisation, non éditables
     nb_modules = models.IntegerField(
@@ -171,7 +175,6 @@ class Utilisateur(User):
 
     # on conserve le manager de l'objet User
     objects = UserManager()
-
 
 class Event(models.Model):
     """
