@@ -21,6 +21,7 @@
 {% endfor %}
 </ul>
 <h2>{% trans "Current work" %}</h2>
+<a href="{% url learning.views.tabcours %}">{% trans "See complete courses list" %}</a>
 {% include "learning/tab_cours.html" %}
 {% endblock content %}
 
