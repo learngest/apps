@@ -29,6 +29,10 @@ class Granule(models.Model):
             gt = self.slug
         return gt
 
+    @models.permalink
+    def get_absolute_url(self):
+        return('testing.views.test', [str(self.id)])
+
 class GranuleTitre(models.Model):
     """
     Titre d'une granule dans la langue choisie

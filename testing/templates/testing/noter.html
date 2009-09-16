@@ -1,0 +1,27 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt;  tests &gt; <a href="{% url testing.views.test test.granule.id %}">{{ test.titre }}</a> &gt; {% trans "grade" %} {{ breadcrumb }}
+</div>{% endblock %}
+
+{% block content %}
+<h2>{% trans "grade"|capfirst %}</h2>
+	{% for enonce in test.enonces %}
+	<div class="enonce">
+		<p>{{ enonce.libel|safe }}</p>
+		{% for question in enonce.questions %}
+			<p>{{ question.libel|safe }}</p>
+			<p class="score">{% trans "You answered" %} {{ question.reponse }} : {{ question.points }} point(s).</p>
+		{% endfor %}
+	</div>
+	{% endfor%}
+	<div class="infomsg">
+		<p>{% trans "Final score" %} {{ test.total }} / {{ test.max }}.</p>
+		{% if test.valide %}
+		<p>{% trans "Congratulations, you succeeded !" %}</p>
+		{% else %}
+        <p>{% trans "Your score is too low, please try again." %} <a href="{% url testing.views.test test.granule.id %}">{% trans "Try again now" %}</a></p>
+		{% endif %}
+	</div>
+{% endblock content %}

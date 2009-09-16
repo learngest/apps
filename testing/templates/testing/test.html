@@ -1,0 +1,21 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt;  tests &gt; {{ test.titre }} {{ breadcrumb }}
+</div>{% endblock %}
+
+{% block content %}
+<h2>{{ test.titre }}</h2>
+<form method="post">
+	{% for enonce in test.enonces %}
+	<fieldset class="enonce">
+		<p>{{ enonce.libel|safe }}</p>
+		{% for question in enonce.questions %}
+			<p>{{ question|safe }}</p>
+		{% endfor %}
+	</fieldset>
+	{% endfor%}
+	<input type="submit" name="submit" value="{% trans "Grade the test" %}" />
+</form>
+{% endblock content %}
