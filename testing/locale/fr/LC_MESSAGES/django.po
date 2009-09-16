@@ -1,0 +1,69 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-16 18:05+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: controllers.py:58
+msgid "We are sorry, this content is not available in your preferred language."
+msgstr "Nous sommes désolés, ce test n'est pas disponible dans la langue demandée."
+
+#: controllers.py:125 controllers.py:199 controllers.py:220
+msgid "nothing"
+msgstr "aucune réponse"
+
+#: views.py:22 templates/testing/noter.html:5
+msgid "grade"
+msgstr "notation"
+
+#: views.py:27
+msgid "Requested url is invalid."
+msgstr "L'URL demandée est invalide."
+
+#: views.py:34
+msgid "Requested test does not exist"
+msgstr "Le test demandé n'existe pas"
+
+#: views.py:38
+msgid "test"
+msgstr ""
+
+#: templates/testing/noter.html:5 templates/testing/test.html:5
+msgid "dashboard"
+msgstr "tableau de bord"
+
+#: templates/testing/noter.html:14
+msgid "You answered"
+msgstr "Vous avez répondu"
+
+#: templates/testing/noter.html:19
+msgid "Final score"
+msgstr "Score final"
+
+#: templates/testing/noter.html:21
+msgid "Congratulations, you succeeded !"
+msgstr "Bravo, vous avez réussi ce test !"
+
+#: templates/testing/noter.html:23
+msgid "Your score is too low, please try again."
+msgstr "Ce score est trop faible, il vous faudra retenter ce test."
+
+#: templates/testing/noter.html:23
+msgid "Try again now"
+msgstr "Essayer maintenant"
+
+#: templates/testing/test.html:19
+msgid "Grade the test"
+msgstr "Noter le test"
