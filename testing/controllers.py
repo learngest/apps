@@ -2,8 +2,10 @@
 
 import sys
 
-#from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _
+
 from testing.models import Question
+from coaching.models import Valide, Resultat
 
 class UserGranule(object):
     """
@@ -120,12 +122,12 @@ class UserSubmittedTest(object):
     def _set_qd(self, q, rep):
         qd = {}
         qd['libel'] = q.libel.replace("<REPONSE>","...")
-        rep = rep[-1]
         qd['reponse'] = rep or _('nothing')
         return qd
 
     def _noter_exa(self, q, rep):
-        qd = _set_qd(self, q, rep)
+        rep = rep[-1]
+        qd = self._set_qd(q, rep)
         r = q.reponse_set.all()[0]
         self.max += r.points
         if rep:
@@ -141,7 +143,8 @@ class UserSubmittedTest(object):
         return qd
 
     def _noter_num(self, q, rep):
-        qd = _set_qd(self, q, rep)
+        rep = rep[-1]
+        qd = self._set_qd(q, rep)
         r = q.reponse_set.all()[0]
         self.max += r.points
         # seuls les chiffres avant le séparateur décimal sont significatifs
@@ -156,7 +159,8 @@ class UserSubmittedTest(object):
         return qd
 
     def _noter_rnd(self, q, rep):
-        qd = _set_qd(self, q, rep)
+        rep = rep[-1]
+        qd = self._set_qd(q, rep)
         r = q.reponse_set.all()[0]
         self.max += r.points
         phrase, dico = q.libel.split(" % ")
@@ -167,8 +171,8 @@ class UserSubmittedTest(object):
             locals()[k] = v
         r.valeur = '%f' % eval(r.valeur)
         if rep:
-            rep = clean(rep).replace(',','.').rstrip('0')
-            r.valeur = clean(r.valeur).replace(',','.').rstrip('0')
+            rep = self._clean(rep).replace(',','.').rstrip('0')
+            r.valeur = self._clean(r.valeur).replace(',','.').rstrip('0')
             # on teste sur 5 chiffres significatifs max + le point décimal
             if rep[:6] == r.valeur[:6]:
                 qd['points'] = r.points
@@ -180,7 +184,8 @@ class UserSubmittedTest(object):
         return qd
 
     def _noter_qcm(self, q, rep):
-        qd = _set_qd(self, q, rep)
+        rep = rep[-1]
+        qd = self._set_qd(rep)
         for r in q.reponse_set.all():
             if int(rep) == r.id:
                 self.total += r.points
@@ -239,13 +244,14 @@ class UserSubmittedTest(object):
         if self.total < 0:
             self.total = 0
         try:
-            score = float(self.total)/self.max*100
+            score = round(float(self.total)/self.max*100)
         except ZeroDivisionError:
-            score = 0.
+            score = 0
         try:
             g = q.granule
         except UnboundLocalError:
             return HttpResponseRedirect('/')
+        self.titre = g.titre(self.user.langue)
         r = Resultat(utilisateur=self.user, granule=g, score=score)
         r.save()
         self.valide = score >= q.granule.score_min

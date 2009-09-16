@@ -8,7 +8,7 @@ from django.template import RequestContext
 from django.conf import settings
 
 from testing.models import Granule
-from testing.controllers import UserTest
+from testing.controllers import UserTest, UserSubmittedTest
 
 @login_required
 def test(request, granule_id=None):
@@ -16,9 +16,9 @@ def test(request, granule_id=None):
     Crée et affiche un test pour une granule donnée
     """
     if request.method == 'POST':
-        test = UserSubmittedTest(request.user, request.POST.lists())
+        test = UserSubmittedTest(request)
         test.noter()
-        return render_to_response('testing/test.html',{
+        return render_to_response('testing/noter.html',{
                                     'title' : _("grade"),
                                     'test' : test,
                                     }, context_instance=RequestContext(request))
