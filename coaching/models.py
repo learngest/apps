@@ -12,7 +12,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, UserManager
 
 from email_auth.views import user_logged_in
-from learning.models import Cours
+from learning.models import Cours, Module
+from testing.models import Granule
 
 def set_language(sender, **kwargs):
     """
@@ -194,4 +195,50 @@ class Event(models.Model):
 
     def __unicode__(self):
         return "%s - %s" % (self.groupe, self.event)
+
+class Resultat(models.Model):
+    """
+    Stocke tous les résultats des essais aux tests.
+    """
+    utilisateur = models.ForeignKey(Utilisateur)
+    granule = models.ForeignKey(Granule)
+    date = models.DateTimeField()
+    score = models.IntegerField()
+
+    class Meta:
+        ordering = ('-date',)
+
+    def __unicode__(self):
+        return u"%s - %s - %s - %d" % (self.utilisateur, 
+                        self.granule, self.date, self.score)
+
+    def save(self, force_insert=False, force_update=False):
+        if not self.id:
+            if not self.date:
+                self.date = datetime.datetime.now()
+        super(Resultat, self).save(force_insert, force_update)
+
+class Valide(models.Model):
+    """
+    Stocke les granules et modules validés pour un utilisateur.
+    """
+    utilisateur = models.ForeignKey(Utilisateur)
+    granule = models.ForeignKey(Granule, blank=True, null=True)
+    module = models.ForeignKey(Module, blank=True, null=True)
+    date = models.DateTimeField()
+    score = models.IntegerField()
+
+    def __unicode__(self):
+        if self.granule:
+            return u"%s - G : %s - %s - %d" % (self.utilisateur, 
+                                self.granule, self.date, self.score)
+        else:
+            return u"%s - M : %s - %s - %d" % (self.utilisateur, 
+                                self.module, self.date, self.score)
+
+    def save(self, force_insert=False, force_update=False):
+        if not self.id:
+            if not self.date:
+                self.date = datetime.datetime.now()
+        super(Valide, self).save(force_insert, force_update)
 
