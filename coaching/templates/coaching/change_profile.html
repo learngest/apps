@@ -2,28 +2,28 @@
 {% extends "base_site.html" %}
 {% load i18n %}
 
-{% block breadcrumb %}
-{% trans "change account" %}
-{% endblock breadcrumb %}
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt; {% trans "change account" %}
+</div>{% endblock %}
 
 {% block content %}
 <form method="post">
-<fieldset>
+<fieldset class="module">
     <h2>{% trans "Credentials" %}</h2>
     <p><label for="id_{{ form.email.name }}">{{ form.email.label }}</label> {{ form.email }} {{ form.errors.email }}</p>
     <p><label for="id_{{ form.new_password1.name }}">{{ form.new_password1.label }}</label> {{ form.new_password1 }}</p>
     <p><label for="id_{{ form.new_password2.name }}">{{ form.new_password2.label }}</label> {{ form.new_password2 }} {{ form.errors.new_password2 }}</p>
 </fieldset>
-<fieldset>
+<fieldset class="module">
     <h2>{% trans "Group" %}</h2>
     <p><label for="groupe">{% trans "Group" %}</label> {{ user.groupe }}</p>
 </fieldset>
-<fieldset>
+<fieldset class="module">
     <h2>{% trans "Identity" %}</h2>
     <p><label for="name">{% trans "Last Name" %}</label> {{ user.last_name }}</p>
     <p><label for="firstname">{% trans "First Name" %}</label> {{ user.first_name }}</p>
 </fieldset>
-<fieldset>
+<fieldset class="module">
     <h2>{% trans "Expiration date" %}</h2>
     {% if user.fermeture %}
     <p><label for="valid">{% trans "Valid till" %}</label> {{ user.fermeture }}</p>
@@ -31,7 +31,7 @@
     <p>{% trans "No expiration date" %}</p>
     {% endif %}
 </fieldset>
-<fieldset>
+<fieldset class="module">
     <h2>{% trans "Language" %}</h2>
     <p><label for="id_{{ form.langue.name }}">{{ form.langue.label }}</label> {{ form.langue }} {{ form.errors.langue }}</p>
 </fieldset>
