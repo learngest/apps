@@ -7,7 +7,7 @@
 
 {% block content %}
 	{% for enonce in test.enonces %}
-	<div class="enonce">
+	<div class="module enonce">
 		<p>{{ enonce.libel|safe }}</p>
 		{% for question in enonce.questions %}
 			<p>{{ question.libel|safe }}</p>

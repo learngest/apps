@@ -9,7 +9,7 @@
 <h2>{{ test.titre }}</h2>
 <form method="post">
 	{% for enonce in test.enonces %}
-	<fieldset class="enonce">
+	<fieldset class="module enonce">
 		<p>{{ enonce.libel|safe }}</p>
 		{% for question in enonce.questions %}
 			<p>{{ question|safe }}</p>
