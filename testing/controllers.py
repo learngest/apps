@@ -3,6 +3,7 @@
 import sys
 
 from django.utils.translation import ugettext as _
+from django.core.cache import cache
 
 from testing.models import Question
 from coaching.models import Valide, Resultat
@@ -264,6 +265,10 @@ class UserSubmittedTest(object):
                     mvalide = False
                     break
             if mvalide:
+                modules_key = "Utilisateur.%s.liste_modules_autorises" % user.id
+                cache.delete(modules_key)
+                cours_key = "Utilisateur.%s.liste_cours_ouverts" % user.id
+                cache.delete(cours_key)
                 Valide.objects.get_or_create(
                     utilisateur=self.user, 
                     module=g.module, defaults={'score': score})

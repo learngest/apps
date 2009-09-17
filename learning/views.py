@@ -15,7 +15,7 @@ from django.contrib.sites.models import Site
 from django.template.defaulttags import include_is_allowed
 
 from learning.models import Cours, Module, Contenu, ModuleTitre
-from learning.controllers import UserCours
+from learning.controllers import UserCours, UserModule, user_may_see
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -34,6 +34,10 @@ def support(request, contenu_id=None):
     except Contenu.DoesNotExist:
         request.user.message_set.create(
                 message=_("Requested content does not exist"))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if not user_may_see(request.user, contenu):
+        request.user.message_set.create(
+                message=_("Requestet content is not allowed."))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     if langue != contenu.langue:
         try:
