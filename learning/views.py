@@ -37,7 +37,7 @@ def support(request, contenu_id=None):
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     if not user_may_see(request.user, contenu):
         request.user.message_set.create(
-                message=_("Requestet content is not allowed."))
+                message=_("Requested content is not allowed."))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     if langue != contenu.langue:
         try:
