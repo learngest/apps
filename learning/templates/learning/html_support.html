@@ -1,6 +1,8 @@
 {% extends "base_site.html" %}
 {% load i18n %}
 
+{% load cache %}
+{% cache 1800 support %}
 {% block extrastyle %}
 {% load adminmedia %}
 <!-- ie behaviour -->
@@ -22,3 +24,4 @@
 </ul>
 {{ support|safe }}
 {% endblock content %}
+{% endcache %}
