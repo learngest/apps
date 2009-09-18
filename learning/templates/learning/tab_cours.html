@@ -3,8 +3,8 @@
 {{ course.state }}
 {% if course.is_open %}
 {% if course.modules %}
-<table class="tabcours" width="80%">
-	<tr><th width="40%">{% trans "Modules" %}</th><th width="20%">{% trans "Contents" %}</th><th>{% trans "Tests" %}</th></tr>
+<table class="tabcours" width="90%">
+    <tr><th width="40%">{% trans "Modules" %}</th><th width="12%">{% trans "Contents" %}</th><th width="25%">{% trans "Tests" %}</th><th>{% trans "Best score" %}</th><th style="text-align: center;">{% trans "# tries" %}</th></tr>
 {% for module in course.modules %}
 <tr>
     <td>{{ module.titre }}{% if module.is_valide %}<br />{% trans "Completed on" %} {{ module.is_valide|date:"d/m/Y" }}{% endif %}</td>
@@ -12,8 +12,14 @@
         <a href="{{ content.get_absolute_url }}" title="{{ content.titre }}">{{ content.long_type|capfirst }}</a>{% if not forloop.last %}<br />{% endif %}{% endfor %}
     </td>
     <td>{% for test in module.tests %}
-        <a href="{{ test.get_absolute_url }}">{{ test.titre }}</a>{% if not forloop.last %}<br />{% endif %}{% endfor %}
+        <a href="{{ test.get_absolute_url }}" {% if test.date_validation %}class="valide"{% endif %}>{{ test.titre }}</a>{% if not forloop.last %}<br />{% endif %}{% endfor %}
     </td>
+    <td>{% for test in module.tests %}
+        {{ test.str_best_score }} - {{ test.best_score_date|date:"d/m/Y" }}{% if not forloop.last %}<br />{% endif %}
+    {% endfor %}</td>
+    <td style="text-align: center;">{% for test in module.tests %}
+        {{ test.nb_tries }}{% if not forloop.last %}<br />{% endif %}
+    {% endfor %}</td>
 </tr>
 {% endfor %}
 <table>

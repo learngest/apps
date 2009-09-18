@@ -17,14 +17,29 @@ class UserGranule(object):
         self.granule = granule
         self.get_absolute_url = self.granule.get_absolute_url()
         self.titre = self.granule.titre(self.user.langue)
+        resultats = Resultat.objects.filter(utilisateur=self.user,
+                        granule=self.granule).order_by('-score')
+        if resultats:
+            self.nb_tries = resultats.count()
+            self.best_score = resultats[0].score
+            self.str_best_score = "%2d %%" % self.best_score
+            self.best_score_date = resultats[0].date
+        else:
+            self.nb_tries = 0
+            self.best_score = 0
+            self.str_best_score = ''
+            self.best_score_date = None
 
     def date_validation(self):
         """
         Renvoie la date de validation du test
         False s'il n'est pas validé
         """
-        #TODO
-        return False
+        try:
+            v =Valide.objects.get(utilisateur=self.user, granule=self.granule)
+        except Valide.DoesNotExist:
+            return False
+        return v.date
 
 class UserTest(object):
     """
