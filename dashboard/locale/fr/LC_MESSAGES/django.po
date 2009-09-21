@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-14 11:45+0200\n"
+"POT-Creation-Date: 2009-09-21 17:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,9 +53,14 @@ msgstr ""
 msgid "Su"
 msgstr "Di"
 
-#: views.py:36 templates/dashboard/etudiant.html:10
+#: views.py:42 views.py:59 templates/dashboard/admin.html:10
+#: templates/dashboard/etudiant.html:10
 msgid "dashboard"
 msgstr "tableau de bord"
+
+#: templates/dashboard/admin.html:14
+msgid "Your groups"
+msgstr "Tous vos groupes"
 
 #: templates/dashboard/etudiant.html:15
 msgid "Your planning for the next weeks"
@@ -72,4 +77,3 @@ msgstr "Travail en cours"
 #: templates/dashboard/etudiant.html:24
 msgid "See complete courses list"
 msgstr "Voir la liste de tous les cours"
-

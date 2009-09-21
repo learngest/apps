@@ -57,6 +57,17 @@ class UserModule(object):
         else:
             return max(dates)
 
+    def cours(self):
+        """
+        Renvoie l'objet Cours auquel appartient le module pour
+        cet utilisateur
+        """
+        liste_cours = self.user.groupe.liste_cours()
+        for c in liste_cours:
+            if self.module in [mc.module for mc in c.modulecours_set.all()]:
+                return c
+        return None
+
 class UserCours(object):
     """
     Controller d'un cours pour un utilisateur
@@ -85,11 +96,23 @@ class UserCours(object):
         else:
             return max(dates)
 
+    def valide_en_retard(self):
+        if self.date_validation():
+            return self.date_validation() > self.fin
+        return False
+
+    def en_retard(self):
+        if self.fin and not self.date_validation():
+            return self.fin < datetime.datetime.now()
+
     def prec(self):
         """
         Renvoie l'objet UserCours précédent
         """
-        return UserCours(self.user, self.liste_cours[self.rang-1])
+        if self.rang > 0:
+            return UserCours(self.user, self.liste_cours[self.rang-1])
+        else:
+            return None
 
     def is_open(self):
         """

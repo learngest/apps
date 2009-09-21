@@ -1,0 +1,26 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+	<a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt; {{ groupe.nom }}
+</div>{% endblock %}
+
+{% block content %}
+<h2>{{ groupe.name }}</h2>
+<table class="groupe">
+    <thead>
+        <tr><th>{% trans "Name" %}</th><th>{% trans "Email" %}</th><th>{% trans "Last login" %}</th><th>{% trans "State" %}</th><th>{% trans "Problems" %}</th></tr>
+    </thead>
+    <tfoot></tfoot>
+    <tbody>
+	{% for user in groupe.users %}
+    <tr><td>{{ user.get_full_name }}</td><td><a href="{{ user.get_absolute_url }}">{{ user.email }}</a></td><td>{{ user.last_login }}</td>
+        <td>{% for state in user.state %}{{ state }}{% if not forloop.last %}<br />{% endif %}{% endfor %}</td>
+        <td>{% for problem in user.problems %}{{ problem }}{% if not forloop.last %}<br />{% endif %}{% endfor %}</td></tr>
+	{% empty %}
+	<tr><td colspan="5">{% trans "This group is empty." %}</td></tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock content %}
+

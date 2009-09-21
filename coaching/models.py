@@ -99,6 +99,10 @@ class Groupe(models.Model):
         """
         return [c.cours for c in self.coursdugroupe_set.all()]
 
+    @models.permalink
+    def get_absolute_url(self):
+        return('coaching.views.groupe', [str(self.id)])
+
 class CoursDuGroupe(models.Model):
     """
     Les cours associés à un groupe.
@@ -170,12 +174,16 @@ class Utilisateur(User):
     # inutilisé, réservé
     tempspasse = models.IntegerField(blank=True, null=True, editable=False)
 
+    # on conserve le manager de l'objet User
+    objects = UserManager()
+
     class Meta:
         verbose_name = _("User")
         ordering = ('groupe',)
 
-    # on conserve le manager de l'objet User
-    objects = UserManager()
+    @models.permalink
+    def get_absolute_url(self):
+        return('coaching.views.user', [str(self.id)])
 
 class Event(models.Model):
     """

@@ -1,0 +1,16 @@
+{% load i18n %}
+<table class="tabgroupes">
+    <thead>
+        <tr><th width="25%">{% trans "Group" %}</th><th style="text-align: center;">{% trans "Logins" %}</th><th style="text-align: center;">{% trans "Open ?" %}</th><th style="text-align: center;">{% trans "Demo" %}</th></tr>
+    </thead>
+    <tfoot></tfoot>
+    <tbody>
+{% for groupe in groupes %}
+<tr>
+    <td><a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a></td><td style="text-align: center;">{{ groupe.nb_logins }}</td><td style="text-align: center;">{{ groupe.is_open|yesno:_("yes,no") }}</td><td style="text-align: center;">{{ groupe.is_demo|yesno:_("yes,no") }}</td>
+</tr>
+{% empty %}
+<tr><td colspan="4">{% trans "You do not manage any group at the moment." %}</td></tr>
+{% endfor %}
+    </tbody>
+<table>

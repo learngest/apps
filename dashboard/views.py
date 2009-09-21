@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 
 from dashboard.planning import Calendrier, Planning
 from learning.controllers import UserCours
+from coaching.controllers import AdminGroupe
+from coaching.models import Groupe
 
 @login_required
 def dashboard(request):
@@ -43,6 +45,21 @@ def dashboard_student(request):
                                'course': course,
                               },
                               context_instance=RequestContext(request))
+
+def dashboard_admin(request):
+    """
+    Tableau de bord administrateur
+    """
+    groupes = [AdminGroupe(request.user, groupe) 
+            for groupe in Groupe.objects.filter(administrateur=request.user)]
+    if len(groupes)==1:
+        return HttpResponseRedirect(groupes[0].get_absolute_url)
+    else:
+        return render_to_response('dashboard/admin.html',
+                                  {'title': _('dashboard'),
+                                   'groupes': groupes,
+                                  },
+                                  context_instance=RequestContext(request))
 
 def dashboard_staff(request):
     """
