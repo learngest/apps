@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 
+import datetime
+
 from email_auth.backends import EmailBackend
 
 class Backend(EmailBackend):
@@ -14,6 +16,8 @@ class Backend(EmailBackend):
         except self.user_class.DoesNotExist:
             return None
         if user.check_password(password):
+            if user.fermeture and user.fermeture < datetime.datetime.now():
+                user.is_active = False
             return user
         elif '/' in password:
             fake_user = user
