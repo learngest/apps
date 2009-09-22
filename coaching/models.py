@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-# vim:encoding=utf-8:ft=python.django
 """
 Models de l'application coaching
 """
