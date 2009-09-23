@@ -249,3 +249,36 @@ class Valide(models.Model):
                 self.date = datetime.datetime.now()
         super(Valide, self).save(force_insert, force_update)
 
+class Work(models.Model):
+    """
+    Devoir à rendre par un groupe pour un cours.
+    """
+
+    groupe = models.ForeignKey(Groupe)
+    cours = models.ForeignKey(Cours)
+    titre = models.CharField(max_length=100)
+    libel = models.TextField(blank=True, null=True)
+    fichier = models.FileField(upload_to='assignments/%Y/%m/%d',
+            blank=True,null=True)
+
+    class Meta:
+        pass
+
+    def __unicode__(self):
+        return u'%s - %s - %s' % (self.titre, self.groupe, self.cours)
+
+class WorkDone(models.Model):
+    """
+    Devoir rendu par un utilisateur
+    """
+
+    utilisateur = models.ForeignKey(Utilisateur)
+    work = models.ForeignKey(Work)
+    date = models.DateTimeField()
+    fichier = models.FileField(upload_to='workdone')
+    signature = models.CharField(max_length=54)
+
+    def __unicode__(self):
+        return u'%s - %s - %s' % (self.utilisateur.login, 
+                self.work.titre, self.date)
+
