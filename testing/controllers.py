@@ -287,10 +287,8 @@ class UserSubmittedTest(object):
                 Valide.objects.get_or_create(
                     utilisateur=self.user, 
                     module=g.module, defaults={'score': score})
-#        uperfs = self.user.nperfs()
-#        self.user.nb_retards = uperfs[3]
-#        self.user.nb_valides = uperfs[0]
-#        self.user.save()
+                #TODO tester si cours est validé
+                # et si oui renseigner nb_cours_valides
 
         self.enonces = enonces.values()
         return 
