@@ -40,7 +40,9 @@ class UserModule(object):
         self.titre = self.module.titre(self.user.langue)
         self.contents = Contenu.objects.filter(module=self.module,
                 langue=self.user.langue)
-        self.tests = [UserGranule(self.user,g)
+
+    def tests(self):
+        return [UserGranule(self.user,g) \
                 for g in Granule.objects.filter(module=self.module)]
 
     def date_validation(self):
@@ -49,7 +51,7 @@ class UserModule(object):
         False s'il n'est pas validé
         None si le module n'a pas de tests
         """
-        dates =  [t.date_validation() for t in self.tests]
+        dates =  [t.date_validation() for t in self.tests()]
         if not dates:
             return None
         if False in dates:
@@ -81,8 +83,12 @@ class UserCours(object):
         self.liste_cours = user.groupe.liste_cours()
         self.rang = self.liste_cours.index(self.cours)
         self.titre = self.cours.titre(self.user.langue)
-        self.modules = [UserModule(self.user,m)
-                for m in self.cours.liste_modules()]
+
+    def modules(self):
+        return [UserModule(self.user, m) for m in self.cours.liste_modules()]
+
+    def modules_valides(self):
+        return [um for um in self.modules() if um.date_validation()]
 
     def date_validation(self):
         """
@@ -90,7 +96,7 @@ class UserCours(object):
         False s'il n'est pas validé
         """
         #TODO Rajouter le test sur les devoirs aussi
-        dates =  [m.date_validation() for m in self.modules]
+        dates =  [m.date_validation() for m in self.modules()]
         if False in dates:
             return False
         else:
