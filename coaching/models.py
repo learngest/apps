@@ -65,7 +65,7 @@ class Groupe(models.Model):
 
     nom = models.CharField(max_length=60, unique=True,
         help_text=_("Group name, required."))
-    administrateur = models.ForeignKey(User, blank=True, null=True, 
+    administrateur = models.ForeignKey('Utilisateur', blank=True, null=True,
         related_name='groupes',
         help_text=_("Group admin (an admin User)."))
     client = models.ForeignKey(Client, 
@@ -155,6 +155,9 @@ class Utilisateur(User):
         editable=False)
     
     # desérialisation, non éditables
+    nb_cours_valides = models.IntegerField(null=True, editable=False)
+    nb_travaux_rendus = models.IntegerField(null=True, editable=False)
+
     nb_modules = models.IntegerField(
             _("# modules"),
             default=0, editable=False)
@@ -277,6 +280,9 @@ class WorkDone(models.Model):
     date = models.DateTimeField()
     fichier = models.FileField(upload_to='workdone')
     signature = models.CharField(max_length=54)
+
+    class Meta:
+        unique_together = (('utilisateur', 'work'),)
 
     def __unicode__(self):
         return u'%s - %s - %s' % (self.utilisateur.login, 

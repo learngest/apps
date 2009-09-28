@@ -6,16 +6,18 @@
 </div>{% endblock %}
 
 {% block content %}
-<h2>{{ groupe.name }}</h2>
+<h2>{{ groupe.nom }}</h2>
 <table class="groupe">
     <thead>
-        <tr><th>{% trans "Name" %}</th><th>{% trans "Email" %}</th><th>{% trans "Last login" %}</th><th>{% trans "State" %}</th><th>{% trans "Problems" %}</th></tr>
+        <tr><th>{% trans "Name" %}</th><th>{% trans "Email" %}</th><th>{% trans "Last login" %}</th><th style="text-align:center;">{% trans "Completed <br />courses" %}<br/>/ {{ groupe.nb_cours }}</th><th style="text-align:center;">{% trans "Uploaded<br />works" %}<br/>/ {{ groupe.nb_works }}</th><th style="text-align:center;">{% trans "Completed modules<br />in current course" %}</th><th>{% trans "Problems" %}</th></tr>
     </thead>
     <tfoot></tfoot>
     <tbody>
 	{% for user in groupe.users %}
     <tr><td>{{ user.get_full_name }}</td><td><a href="{{ user.get_absolute_url }}">{{ user.email }}</a></td><td>{{ user.last_login }}</td>
-        <td>{% for state in user.state %}{{ state }}{% if not forloop.last %}<br />{% endif %}{% endfor %}</td>
+        <td style="text-align: center;">{{ user.nb_cours_valides }}</td>
+        <td style="text-align: center;">{{ user.nb_travaux_rendus }}</td>
+        <td style="text-align: center;">{{ user.nb_modules_valides_in_current }}</td>
         <td>{% for problem in user.problems %}{{ problem }}{% if not forloop.last %}<br />{% endif %}{% endfor %}</td></tr>
 	{% empty %}
 	<tr><td colspan="5">{% trans "This group is empty." %}</td></tr>
