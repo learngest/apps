@@ -4,7 +4,8 @@ import datetime
 import calendar
 
 from django.utils.translation import ugettext as _
-from coaching.models import CoursDuGroupe, Event 
+#from coaching.models import CoursDuGroupe, Event 
+from coaching.models import Event 
 
 class Calendrier():
     """
@@ -44,11 +45,14 @@ class Calendrier():
                 else:
                     daylist.append(day)
             weeklist.append(daylist)
-        echeances_cours = CoursDuGroupe.objects.filter(
-                groupe = self.groupe,
+#        echeances_cours = CoursDuGroupe.objects.filter(
+#                groupe = self.groupe,
+#                fin__year = self.date.year,
+#                fin__month = self.date.month
+#                )
+        echeances_cours = self.groupe.cours.filter(
                 fin__year = self.date.year,
-                fin__month = self.date.month
-                )
+                fin__month = self.date.month)
         for echeance in echeances_cours:
             for week in weeklist:
                 for day in week:
@@ -120,10 +124,12 @@ class Planning():
         self.end = self.date + datetime.timedelta(self.weeks*7)
 
     def events(self):
-        echeances_cours = CoursDuGroupe.objects.filter(
-                groupe = self.groupe,
-                fin__range = (self.date, self.end)
-                )
+#        echeances_cours = CoursDuGroupe.objects.filter(
+#                groupe = self.groupe,
+#                fin__range = (self.date, self.end)
+#                )
+        echeances_cours = self.groupe.cours.filter(
+                fin__range = (self.date, self.end))
         events = [{'date': e.fin,
             'event': _(u'Deadline for %s') % unicode(e.cours.titre(self.user.langue))} for e in echeances_cours]
         other_events = Event.objects.filter(

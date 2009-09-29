@@ -78,8 +78,9 @@ class Groupe(models.Model):
         default=False,
         help_text=_("If True, all courses are open, whatever the tests results."))
 
-#    cours = models.ManyToManyField(Cours, blank=True, null=True,
-#        help_text=_("Courses to which group members are subscribed."))
+    cours = models.ManyToManyField(Cours, blank=True, null=True,
+        through='CoursDuGroupe',
+        help_text=_("Courses to which group members are subscribed."))
 
     class Meta:
         ordering = ['client', 'nom']
