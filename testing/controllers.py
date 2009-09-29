@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 from django.core.cache import cache
 
 from testing.models import Question
-from coaching.models import Valide, Resultat
+from coaching.models import GranuleValide, ModuleValide, Resultat
 
 class UserGranule(object):
     """
@@ -36,8 +36,9 @@ class UserGranule(object):
         False s'il n'est pas validé
         """
         try:
-            v =Valide.objects.get(utilisateur=self.user, granule=self.granule)
-        except Valide.DoesNotExist:
+            v =GranuleValide.objects.get(utilisateur=self.user,
+                                            granule=self.granule)
+        except GranuleValide.DoesNotExist:
             return False
         return v.date
 
@@ -272,11 +273,11 @@ class UserSubmittedTest(object):
         r.save()
         self.valide = score >= q.granule.score_min
         if self.valide:
-            Valide.objects.get_or_create(
+            GranuleValide.objects.get_or_create(
                     utilisateur=self.user, granule=g, defaults={'score': score})
             mvalide = True
             for gr in g.module.granule_set.all():
-                if self.user.valide_set.filter(granule=gr).count() == 0:
+                if self.user.granulevalide_set.filter(granule=gr).count() == 0:
                     mvalide = False
                     break
             if mvalide:
@@ -284,9 +285,8 @@ class UserSubmittedTest(object):
                 cache.delete(modules_key)
                 cours_key = "Utilisateur.%s.liste_cours_ouverts" % user.id
                 cache.delete(cours_key)
-                Valide.objects.get_or_create(
-                    utilisateur=self.user, 
-                    module=g.module, defaults={'score': score})
+                ModuleValide.objects.get_or_create(
+                    utilisateur=self.user, module=g.module)
                 #TODO tester si cours est validé
                 # et si oui renseigner nb_cours_valides
 

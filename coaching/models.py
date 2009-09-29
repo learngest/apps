@@ -207,13 +207,21 @@ class Event(models.Model):
     def __unicode__(self):
         return "%s - %s" % (self.groupe, self.event)
 
-class Resultat(models.Model):
+class CommonResultat(models.Model):
+    """
+    Classe abstraite pour tous les résultats et validations
+    """
+    utilisateur = models.ForeignKey(Utilisateur)
+    date = models.DateTimeField()
+
+    class Meta:
+        abstract = True
+
+class Resultat(CommonResultat):
     """
     Stocke tous les résultats des essais aux tests.
     """
-    utilisateur = models.ForeignKey(Utilisateur)
     granule = models.ForeignKey(Granule)
-    date = models.DateTimeField()
     score = models.IntegerField()
 
     class Meta:
@@ -229,29 +237,62 @@ class Resultat(models.Model):
                 self.date = datetime.datetime.now()
         super(Resultat, self).save(force_insert, force_update)
 
-class Valide(models.Model):
+class GranuleValide(CommonResultat):
     """
-    Stocke les granules et modules validés pour un utilisateur.
+    Stocke les granules validées pour un utilisateur.
     """
-    utilisateur = models.ForeignKey(Utilisateur)
-    granule = models.ForeignKey(Granule, blank=True, null=True)
-    module = models.ForeignKey(Module, blank=True, null=True)
-    date = models.DateTimeField()
+    granule = models.ForeignKey(Granule)
     score = models.IntegerField()
 
+    class Meta:
+        unique_together = (('utilisateur','granule'),)
+
     def __unicode__(self):
-        if self.granule:
-            return u"%s - G : %s - %s - %d" % (self.utilisateur, 
-                                self.granule, self.date, self.score)
-        else:
-            return u"%s - M : %s - %s - %d" % (self.utilisateur, 
-                                self.module, self.date, self.score)
+        return u"%s - %s - %s - %d" % (self.utilisateur, 
+                            self.granule, self.date, self.score)
 
     def save(self, force_insert=False, force_update=False):
         if not self.id:
             if not self.date:
                 self.date = datetime.datetime.now()
-        super(Valide, self).save(force_insert, force_update)
+        super(GranuleValide, self).save(force_insert, force_update)
+
+class ModuleValide(CommonResultat):
+    """
+    Stocke les modules validés pour un utilisateur.
+    """
+    module = models.ForeignKey(Module)
+
+    class Meta:
+        unique_together = (('utilisateur','module'),)
+
+    def __unicode__(self):
+        return u"%s - %s - %s" % (self.utilisateur,
+                        self.module, self.date)
+
+    def save(self, force_insert=False, force_update=False):
+        if not self.id:
+            if not self.date:
+                self.date = datetime.datetime.now()
+        super(ModuleValide, self).save(force_insert, force_update)
+
+class CoursValide(CommonResultat):
+    """
+    Stocke les cours validés pour un utilisateur.
+    """
+    cours = models.ForeignKey(Cours)
+
+    class Meta:
+        unique_together = (('utilisateur','cours'),)
+
+    def __unicode__(self):
+        return u"%s - %s - %s" % (self.utilisateur, self.cours, self.date)
+
+    def save(self, force_insert=False, force_update=False):
+        if not self.id:
+            if not self.date:
+                self.date = datetime.datetime.now()
+        super(CoursValide, self).save(force_insert, force_update)
 
 class Work(models.Model):
     """

@@ -5,7 +5,7 @@ import datetime
 from django.utils.translation import ugettext as _
 #from django.core.cache import cache
 
-from coaching.models import Utilisateur, Valide, Resultat, Work, WorkDone
+from coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone
 from learning.controllers import UserModule, UserCours
 
 class AdminGroupe(object):
@@ -90,8 +90,8 @@ class UserState(object):
 
     def state(self):
         state = []
-        last_modules = Valide.objects.filter(
-                utilisateur=self.user,granule__isnull=True).order_by('-date')
+        last_modules = ModuleValide.objects.filter(
+                utilisateur=self.user).order_by('-date')
         if last_modules:
             last_module = last_modules[0]
             last_module_str = {
