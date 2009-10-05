@@ -65,7 +65,7 @@ class UserModule(object):
         Renvoie l'objet Cours auquel appartient le module pour
         cet utilisateur
         """
-        liste_cours = self.user.groupe.liste_cours()
+        liste_cours = self.user.groupe.cours.all()
         for c in liste_cours:
             if self.module in [mc.module for mc in c.modulecours_set.all()]:
                 return c
@@ -82,7 +82,7 @@ class UserCours(object):
         cdg = self.user.groupe.cours.get(cours=self.cours)
         self.debut = cdg.debut
         self.fin = cdg.fin
-        self.liste_cours = user.groupe.liste_cours()
+        self.liste_cours = user.groupe.cours.all()
         self.rang = self.liste_cours.index(self.cours)
         self.titre = self.cours.titre(self.user.langue)
 

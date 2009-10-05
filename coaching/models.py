@@ -93,12 +93,6 @@ class Groupe(models.Model):
             self.is_open=True
         super(Groupe, self).save()
 
-    def liste_cours(self):
-        """
-        Retourne la liste des cours auxquels le groupe est inscrit
-        """
-        return [c.cours for c in self.coursdugroupe_set.all()]
-
     @models.permalink
     def get_absolute_url(self):
         return('coaching.views.groupe', [str(self.id)])

@@ -42,7 +42,7 @@ class UserState(object):
         self.last_login = user.last_login
 
     def _usercours(self):
-        return [UserCours(self.user, c) for c in self.user.groupe.liste_cours()]
+        return [UserCours(self.user, c) for c in self.user.groupe.cours.all()]
 
     def nb_cours_valides(self):
         """
@@ -131,7 +131,7 @@ class UserState(object):
     def problems(self):
         problems = []
         cours = [UserCours(self.user, cours) 
-                for cours in self.user.groupe.liste_cours()]
+                for cours in self.user.groupe.cours.all()]
         valides_en_retard = 0
         en_retard = []
         for uc in cours:
