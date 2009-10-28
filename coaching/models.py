@@ -145,7 +145,6 @@ class Utilisateur(User):
         help_text=_("User's group, required and unique."))
 
     current = models.ForeignKey(Cours,
-        _("current work"),
         blank=True, null=True,
         editable=False)
     
