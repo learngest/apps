@@ -38,7 +38,7 @@ class GranuleTitre(models.Model):
     Titre d'une granule dans la langue choisie
     """
     granule = models.ForeignKey(Granule)
-    langue = models.CharField(max_length=5, choices=settings.LISTE_LANGUES)
+    langue = models.CharField(max_length=5, choices=settings.LANGUAGES)
     titre = models.CharField(max_length=100)
 
     class Meta:
@@ -67,7 +67,7 @@ class Question(models.Model):
     """
     enonce = models.ForeignKey(Enonce)
     granule = models.ForeignKey(Granule)
-    langue = models.CharField(max_length=5, choices=settings.LISTE_LANGUES)
+    langue = models.CharField(max_length=5, choices=settings.LANGUAGES)
     typq = models.CharField(max_length=3, 
             choices=settings.LISTE_TYPQ, default='exa')
     libel = models.TextField() 
