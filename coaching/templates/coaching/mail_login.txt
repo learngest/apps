@@ -1,0 +1,78 @@
+-------------------------------------------------------------------------------
+French version at the end of this email - Version française à la fin de ce mail
+-------------------------------------------------------------------------------
+
+Fullfilling the request of your school, a login and password have just
+been granted to you on the Learngest learning platform. This email
+provides you with information about using the platform, please read it
+carefully and *save it* as it contains your private login and password.
+
+To work, please connect to
+http://masters.learngest.com/
+
+And use your personal login parameters
+login : {{login}}
+password : {{password}}
+
+Be careful and use exactly the login and password provided : the best
+way is probably to copy and paste it, in order to get the exact mix of
+letters and numbers.
+
+Once connected, you may change your password : select "My profile" in the
+main menu. Always logout once you finish working in order to avoid bad
+surprises (people changing your password, for an example).
+
+You belong to the group {{groupe}}.
+Your coach is {{coach}} ({{coach_mail}}).
+
+If you have trouble to connect, see your coach, who got a list of all
+logins and passwords.
+
+If you are in trouble with the work to be done (tests), please contact
+you coach or your professor.
+
+We wish you a pleasant and rich learning experience with Learngest !
+
+-------------------------- French version --------------------------------------
+
+Bonjour,
+
+A la demande de votre institution, nous vous avons créé un accès à la
+plateforme d'enseignement Learngest. Ce mail vous donne des informations
+sur la manière de l'utiliser, veuillez le lire attentivement et le
+conserver, car il contient vos paramètres de connexion.
+
+Pour travailler, rendez-vous sur
+http://masters.learngest.com/
+
+Et entrez vos paramètres
+login : {{login}}
+mot de passe : {{password}}
+
+Faites bien attention de respecter strictement le login et le mot de passe 
+(majuscules/minuscules, ne pas confondre le O et le 0, le 1 et le l, etc.)
+
+Pour réduire les risques d'erreur, vous pouvez si vous en avez l'habitude
+copier et coller les paramètres donnés ci-dessus dans le formulaire d'accès.
+
+Vous avez la possibilité de changer votre mot de passe une fois connecté
+(choisissez le bouton "Mon profil" pour le faire). 
+
+Rappelez-vous de ne pas choisir un mot de passe trop simple, de ne pas
+le confier à d'autres, et de vous déconnecter lorsque vous avez fini de
+travailler.  Vous éviterez ainsi les déconvenues lors de la validation
+de votre travail.
+
+Vous appartenez au groupe {{groupe}}.
+Votre coach est {{coach}} ({{coach_mail}}).
+
+En cas de difficulté de connexion, contactez votre coach, qui a reçu une
+liste de tous les logins et mots de passe de votre groupe.
+
+En cas de difficulté avec les tests, le contenu des cours, etc.,
+contactez votre coach ou votre professeur.
+
+Nous vous souhaitons un bon travail sur la plateforme Learngest.
+-- 
+L'équipe Learngest
+http://learngest.com/

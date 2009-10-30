@@ -1,0 +1,64 @@
+{% extends "coaching/create_logins.html" %}
+{% load i18n %}
+
+{% block content %}
+<form method="post">
+    
+<fieldset class="module aligned">
+<h2>{% trans "File" %}</h2>
+<div class="form-row"><div>
+<label for="fsource">{% trans "Source file" %}</label> {{ fsource }}
+</div></div>
+</fieldset>
+
+<fieldset class="module aligned">
+<h2>{% trans "Group" %}</h2>
+<div class="form-row"><div>
+<label for="groupe">{% trans "Group" %}</label> {{ groupe.nom }}
+</div></div>
+</fieldset>
+
+<fieldset class="module aligned">
+<h2>{% trans "Settings" %}</h2>
+<div class="form-row"><div>
+<label for="langue">{% trans "Preferred language" %}</label> {{ langue }}
+</div></div>
+<div class="form-row"><div>
+<label for="fermeture">{% trans "Valid till" %}</label> {{ fermeture }}
+</div></div>
+<div class="form-row"><div>
+<label for="envoi_mail">{% trans "Send credentials by mail" %}</label> {% if envoi_mail %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}
+</div></div>
+</fieldset>
+
+<h2>{% trans "Logins to create" %}</h2>
+<table>
+<thead>
+<tr>
+<th>{% trans "Last name" %}</th>
+<th>{% trans "First name" %}</th>
+<th>{% trans "Email" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for login in logins %}
+<tr class="{% cycle odd,even %}">
+<td>{{ login.nom }}</td>
+<td>{{ login.prenom }}</td>
+<td>{{ login.email }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<input type="hidden" name="fsource" value="{{ fsource }}" />
+<input type="hidden" name="groupe" value="{{ groupe.id }}" />
+<input type="hidden" name="langue" value="{{ langue }}" />
+<input type="hidden" name="fermeture" value="{{ fermeture }}" />
+<input type="hidden" name="envoi_mail" value="{{ envoi_mail }}" />
+
+<p><input type="submit" value="{% trans "Create" %}" /></p>
+
+</form>
+{% endblock content %}
+

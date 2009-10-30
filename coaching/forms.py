@@ -2,6 +2,7 @@
 
 from django import forms
 from django.utils.translation import ugettext as _
+from django.contrib.admin import widgets
 from django.conf import settings
 
 from coaching.models import Utilisateur
@@ -47,4 +48,20 @@ class UtilisateurChangeForm(forms.ModelForm):
     class Meta:
         model = Utilisateur
         fields = ('email', 'langue',)
+
+class CreateLoginsForm(forms.Form):
+    """
+    Creation de logins à partir d'un fichier csv
+    """
+    def __init__(self, *args, **kwargs):
+        super(CreateLoginsForm, self).__init__(*args, **kwargs)
+        self.fields['fermeture'].widget = widgets.AdminSplitDateTime()
+
+    source = forms.FileField(label=_('Source file'))
+    groupe = forms.ChoiceField(label=_('Group'))
+    langue = forms.ChoiceField(choices=settings.LANGUAGES,
+                                label=_('Preferred language'))
+    fermeture = forms.DateTimeField(required=False, label=_('Valid till'))
+    envoi_mail = forms.ChoiceField(choices=((0,_('No')),(1,_('Yes'))), 
+                                label=_('Send credentials by mail'))
 

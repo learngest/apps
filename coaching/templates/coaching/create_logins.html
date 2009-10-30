@@ -1,0 +1,49 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/media/css/forms.css" />
+<script type="text/javascript" src="../../../jsi18n/"></script>
+<script type="text/javascript" src="/static/media/js/core.js"></script>
+{{ form.media }}
+{% endblock %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+	<a href="../../../">{% trans "Home" %}</a> &gt; <a href="../../">Coaching</a> &gt; <a href="../">Utilisateurs</a> &gt; {% trans "create logins" %}
+</div>{% endblock %}
+
+{% block content %}
+<form enctype="multipart/form-data" method="post">
+    
+<fieldset class="module aligned">
+<h2>{% trans "File" %}</h2>
+<div class="form-row"><div>
+<label for="id_{{ form.source.name }}">{{ form.source.label }}</label> {{ form.source }} {{ form.errors.source }}
+</div></div>
+</fieldset>
+
+<fieldset class="module aligned">
+<h2>{% trans "Group" %}</h2>
+<div class="form-row"><div>
+<label for="id_{{ form.groupe.name }}">{{ form.groupe.label }}</label> {{ form.groupe }} {{ form.errors.groupe }}
+</div></div>
+</fieldset>
+
+<fieldset class="module aligned">
+<h2>{% trans "Settings" %}</h2>
+<div class="form-row"><div>
+<label for="id_{{ form.langue.name }}">{{ form.langue.label }}</label> {{ form.langue }} {{ form.errors.langue }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_{{ form.fermeture.name }}">{{ form.fermeture.label }}</label> {{ form.fermeture }} {{ form.errors.fermeture }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_{{ form.envoi_mail.name }}">{{ form.envoi_mail.label }}</label> {{ form.envoi_mail }} {{ form.errors.envoi_mail }}
+</div></div>
+</fieldset>
+
+<input type="submit" value="{% trans "Save" %}" />
+
+</form>
+{% endblock content %}
+
