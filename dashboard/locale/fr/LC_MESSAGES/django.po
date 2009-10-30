@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-21 17:00+0200\n"
+"POT-Creation-Date: 2009-10-30 14:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,36 +20,36 @@ msgstr ""
 msgid "Requested date is out of range."
 msgstr "La date choisie est invalide."
 
-#: planning.py:58 planning.py:128
+#: planning.py:61 planning.py:133
 #, python-format
 msgid "Deadline for %s"
 msgstr "Date limite de validation du cours %s"
 
-#: planning.py:83
+#: planning.py:86
 msgid "Mo"
 msgstr "Lu"
 
-#: planning.py:83
+#: planning.py:86
 msgid "Tu"
 msgstr "Ma"
 
-#: planning.py:83
+#: planning.py:86
 msgid "We"
 msgstr "Me"
 
-#: planning.py:83
+#: planning.py:86
 msgid "Th"
 msgstr "Je"
 
-#: planning.py:83
+#: planning.py:86
 msgid "Fr"
 msgstr "Ve"
 
-#: planning.py:83
+#: planning.py:86
 msgid "Sa"
 msgstr ""
 
-#: planning.py:83
+#: planning.py:86
 msgid "Su"
 msgstr "Di"
 
@@ -63,17 +63,25 @@ msgid "Your groups"
 msgstr "Tous vos groupes"
 
 #: templates/dashboard/etudiant.html:15
+msgid "Your group is"
+msgstr "Vous faite partie du groupe"
+
+#: templates/dashboard/etudiant.html:17
+msgid "This group is managed by"
+msgstr "Le responsable du groupe est"
+
+#: templates/dashboard/etudiant.html:19
 msgid "Your planning for the next weeks"
 msgstr "Planning des prochaines semaines"
 
-#: templates/dashboard/etudiant.html:20
+#: templates/dashboard/etudiant.html:24
 msgid "Nothing special so far !"
 msgstr "Rien de spécial pour le moment."
 
-#: templates/dashboard/etudiant.html:23
+#: templates/dashboard/etudiant.html:27
 msgid "Current work"
 msgstr "Travail en cours"
 
-#: templates/dashboard/etudiant.html:24
+#: templates/dashboard/etudiant.html:28
 msgid "See complete courses list"
 msgstr "Voir la liste de tous les cours"
