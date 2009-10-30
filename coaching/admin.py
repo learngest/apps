@@ -110,10 +110,10 @@ class UtilisateurAdmin(UserAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('Groups'), {'fields': ('groups',)}),
     )
-    list_display = ('groupe', 'username', 'last_name', 'first_name')
-    list_display_links = ('username',)
+    list_display = ('groupe', 'email', 'last_name', 'first_name')
+    list_display_links = ('email',)
     list_filter = ('groupe', 'langue', 'fermeture')
-    search_fields = ('username', 'last_name',)
+    search_fields = ('email', 'last_name',)
 admin.site.register(Utilisateur, UtilisateurAdmin)
 
 class EventAdmin(admin.ModelAdmin):
