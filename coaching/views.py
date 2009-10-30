@@ -126,7 +126,7 @@ def create_logins(request):
                 if request.POST['envoi_mail']=='1' and saved:
                     try:
                         mailmsg = render_to_string('coaching/mail_login.txt', 
-                                {'login': u.username, 
+                                {'login': u.email, 
                                   'password': password,
                                   'groupe': g.nom,
                                   'coach': g.administrateur.get_full_name(),
