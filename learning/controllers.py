@@ -5,7 +5,7 @@ import datetime
 from django.utils.translation import ugettext as _
 from django.core.cache import cache
 
-#from coaching.models import CoursDuGroupe
+from coaching.models import CoursDuGroupe
 from learning.models import Contenu
 from testing.models import Granule
 from testing.controllers import UserGranule
@@ -21,8 +21,8 @@ def user_may_see(user, contenu):
         cours_key = "Utilisateur.%s.liste_cours_ouverts" % user.id
         liste_cours_ouverts = cache.get(cours_key)
         if not liste_cours_ouverts:
-            #cdgs = CoursDuGroupe.objects.filter(groupe=user.groupe)
-            cdgs = user.groupe.cours.all()
+            cdgs = CoursDuGroupe.objects.filter(groupe=user.groupe)
+            #cdgs = user.groupe.cours.all()
             ucs = [UserCours(user, cdg.cours) for cdg in cdgs]
             liste_cours_ouverts = [uc.cours for uc in ucs if uc.is_open()]
             cache.set(cours_key, liste_cours_ouverts)
@@ -78,11 +78,11 @@ class UserCours(object):
     def __init__(self, user, cours):
         self.user = user
         self.cours = cours
-        #cdg = CoursDuGroupe.objects.get(cours=self.cours,groupe=self.user.groupe)
-        cdg = self.user.groupe.cours.get(cours=self.cours)
+        cdg = CoursDuGroupe.objects.get(cours=self.cours,groupe=self.user.groupe)
+        #cdg = self.user.groupe.cours.get(cours=self.cours)
         self.debut = cdg.debut
         self.fin = cdg.fin
-        self.liste_cours = user.groupe.cours.all()
+        self.liste_cours = list(user.groupe.cours.all())
         self.rang = self.liste_cours.index(self.cours)
         self.titre = self.cours.titre(self.user.langue)
 
