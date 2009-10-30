@@ -82,7 +82,7 @@ class UserCours(object):
         #cdg = self.user.groupe.cours.get(cours=self.cours)
         self.debut = cdg.debut
         self.fin = cdg.fin
-        self.liste_cours = list(user.groupe.cours.all())
+        self.liste_cours = list(user.groupe.cours.order_by('coursdugroupe__rang'))
         self.rang = self.liste_cours.index(self.cours)
         self.titre = self.cours.titre(self.user.langue)
 

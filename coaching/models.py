@@ -118,7 +118,7 @@ class CoursDuGroupe(models.Model):
             help_text=_("Course deadline"))
 
     class Meta:
-        ordering = ['groupe', 'rang']
+        ordering = ['groupe','rang']
         unique_together = (('groupe', 'cours'),)
         verbose_name_plural = _("Groups courses")
 

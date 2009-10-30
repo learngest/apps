@@ -35,7 +35,8 @@ def dashboard_student(request):
     cal = Calendrier(request)
     planning = Planning(request)
     course = UserCours(request.user,
-            request.user.current or request.user.groupe.cours.all()[0])
+            request.user.current or \
+            request.user.groupe.cours.order_by('coursdugroupe__rang')[0])
 
 
     return render_to_response('dashboard/etudiant.html',
