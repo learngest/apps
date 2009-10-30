@@ -12,6 +12,10 @@
 
 {% block content %}
 {% include "dashboard/calendar.html" %}
+<p>{% trans "Your group is" %} {{ user.groupe.nom }}</p>
+{% if user.groupe.administrateur %}
+<p>{% trans "This group is managed by" %} {{ user.groupe.administrateur.get_full_name }}</p>
+{% endif %}
 <h2>{% trans "Your planning for the next weeks" %}</h2>
 <ul>
 {% for event in planning.events %}
