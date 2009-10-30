@@ -132,7 +132,7 @@ def tabcours(request):
     Tableau de l'ensemble des cours
     """
     cours = [UserCours(request.user, cours) 
-            for cours in request.user.groupe.cours.all()]
+            for cours in request.user.groupe.cours.order_by('coursdugroupe__rang')]
     return render_to_response('learning/liste_cours.html',{
                                 'title' : _("courses list"),
                                 'cours' : cours,
