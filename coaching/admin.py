@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group
 from django import forms
 from django.forms import ModelForm
 
-from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event
+from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work
 
 admin.site.unregister(User)
 admin.site.unregister(Group)
@@ -27,6 +27,16 @@ class GroupeAdmin(admin.ModelAdmin):
     list_filter = ('client',)
     search_fields = ('nom',)
 admin.site.register(Groupe, GroupeAdmin)
+
+class WorkAdmin(admin.ModelAdmin):
+    fieldsets = (
+            (None, {'fields': ('groupe','cours',)}),
+            (None, {'fields': ('titre','fichier','libel',)}),
+    )
+    list_display = ('groupe','cours','titre',)
+    list_display_links = ('titre',)
+    list_filter = ('groupe','cours',)
+admin.site.register(Work, WorkAdmin)
 
 class CoursDuGroupeAdmin(admin.ModelAdmin):
     fieldsets = (

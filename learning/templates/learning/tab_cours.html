@@ -25,10 +25,14 @@
 <table>
 {% endif %}
 {% if course.assignments %}
-<table class="tabcours">
-<tr><th colspan="2">{% trans "Assignments" %}</th></tr>
+<table class="tabcours" width="90%">
+	<tr><th width="40%">{% trans "Assignments" %}</th><th>{% trans "Uploaded on" %}</th><th>{% trans "Signature" %}</th></tr>
 {% for assignment in course.assignments %}
-<tr><td>{{ assignement.titre }}</td><td>{{ assignement.state }}</td></tr>
+{% if assignment.date_remise %}
+<tr><td>{{ assignment.titre }}</td><td>{{ assignment.date_remise }}</td><td>{{ assignment.signature }}</td></tr>
+{% else %}
+<tr><td><a href="{{ assignment.work.get_absolute_url }}">{{ assignment.titre }}</a></td><td></td><td></td></tr>
+{% endif %}
 {% endfor %}
 <table>
 {% endif %}

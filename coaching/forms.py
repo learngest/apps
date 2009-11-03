@@ -65,3 +65,28 @@ class CreateLoginsForm(forms.Form):
     envoi_mail = forms.ChoiceField(choices=((0,_('No')),(1,_('Yes'))), 
                                 label=_('Send credentials by mail'))
 
+
+class WorkForm(forms.Form):
+    """
+    Affichage et rendu de devoirs
+    """
+    fichier = forms.FileField(required=False,label=_('File name'))
+
+    def clean_fichier(self):
+        if self.cleaned_data['fichier']:
+            fichier_ok = False
+            # le test devrait se faire sur le content-type
+            for suffix in ('.doc','.docx','.pdf','.xls','.xlsx','.zip'):
+                if self.cleaned_data['fichier'].name.endswith(suffix):
+                    fichier_ok = True
+                    break
+            if not fichier_ok:
+                raise forms.ValidationError(
+                    _('Filetype should be .doc, .docx, .xls, .xslx, .pdf or .zip'))
+            filelen = float(self.cleaned_data['fichier'].size) / 1024
+            if filelen > 1024:
+                filelen = filelen / 1024
+                raise forms.ValidationError(
+                    _('Maximum size allowed is 1 Mo, this file is %.2f Mo' % filelen))
+        return self.cleaned_data['fichier']
+

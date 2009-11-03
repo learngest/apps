@@ -5,7 +5,7 @@ import datetime
 from django.utils.translation import ugettext as _
 from django.core.cache import cache
 
-from coaching.models import CoursDuGroupe
+from coaching.models import CoursDuGroupe, Work, WorkDone
 from learning.models import Contenu
 from testing.models import Granule
 from testing.controllers import UserGranule
@@ -71,6 +71,30 @@ class UserModule(object):
                 return c
         return None
 
+class UserWork(object):
+    """
+    Controller d'un devoir pour un utilisateur
+    """
+    def __init__(self, user, work):
+        self.user = user
+        self.work = work
+        self.titre = self.work.titre
+        try:
+            wd = WorkDone.objects.get(utilisateur=self.user, work=self.work)
+            self.date_remise = wd.date
+            self.signature = wd.signature
+        except WorkDone.DoesNotExist:
+            self.date_remise = None
+            self.signature = None
+
+    def state(self):
+        """
+        Renvoie l'état du devoir :
+        - à rendre (lien pour le rendre)
+        - rendu le, avec signature fichier
+        """
+        return "Assignment state"
+
 class UserCours(object):
     """
     Controller d'un cours pour un utilisateur
@@ -88,6 +112,11 @@ class UserCours(object):
 
     def modules(self):
         return [UserModule(self.user, m) for m in self.cours.liste_modules()]
+
+    def assignments(self):
+        return [UserWork(self.user, w) for w in Work.objects.filter(
+            cours=self.cours,
+            groupe=self.user.groupe)]
 
     def modules_valides(self):
         return [um for um in self.modules() if um.date_validation()]

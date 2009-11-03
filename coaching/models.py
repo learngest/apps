@@ -295,15 +295,22 @@ class Work(models.Model):
     groupe = models.ForeignKey(Groupe)
     cours = models.ForeignKey(Cours)
     titre = models.CharField(max_length=100)
-    libel = models.TextField(blank=True, null=True)
+    libel = models.TextField(_("Directions"),
+            blank=True, null=True)
     fichier = models.FileField(upload_to='assignments/%Y/%m/%d',
             blank=True,null=True)
 
     class Meta:
-        pass
+        ordering = ['groupe','cours']
+        verbose_name = _("Assignment")
+        verbose_name_plural = _("Assignments")
 
     def __unicode__(self):
         return u'%s - %s - %s' % (self.titre, self.groupe, self.cours)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return('learning.views.assignment', [str(self.id)])
 
 class WorkDone(models.Model):
     """
