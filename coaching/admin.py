@@ -16,6 +16,10 @@ class ClientAdmin(admin.ModelAdmin):
     search_fields = ('nom',)
 admin.site.register(Client, ClientAdmin)
 
+class CoursDuGroupeInline(admin.TabularInline):
+    model = CoursDuGroupe
+    verbose_name_plural = _('Group courses')
+
 class GroupeAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('nom',)}),
@@ -26,6 +30,7 @@ class GroupeAdmin(admin.ModelAdmin):
     list_display_links = ('nom',)
     list_filter = ('client',)
     search_fields = ('nom',)
+    inlines = (CoursDuGroupeInline,)
 admin.site.register(Groupe, GroupeAdmin)
 
 class WorkAdmin(admin.ModelAdmin):
@@ -47,7 +52,7 @@ class CoursDuGroupeAdmin(admin.ModelAdmin):
     list_display_links = ('cours',)
     list_filter = ('groupe',)
     list_editable = ('rang','debut','fin',)
-admin.site.register(CoursDuGroupe, CoursDuGroupeAdmin)
+#admin.site.register(CoursDuGroupe, CoursDuGroupeAdmin)
 
 class UtilisateurAdminForm(ModelForm):
     username = forms.EmailField(label=_("Username"), max_length=75)

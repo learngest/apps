@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-30 14:19+0100\n"
+"POT-Creation-Date: 2009-11-03 18:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,43 +16,47 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:43 admin.py:70
+#: admin.py:21
+msgid "Group courses"
+msgstr "Cours de ce groupe"
+
+#: admin.py:58 admin.py:85
 msgid "Username"
 msgstr "Login"
 
-#: admin.py:44 admin.py:71 templates/coaching/create_logins3.html:40
+#: admin.py:59 admin.py:86 templates/coaching/create_logins3.html:40
 msgid "Password"
 msgstr "Mot de passe"
 
-#: admin.py:46 admin.py:72
+#: admin.py:61 admin.py:87
 msgid "Password confirmation"
 msgstr "Confirmation du mot de passe"
 
-#: admin.py:57 admin.py:90 forms.py:35
+#: admin.py:72 admin.py:105 forms.py:35
 msgid "The two password fields didn't match."
 msgstr "Les deux mots de passe ne concordent pas."
 
-#: admin.py:84
+#: admin.py:99
 msgid "A user with that username already exists."
 msgstr "Un utilisateur avec ce login existe déjà."
 
-#: admin.py:106 templates/coaching/change_profile.html:22
+#: admin.py:121 templates/coaching/change_profile.html:22
 msgid "Identity"
 msgstr "Informations personnelles"
 
-#: admin.py:108
+#: admin.py:123
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: admin.py:109
+#: admin.py:124
 msgid "Permissions"
 msgstr ""
 
-#: admin.py:110
+#: admin.py:125
 msgid "Important dates"
 msgstr "Dates importantes"
 
-#: admin.py:111
+#: admin.py:126
 msgid "Groups"
 msgstr "Groupes"
 
@@ -139,6 +143,20 @@ msgstr ""
 #: templates/coaching/create_logins3.html:29
 msgid "Send credentials by mail"
 msgstr "Envoi des informations par mail"
+
+#: forms.py:73
+#, fuzzy
+msgid "File name"
+msgstr "Prénom"
+
+#: forms.py:85
+msgid "Filetype should be .doc, .docx, .xls, .xslx, .pdf or .zip"
+msgstr ""
+
+#: forms.py:90
+#, python-format
+msgid "Maximum size allowed is 1 Mo, this file is %.2f Mo"
+msgstr ""
 
 #: models.py:36
 msgid "Customer name, required."
@@ -287,6 +305,18 @@ msgstr "Description de l'évènement, requis."
 #: models.py:198
 msgid "Event"
 msgstr "Évènement"
+
+#: models.py:298
+msgid "Directions"
+msgstr ""
+
+#: models.py:305
+msgid "Assignment"
+msgstr ""
+
+#: models.py:306
+msgid "Assignments"
+msgstr ""
 
 #: views.py:33
 msgid "Changes saved successfully."
