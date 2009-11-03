@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-18 16:01+0200\n"
+"POT-Creation-Date: 2009-11-03 16:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,17 +16,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:116
+#: controllers.py:176
 #, python-format
 msgid "This course will not open before %s"
 msgstr "Ouverture possible à partir du %s"
 
-#: controllers.py:119
+#: controllers.py:179
 #, python-format
 msgid "Completed on %s"
 msgstr "Validé le %s"
 
-#: controllers.py:121
+#: controllers.py:181
 #, python-format
 msgid "Deadline is %s"
 msgstr "À valider pour le %s"
@@ -83,35 +83,72 @@ msgstr "document texte"
 msgid "spreadsheet"
 msgstr "feuille de calcul"
 
-#: views.py:29
+#: views.py:31 views.py:150
 msgid "Requested url is invalid."
 msgstr "L'url demandée est invalide."
 
-#: views.py:36
+#: views.py:38
 msgid "Requested content does not exist"
 msgstr "Le contenu demandé n'existe pas."
 
-#: views.py:40
+#: views.py:42
 msgid "Requested content is not allowed."
 msgstr "Le contenu demandé n'est pas autorisé actuellement."
 
-#: views.py:49
+#: views.py:51
 msgid "Sorry, this content is not available in your prefered language."
 msgstr "Désolé, ce contenu n'est pas disponible dans la langue demandée."
 
-#: views.py:71 views.py:100
+#: views.py:73 views.py:102
 msgid "You are not allowed to browse the requested content."
 msgstr "Vous n'êtes pas autorisé à voir le contenu demandé."
 
-#: views.py:137 templates/learning/liste_cours.html:10
+#: views.py:139 templates/learning/liste_cours.html:10
 msgid "courses list"
 msgstr "liste des cours"
 
+#: views.py:156
+msgid "Requested assignment does not exist"
+msgstr "Le devoir demandé n'existe pas."
+
+#: templates/learning/assignment.html:9
 #: templates/learning/html_support.html:18
 #: templates/learning/liste_cours.html:10
 #: templates/learning/swf_support.html:16
 msgid "dashboard"
 msgstr "tableau de bord"
+
+#: templates/learning/assignment.html:9
+msgid "assignment"
+msgstr "devoir"
+
+#: templates/learning/assignment.html:13
+msgid "Assignment"
+msgstr "Devoir"
+
+#: templates/learning/assignment.html:18
+msgid "Directions"
+msgstr "Instructions"
+
+#: templates/learning/assignment.html:22
+msgid "Download additional document:"
+msgstr "Télécharger le document :"
+
+#: templates/learning/assignment.html:27
+msgid "Upload your work"
+msgstr "Rendre votre travail"
+
+#: templates/learning/assignment.html:30
+msgid "Succesfully uploaded"
+msgstr "Devoir rendu avec succès"
+
+#: templates/learning/assignment.html:30
+msgid ", signature is"
+msgstr ", la signature est"
+
+#: templates/learning/assignment.html:37
+msgid "Save"
+msgstr "Sauver"
 
 #: templates/learning/html_support.html:23
 msgid ""
@@ -156,3 +193,11 @@ msgstr "Validé le"
 #: templates/learning/tab_cours.html:29
 msgid "Assignments"
 msgstr "Devoirs"
+
+#: templates/learning/tab_cours.html:29
+msgid "Uploaded on"
+msgstr "Rendu le"
+
+#: templates/learning/tab_cours.html:29
+msgid "Signature"
+msgstr ""
