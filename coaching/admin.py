@@ -138,4 +138,5 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('groupe','date','event')
     list_display_links = ('groupe',)
     list_editable = ('date','event')
+    list_filter = ('groupe',)
 admin.site.register(Event, EventAdmin)
