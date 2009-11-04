@@ -15,6 +15,8 @@ def user_may_see(user, contenu):
     Renvoie True si l'utilisateur peut voir le contenu :
     le contenu appartient à un cours ouvert du groupe de l'Utilisateur
     """
+    if user.statut > 1:
+        return True
     modules_key = "Utilisateur.%s.liste_modules_autorises" % user.id
     liste_modules_autorises = cache.get(modules_key)
     if not liste_modules_autorises:
@@ -158,6 +160,8 @@ class UserCours(object):
         - ce cours est le premier pour le groupe
         - le cours précédent est validé
         """
+        if self.user.statut > 0:
+            return True
         if self.user.groupe.is_open:
             return True
         if self.rang == 0:
