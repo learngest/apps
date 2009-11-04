@@ -156,7 +156,7 @@ class Contenu(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return('learning.views.support', [str(self.id)])
+        return('content_view', (), {'contenu_id': str(self.id)})
 
     def long_type(self):
         return DICT_TYPE[self.type]
