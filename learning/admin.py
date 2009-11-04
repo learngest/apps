@@ -32,7 +32,7 @@ class ModuleCoursAdmin(admin.ModelAdmin):
 admin.site.register(ModuleCours, ModuleCoursAdmin)
 
 class ContenuAdmin(admin.ModelAdmin):
-        list_filter = ('langue','type')
+        list_filter = ('langue','type','module',)
         list_display = ('module','ressource','type','langue','titre')
         list_per_page = 30
         search_fields = ('titre',)
