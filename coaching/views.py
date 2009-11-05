@@ -54,7 +54,7 @@ def groupe(request, groupe_id):
         request.user.message_set.create(
                 message=_("This group does not exist."))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
-    if request.user.id != groupe.administrateur.id:
+    if request.user.id != groupe.administrateur.id and not request.user.is_staff:
         request.user.message_set.create(
                 message=_("You do not have admin rights on the requested group."))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
