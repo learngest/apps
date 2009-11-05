@@ -86,16 +86,9 @@ class UserWork(object):
             self.date_remise = wd.date
             self.signature = wd.signature
         except WorkDone.DoesNotExist:
-            self.date_remise = None
+            self.date_remise = False
             self.signature = None
 
-    def state(self):
-        """
-        Renvoie l'état du devoir :
-        - à rendre (lien pour le rendre)
-        - rendu le, avec signature fichier
-        """
-        return "Assignment state"
 
 class UserCours(object):
     """
@@ -105,7 +98,6 @@ class UserCours(object):
         self.user = user
         self.cours = cours
         cdg = CoursDuGroupe.objects.get(cours=self.cours,groupe=self.user.groupe)
-        #cdg = self.user.groupe.cours.get(cours=self.cours)
         self.debut = cdg.debut
         self.fin = cdg.fin
         self.liste_cours = list(user.groupe.cours.order_by('coursdugroupe__rang'))
@@ -128,8 +120,8 @@ class UserCours(object):
         Renvoie la date de validation du cours
         False s'il n'est pas validé
         """
-        #TODO Rajouter le test sur les devoirs aussi
         dates =  [m.date_validation() for m in self.modules()]
+        dates.extend([w.date_remise for w in self.assignments()])
         if False in dates:
             return False
         else:

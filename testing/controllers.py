@@ -243,6 +243,7 @@ class UserSubmittedTest(object):
         Retourne un tuple (score, score_max, validé ?)
         """
         import finance
+        from learning.controllers import UserCours
         enonces = {}
         for quest,rep in self.request.POST.lists():
             if not quest.startswith('rep'):
@@ -281,14 +282,22 @@ class UserSubmittedTest(object):
                     mvalide = False
                     break
             if mvalide:
+                # TODO Maj nb_valides etc.
+                # pb si on fait +=1 et que le module a déjà été validé
                 modules_key = "Utilisateur.%s.liste_modules_autorises" % user.id
                 cache.delete(modules_key)
                 cours_key = "Utilisateur.%s.liste_cours_ouverts" % user.id
                 cache.delete(cours_key)
                 ModuleValide.objects.get_or_create(
                     utilisateur=self.user, module=g.module)
-                #TODO tester si cours est validé
-                # et si oui renseigner nb_cours_valides
+                uc = UserCours(request.user, request.user.current)
+                if uc.date_validation():
+                    request.user.nb_cours_valides += 1
+                    try:
+                        request.user.current = uc.liste_cours[uc.rang+1]
+                    except IndexError:
+                        pass
+            request.user.save()
 
         self.enonces = enonces.values()
         return 
