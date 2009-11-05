@@ -16,7 +16,7 @@
 {% if user.groupe.administrateur %}
 <p>{% trans "This group is managed by" %} {{ user.groupe.administrateur.get_full_name }}</p>
 {% endif %}
-<h2>{% trans "Your planning for the next weeks" %}</h2>
+<h2>{% trans "Your planning for the" %} {{ planning.weeks }} {% trans "next weeks" %}</h2>
 <ul>
 {% for event in planning.events %}
 <li>{{ event.date|date:"d/m/y" }} {{event.event }}</li>

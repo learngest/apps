@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-30 14:29+0100\n"
+"POT-Creation-Date: 2009-11-05 14:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,44 +16,48 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: planning.py:28
+#: planning.py:29
 msgid "Requested date is out of range."
 msgstr "La date choisie est invalide."
 
-#: planning.py:61 planning.py:133
+#: planning.py:62 planning.py:132
 #, python-format
 msgid "Deadline for %s"
 msgstr "Date limite de validation du cours %s"
 
-#: planning.py:86
+#: planning.py:87
 msgid "Mo"
 msgstr "Lu"
 
-#: planning.py:86
+#: planning.py:87
 msgid "Tu"
 msgstr "Ma"
 
-#: planning.py:86
+#: planning.py:87
 msgid "We"
 msgstr "Me"
 
-#: planning.py:86
+#: planning.py:87
 msgid "Th"
 msgstr "Je"
 
-#: planning.py:86
+#: planning.py:87
 msgid "Fr"
 msgstr "Ve"
 
-#: planning.py:86
+#: planning.py:87
 msgid "Sa"
 msgstr ""
 
-#: planning.py:86
+#: planning.py:87
 msgid "Su"
 msgstr "Di"
 
-#: views.py:42 views.py:59 templates/dashboard/admin.html:10
+#: planning.py:139
+msgid "Deadline for assignment %s"
+msgstr "Date limite de remise du devoir %s"
+
+#: views.py:43 views.py:60 templates/dashboard/admin.html:10
 #: templates/dashboard/etudiant.html:10
 msgid "dashboard"
 msgstr "tableau de bord"
@@ -71,8 +75,12 @@ msgid "This group is managed by"
 msgstr "Le responsable du groupe est"
 
 #: templates/dashboard/etudiant.html:19
-msgid "Your planning for the next weeks"
-msgstr "Planning des prochaines semaines"
+msgid "Your planning for the"
+msgstr "Planning des"
+
+#: templates/dashboard/etudiant.html:19
+msgid "next weeks"
+msgstr "prochaines semaines"
 
 #: templates/dashboard/etudiant.html:24
 msgid "Nothing special so far !"

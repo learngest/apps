@@ -34,9 +34,13 @@ def dashboard_student(request):
     """
     cal = Calendrier(request)
     planning = Planning(request)
-    course = UserCours(request.user,
-            request.user.current or \
-            request.user.groupe.cours.order_by('coursdugroupe__rang')[0])
+    if not request.user.current:
+        request.user.current = \
+                request.user.groupe.cours.order_by('coursdugroupe__rang')[0]
+        request.user.save()
+    course = UserCours(request.user, request.user.current)
+#            request.user.current or \
+#            request.user.groupe.cours.order_by('coursdugroupe__rang')[0])
 
 
     return render_to_response('dashboard/etudiant.html',

@@ -2,9 +2,10 @@
 
 import datetime
 import calendar
+from operator import itemgetter
 
 from django.utils.translation import ugettext as _
-from coaching.models import CoursDuGroupe, Event 
+from coaching.models import CoursDuGroupe, Event, Work 
 
 class Calendrier():
     """
@@ -127,14 +128,21 @@ class Planning():
                 groupe = self.groupe,
                 fin__range = (self.date, self.end)
                 )
-#        echeances_cours = self.groupe.cours.filter(
-#                fin__range = (self.date, self.end))
-        events = [{'date': e.fin,
-            'event': _(u'Deadline for %s') % unicode(e.cours.titre(self.user.langue))} for e in echeances_cours]
+        _events = [{'date': e.fin,
+            'event': _(u'Deadline for %s') % unicode(
+                e.cours.titre(self.user.langue))} for e in echeances_cours]
+        for e in echeances_cours:
+            devoirs = Work.objects.filter(groupe=self.groupe, cours=e.cours)
+            for d in devoirs:
+                _events.append({
+                    'date': e.fin,
+                    'event': _(u'Deadline for assignment %s') % unicode( d.titre)
+                    })
         other_events = Event.objects.filter(
                 groupe = self.groupe,
                 date__range = (self.date, self.end)
                 )
-        events.extend(other_events)
-        events.sort()
-        return events
+        _events.extend(
+                [{'date': e.date, 'event': e.event} for e in other_events])
+        _events = sorted(_events, key=itemgetter('date'))
+        return _events
