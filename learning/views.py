@@ -210,6 +210,15 @@ def assignment(request, work_id=None):
                                         'w',zipfile.ZIP_DEFLATED)
                     zf.write(os.path.join(settings.MEDIA_ROOT,'workdone',fichier))
                     zf.close()
+                    # cours validé ?
+                    uc = UserCours(request.user, request.user.current)
+                    if uc.date_validation():
+                        request.user.nb_cours_valides += 1
+                        try:
+                            request.user.current = uc.liste_cours[uc.rang+1]
+                        except IndexError:
+                            pass
+                    request.user.save()
                     return render_to_response('learning/assignment.html',{
                              'work': work,
                              'fichier': fichier,
