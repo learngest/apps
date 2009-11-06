@@ -210,6 +210,7 @@ def assignment(request, work_id=None):
                                         'w',zipfile.ZIP_DEFLATED)
                     zf.write(os.path.join(settings.MEDIA_ROOT,'workdone',fichier))
                     zf.close()
+                    request.user.nb_travaux_rendus += 1
                     # cours validé ?
                     uc = UserCours(request.user, request.user.current)
                     if uc.date_validation():
