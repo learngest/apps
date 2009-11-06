@@ -17,7 +17,7 @@ from django.template.defaulttags import include_is_allowed
 from learning.models import Cours, Module, Contenu, ModuleTitre
 from coaching.models import Work, WorkDone
 from coaching.forms import WorkForm
-from learning.controllers import UserCours, UserModule, user_may_see
+from learning.controllers import UserCours, UserModule
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -37,7 +37,7 @@ def support(request, contenu_id=None):
         request.user.message_set.create(
                 message=_("Requested content does not exist"))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
-    if not user_may_see(request.user, contenu):
+    if not UserModule(request.user, contenu.module).is_open():
         request.user.message_set.create(
                 message=_("Requested content is not allowed."))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
