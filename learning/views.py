@@ -155,6 +155,10 @@ def assignment(request, work_id=None):
         request.user.message_set.create(
                 message=_("Requested assignment does not exist"))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if not UserCours(request.user, work.cours).is_open():
+        request.user.message_set.create(
+                message=_("Requested assignment is not allowed"))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     if work.fichier.path:
         work.fname = os.path.basename(work.fichier.path)
     if request.method == 'POST':

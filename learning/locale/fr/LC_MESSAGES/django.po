@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-03 16:18+0100\n"
+"POT-Creation-Date: 2009-11-06 12:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,17 +16,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:176
+#: controllers.py:162
 #, python-format
 msgid "This course will not open before %s"
 msgstr "Ouverture possible à partir du %s"
 
-#: controllers.py:179
+#: controllers.py:165
 #, python-format
 msgid "Completed on %s"
 msgstr "Validé le %s"
 
-#: controllers.py:181
+#: controllers.py:167
 #, python-format
 msgid "Deadline is %s"
 msgstr "À valider pour le %s"
@@ -110,6 +110,10 @@ msgstr "liste des cours"
 #: views.py:156
 msgid "Requested assignment does not exist"
 msgstr "Le devoir demandé n'existe pas."
+
+#: views.py:160
+msgid "Requested assignment is not allowed"
+msgstr "Le devoir demandé n'est pas autorisé actuellement."
 
 #: templates/learning/assignment.html:9
 #: templates/learning/html_support.html:18
