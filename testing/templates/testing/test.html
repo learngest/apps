@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt;  tests &gt; {{ test.titre }} {{ breadcrumb }}
+    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt;  test : {{ test.titre }} {{ breadcrumb }}
 </div>{% endblock %}
 
 {% block content %}
