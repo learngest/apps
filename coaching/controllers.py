@@ -49,7 +49,6 @@ class UserState(object):
         Nombre de cours validés, stocké dans Utilisateur ou recalculé
         """
         if self.user.nb_cours_valides is None:
-            print "calcul nb_cours_valides"
             self.user.nb_cours_valides = \
                     len([1 for uc in self._usercours() if uc.date_validation()])
             self.user.save()
@@ -60,7 +59,6 @@ class UserState(object):
         Nombre de travaux rendus, stocké dans Utilisateur ou recalculé
         """
         if self.user.nb_travaux_rendus is None:
-            print "calcul nb_travaux_rendus"
             self.user.nb_travaux_rendus = \
                     WorkDone.objects.filter(utilisateur=self.user).count()
             self.user.save()
