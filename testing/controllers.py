@@ -274,30 +274,48 @@ class UserSubmittedTest(object):
         r.save()
         self.valide = score >= q.granule.score_min
         if self.valide:
-            GranuleValide.objects.get_or_create(
-                    utilisateur=self.user, granule=g, defaults={'score': score})
+            # si déjà validé, on conserve l'ancien score
+            try:
+                GranuleValide.objects.get(
+                        utilisateur=self.user,
+                        granule=g)
+            except GranuleValide.DoesNotExist:
+                gv = GranuleValide(
+                        utilisateur=self.user,
+                        granule=g,
+                        score=score)
+                gv.save()
             mvalide = True
             for gr in g.module.granule_set.all():
                 if self.user.granulevalide_set.filter(granule=gr).count() == 0:
                     mvalide = False
                     break
             if mvalide:
-                # TODO Maj nb_valides etc.
-                # pb si on fait +=1 et que le module a déjà été validé
-                modules_key = "Utilisateur.%s.liste_modules_autorises" % user.id
+                modules_key = \
+                        "Utilisateur.%s.liste_modules_autorises" % self.user.id
                 cache.delete(modules_key)
-                cours_key = "Utilisateur.%s.liste_cours_ouverts" % user.id
+                cours_key = "Utilisateur.%s.liste_cours_ouverts" % self.user.id
                 cache.delete(cours_key)
-                ModuleValide.objects.get_or_create(
-                    utilisateur=self.user, module=g.module)
-                uc = UserCours(request.user, request.user.current)
-                if uc.date_validation():
-                    request.user.nb_cours_valides += 1
-                    try:
-                        request.user.current = uc.liste_cours[uc.rang+1]
-                    except IndexError:
-                        pass
-            request.user.save()
+                # si module déjà validé on ne fait rien
+                try:
+                    ModuleValide.objects.get(
+                            utilisateur=self.user,
+                            module=g.module)
+                except ModuleValide.DoesNotExist:
+                    mv = ModuleValide(
+                            utilisateur=self.user,
+                            module=g.module)
+                    mv.save()
+                    self.user.nb_valides +=1
+                    # module validé, est-ce que ça valide le cours ?
+                    uc = UserCours(self.user, self.user.current)
+                    if uc.date_validation():
+                        self.user.nb_cours_valides += 1
+                        try:
+                            self.user.current = uc.liste_cours[uc.rang+1]
+                        except IndexError:
+                            pass
+            self.user.save()
 
         self.enonces = enonces.values()
         return 
