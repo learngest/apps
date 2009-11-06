@@ -9,6 +9,9 @@ from django.conf import settings
 
 from testing.models import Granule
 from testing.controllers import UserTest, UserSubmittedTest
+from learning.controllers import UserModule
+
+LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
 @login_required
 def test(request, granule_id=None):
@@ -32,6 +35,10 @@ def test(request, granule_id=None):
     except Granule.DoesNotExist:
         request.user.message_set.create(
                 message=_("Requested test does not exist"))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if not UserModule(request.user, granule.module).is_open():
+        request.user.message_set.create(
+                message=_("Requested test is not allowed."))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     test = UserTest(request.user, granule, langue)
     return render_to_response('testing/test.html',{

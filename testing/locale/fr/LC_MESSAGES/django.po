@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-16 18:05+0200\n"
+"POT-Creation-Date: 2009-11-06 11:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,27 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:58
+#: controllers.py:75
 msgid "We are sorry, this content is not available in your preferred language."
-msgstr "Nous sommes désolés, ce test n'est pas disponible dans la langue demandée."
+msgstr ""
+"Nous sommes désolés, ce test n'est pas disponible dans la langue demandée."
 
-#: controllers.py:125 controllers.py:199 controllers.py:220
+#: controllers.py:142 controllers.py:216 controllers.py:237
 msgid "nothing"
 msgstr "aucune réponse"
 
-#: views.py:22 templates/testing/noter.html:5
+#: views.py:25 templates/testing/noter.html:5
 msgid "grade"
 msgstr "notation"
 
-#: views.py:27
+#: views.py:30
 msgid "Requested url is invalid."
 msgstr "L'URL demandée est invalide."
 
-#: views.py:34
+#: views.py:37
 msgid "Requested test does not exist"
 msgstr "Le test demandé n'existe pas"
 
-#: views.py:38
+#: views.py:41
+msgid "Requested test is not allowed."
+msgstr "Vous n'êtes pas autorisé à faire le test demandé."
+
+#: views.py:45
 msgid "test"
 msgstr ""
 
@@ -55,6 +60,10 @@ msgstr "Score final"
 #: templates/testing/noter.html:21
 msgid "Congratulations, you succeeded !"
 msgstr "Bravo, vous avez réussi ce test !"
+
+#: templates/testing/noter.html:21
+msgid "Back to your dashboard"
+msgstr "Retour au tableau de bord"
 
 #: templates/testing/noter.html:23
 msgid "Your score is too low, please try again."
