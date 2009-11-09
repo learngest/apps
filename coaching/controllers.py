@@ -20,7 +20,8 @@ class AdminGroupe(object):
         self.is_demo = self.groupe.is_demo
         self.get_absolute_url = self.groupe.get_absolute_url()
         self.nb_logins = Utilisateur.objects.filter(groupe=groupe).count()
-        self.nb_cours = self.groupe.coursdugroupe_set.all().count()
+        #self.nb_cours = self.groupe.coursdugroupe_set.all().count()
+        self.nb_cours = self.groupe.cours.count()
         self.nb_works = Work.objects.filter(groupe=self.groupe).count()
 
     def users(self):
@@ -42,49 +43,77 @@ class UserState(object):
         self.last_login = user.last_login
 
     def _usercours(self):
-        return [UserCours(self.user, c) for c in self.user.groupe.cours.all()]
+        return [UserCours(self.user, c) for c in self.user.groupe.cours.order_by('coursdugroupe__rang')]
 
-    def nb_cours_valides(self):
+    def nb_cours(self):
         """
-        Nombre de cours validés, stocké dans Utilisateur ou recalculé
+        Retourne le nombre de cours auxquels l'utilisateur est inscrit
         """
-        if self.user.nb_cours_valides is None:
+        return self.user.groupe.cours.count()
+
+    def nb_cours_valides(self, recalcul=False):
+        """
+        Nombre de cours validés, 
+        stocké dans Utilisateur.nb_cours_valides ou recalculé
+        """
+        if self.user.nb_cours_valides is None or recalcul:
             self.user.nb_cours_valides = \
                     len([1 for uc in self._usercours() if uc.date_validation()])
             self.user.save()
         return self.user.nb_cours_valides
 
-    def nb_travaux_rendus(self):
+    def nb_travaux_rendus(self, recalcul=False):
         """
-        Nombre de travaux rendus, stocké dans Utilisateur ou recalculé
+        Nombre de travaux rendus, 
+        stocké dans Utilisateur.nb_travaux_rendus ou recalculé
         """
-        if self.user.nb_travaux_rendus is None:
+        if self.user.nb_travaux_rendus is None or recalcul:
             self.user.nb_travaux_rendus = \
                     WorkDone.objects.filter(utilisateur=self.user).count()
             self.user.save()
         return self.user.nb_travaux_rendus
 
-    def cours_courant(self):
+    def cours_courant(self, recalcul=False):
         """
-        Retourne le usercours "courant", c-a-d celui qui suit le dernier validé
+        UserCours "courant", c-a-d celui qui suit le dernier validé
+        Le cours courant est stocké dans Utilisateur.current 
         """
-        ucs = self._usercours()
-        if not ucs:
-            return None
-        else:
-            for uc in ucs:
-                if not uc.date_validation():
-                    return uc
-            return ucs[-1]
+        if self.user.current is None or recalcul:
+            ucs = self._usercours()
+            if not ucs:
+                return None
+            else:
+                for uc in ucs:
+                    if not uc.date_validation():
+                        self.user.current = uc.cours
+                        self.user.save()
+                        return uc
+                self.user.current = ucs[-1].cours
+                self.user.save()
+                return ucs[-1]
+        return UserCours(self.user, self.user.current)
 
-    def nb_modules_valides_in_current(self):
+    def nb_modules_in_current(self, recalcul=False):
         """
-        Retourne le nb de modules validés dans le usercours "courant"
+        Nombre de modules dans le usercours courant
+        stocké dans Utilisateur.nb_modules ou recalculé
         """
-        courant = self.cours_courant()
-        valides = len(courant.modules_valides())
-        total = len(courant.modules())
-        return "%d / %d" % (valides, total)
+        if self.user.nb_modules is None or recalcul:
+            courant = self.cours_courant()
+            self.user.nb_modules = len(courant.modules())
+            self.user.save()
+        return self.user.nb_modules
+
+    def nb_modules_valides_in_current(self, recalcul=False):
+        """
+        Nombre de modules validés dans le usercours "courant"
+        stocké dans Utilisateur.nb_valides ou recalculé
+        """
+        if self.user.nb_valides is None or recalcul:
+            courant = self.cours_courant()
+            self.user.nb_valides = len(courant.modules_valides())
+            self.user.save()
+        return self.user.nb_valides
 
     def state(self):
         state = []

@@ -311,6 +311,9 @@ class UserSubmittedTest(object):
                     uc = UserCours(self.user, self.user.current)
                     if uc.date_validation():
                         self.user.nb_cours_valides += 1
+                        # nouveau cours, raz nb_modules et nb_valides
+                        self.user.nb_modules = None
+                        self.user.nb_valides = 0
                         try:
                             self.user.current = uc.liste_cours[uc.rang+1]
                         except IndexError:

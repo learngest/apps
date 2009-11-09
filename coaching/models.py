@@ -95,6 +95,7 @@ class Groupe(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
+        #return('group_view', (), {'groupe_id': str(self.id)})
         return('coaching.views.groupe', [str(self.id)])
 
 class CoursDuGroupe(models.Model):
@@ -154,18 +155,18 @@ class Utilisateur(User):
 
     nb_modules = models.IntegerField(
             _("# modules"),
-            default=0, editable=False)
+            null=True, editable=False)
     nb_valides = models.IntegerField(
             _("# completed"),
-            default=0, editable=False)
+            null=True, editable=False)
     # nb de modules validés, mais en retard
     nb_retards = models.IntegerField(
             _("# completed late"),
-            default=0, editable=False)
+            null=True, editable=False)
     # nb de retards courant
     nb_actuel = models.IntegerField(
             _("# currently late"),
-            default=0, editable=False)
+            null=True, editable=False)
 
     # inutilisé, réservé
     tempspasse = models.IntegerField(blank=True, null=True, editable=False)
