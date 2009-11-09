@@ -76,6 +76,7 @@ class UserState(object):
     def cours_courant(self, recalcul=False):
         """
         UserCours "courant", c-a-d celui qui suit le dernier validé
+        s'il est ouvert, le dernier validé sinon.
         Le cours courant est stocké dans Utilisateur.current 
         """
         if self.user.current is None or recalcul:
@@ -84,10 +85,16 @@ class UserState(object):
                 return None
             else:
                 for uc in ucs:
-                    if not uc.date_validation():
-                        self.user.current = uc.cours
-                        self.user.save()
-                        return uc
+                    if uc.date_validation() is False:
+                        if uc.debut <= datetime.datetime.now():
+                            self.user.current = uc.cours
+                            self.user.save()
+                            return uc
+                        else:
+                            ucurrent = uc.prec() or ucs[0]
+                            self.user.current = ucurrent.cours
+                            self.user.save()
+                            return ucurrent
                 self.user.current = ucs[-1].cours
                 self.user.save()
                 return ucs[-1]

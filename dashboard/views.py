@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 from dashboard.planning import Calendrier, Planning
 from learning.controllers import UserCours
-from coaching.controllers import AdminGroupe
+from coaching.controllers import AdminGroupe, UserState
 from coaching.models import Groupe
 
 @login_required
@@ -34,13 +34,9 @@ def dashboard_student(request):
     """
     cal = Calendrier(request)
     planning = Planning(request)
-    if not request.user.current:
-        request.user.current = \
-                request.user.groupe.cours.order_by('coursdugroupe__rang')[0]
-        request.user.save()
-    course = UserCours(request.user, request.user.current)
-#            request.user.current or \
-#            request.user.groupe.cours.order_by('coursdugroupe__rang')[0])
+    us = UserState(request.user)
+    course = us.cours_courant(recalcul=True)
+    #course = UserCours(request.user, request.user.current)
 
 
     return render_to_response('dashboard/etudiant.html',

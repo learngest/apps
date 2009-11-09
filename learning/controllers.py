@@ -109,6 +109,7 @@ class UserCours(object):
         """
         Renvoie la date de validation du cours
         False s'il n'est pas validé
+        None s'il n'y a pas de tests dans le cours
         """
         dates =  [m.date_validation() for m in self.modules()]
         dates.extend([w.date_remise for w in self.assignments()])
