@@ -54,10 +54,13 @@ def groupe(request, groupe_id):
         request.user.message_set.create(
                 message=_("This group does not exist."))
         return HttpResponseRedirect(LOGIN_REDIRECT_URL)
-    if request.user.id != groupe.administrateur.id and not request.user.is_staff:
-        request.user.message_set.create(
-                message=_("You do not have admin rights on the requested group."))
-        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if not request.user.is_staff:
+        if not groupe.administrateur or \
+                request.user.id != groupe.administrateur.id:
+            request.user.message_set.create(
+                    message=_(
+                        "You do not have admin rights on the requested group."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     groupe = AdminGroupe(request.user, groupe)
     return render_to_response('coaching/groupe.html',
                               {'title': _('Group students'),
