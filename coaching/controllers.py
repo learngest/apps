@@ -68,7 +68,7 @@ class UserState(object):
         """
         return self.user.groupe.cours.count()
 
-    def nb_cours_valides(self, recalcul=False):
+    def nb_cours_valides(self, recalcul=False, sauve=True):
         """
         Nombre de cours validés, 
         stocké dans Utilisateur.nb_cours_valides ou recalculé
@@ -76,10 +76,11 @@ class UserState(object):
         if self.user.nb_cours_valides is None or recalcul:
             self.user.nb_cours_valides = \
                     len([1 for uc in self._usercours() if uc.date_validation()])
-            self.user.save()
+            if sauve:
+                self.user.save()
         return self.user.nb_cours_valides
 
-    def nb_travaux_rendus(self, recalcul=False):
+    def nb_travaux_rendus(self, recalcul=False, sauve=True):
         """
         Nombre de travaux rendus, 
         stocké dans Utilisateur.nb_travaux_rendus ou recalculé
@@ -87,10 +88,11 @@ class UserState(object):
         if self.user.nb_travaux_rendus is None or recalcul:
             self.user.nb_travaux_rendus = \
                     WorkDone.objects.filter(utilisateur=self.user).count()
-            self.user.save()
+            if sauve:
+                self.user.save()
         return self.user.nb_travaux_rendus
 
-    def cours_courant(self, recalcul=False):
+    def cours_courant(self, recalcul=False, sauve=True):
         """
         UserCours "courant", c-a-d celui qui suit le dernier validé
         s'il est ouvert, le dernier validé sinon.
@@ -105,19 +107,22 @@ class UserState(object):
                     if uc.date_validation() is False:
                         if uc.debut <= datetime.datetime.now():
                             self.user.current = uc.cours
-                            self.user.save()
+                            if sauve:
+                                self.user.save()
                             return uc
                         else:
                             ucurrent = uc.prec() or ucs[0]
                             self.user.current = ucurrent.cours
-                            self.user.save()
+                            if sauve:
+                                self.user.save()
                             return ucurrent
                 self.user.current = ucs[-1].cours
-                self.user.save()
+                if sauve:
+                    self.user.save()
                 return ucs[-1]
         return UserCours(self.user, self.user.current)
 
-    def nb_modules_in_current(self, recalcul=False):
+    def nb_modules_in_current(self, recalcul=False, sauve=True):
         """
         Nombre de modules dans le usercours courant
         stocké dans Utilisateur.nb_modules ou recalculé
@@ -128,10 +133,11 @@ class UserState(object):
                 self.user.nb_modules = len(courant.modules())
             else:
                 self.user.nb_modules = 0
-            self.user.save()
+            if sauve:
+                self.user.save()
         return self.user.nb_modules
 
-    def nb_modules_valides_in_current(self, recalcul=False):
+    def nb_modules_valides_in_current(self, recalcul=False, sauve=True):
         """
         Nombre de modules validés dans le usercours "courant"
         stocké dans Utilisateur.nb_valides ou recalculé
@@ -142,7 +148,8 @@ class UserState(object):
                 self.user.nb_valides = len(courant.modules_valides())
             else:
                 self.user.nb_valides = 0
-            self.user.save()
+            if sauve:
+                self.user.save()
         return self.user.nb_valides
 
     def state(self):
