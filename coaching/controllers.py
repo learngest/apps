@@ -124,7 +124,10 @@ class UserState(object):
         """
         if self.user.nb_modules is None or recalcul:
             courant = self.cours_courant()
-            self.user.nb_modules = len(courant.modules())
+            if courant:
+                self.user.nb_modules = len(courant.modules())
+            else:
+                self.user.nb_modules = 0
             self.user.save()
         return self.user.nb_modules
 
@@ -135,7 +138,10 @@ class UserState(object):
         """
         if self.user.nb_valides is None or recalcul:
             courant = self.cours_courant()
-            self.user.nb_valides = len(courant.modules_valides())
+            if courant:
+                self.user.nb_valides = len(courant.modules_valides())
+            else:
+                self.user.nb_valides = 0
             self.user.save()
         return self.user.nb_valides
 
