@@ -187,9 +187,8 @@ def assignment(request, work_id=None):
                             signature=signature)
                     wd.fichier.save(fichier, content, save=True)
                     # groupe-cours zipfile
-                    zfichier = ''.join(('g%d' % request.user.groupe.id,'-', 
-                                        work.cours.slug,
-                                        '.zip'))
+                    zfichier = 'g%d-%s.zip' % (request.user.groupe.id,
+                            work.cours.slug)
                     try:
                         zf = zipfile.ZipFile(
                             os.path.join(settings.MEDIA_ROOT,'workdone',zfichier),
