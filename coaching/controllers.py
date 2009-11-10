@@ -4,6 +4,7 @@ import datetime
 
 from django.utils.translation import ugettext as _
 #from django.core.cache import cache
+from django.conf import settings
 
 from coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone
 from learning.controllers import UserModule, UserCours
@@ -30,6 +31,22 @@ class AdminGroupe(object):
         """
         return [UserState(u) for u in
                 Utilisateur.objects.filter(groupe=self.groupe)]
+
+    def workdone(self):
+        """
+        Return group assignments to download,
+        as a list of zipfiles
+        """
+        import os.path
+        lworkdone = []
+        for c in self.groupe.cours:
+            zipname = 'g%d-%s.zip' % (self.groupe.id, c.slug)
+            zipfile = os.path.join(settings.MEDIA_ROOT,
+                    settings.WORKDONE_DIR,zipname)
+            if os.path.exists(zipfile):
+                lwordone.append(zipname)
+        return lworkdone
+
 
 class UserState(object):
     """

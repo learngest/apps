@@ -7,6 +7,14 @@
 
 {% block content %}
 <h2>{{ groupe.nom }}</h2>
+{%if groupe.workdone %}
+<p>{% trans "Download works from this group:" %}</p>
+<ul>
+{% for work in groupe.workdone %}
+<li class="nop"><a href="{{ media_url }}{{ wordone }}/{{ work }}">{{ work }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
 <table>
     <thead>
         <tr><th rowspan="2">{% trans "Name" %}</th><th rowspan="2">{% trans "Email" %}</th><th rowspan="2">{% trans "Last login" %}</th><th style="text-align:center;">{% trans "Completed <br />courses" %}<th style="text-align:center;">{% trans "Uploaded<br />works" %}</th><th style="text-align:center;" colspan="2">{% trans "Current course" %}</th><th rowspan="2">{% trans "Problems" %}</th></tr>
