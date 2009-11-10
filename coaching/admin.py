@@ -125,10 +125,29 @@ class UtilisateurAdmin(UserAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('Groups'), {'fields': ('groups',)}),
     )
-    list_display = ('groupe', 'email', 'last_name', 'first_name')
+    list_display = ('groupe_short_name','email', 'full_name',
+            'cours_valides','travaux_rendus',)
     list_display_links = ('email',)
     list_filter = ('groupe', 'langue', 'fermeture')
     search_fields = ('email', 'last_name',)
+
+    def groupe_short_name(self, obj):
+        return obj.groupe.nom[:19]
+    groupe_short_name.short_description = 'Group'
+
+    def full_name(self, obj):
+        return obj.get_full_name()
+    full_name.short_description = 'Name'
+
+    def cours_valides(self, obj):
+        return "%s / %s" % (obj.nb_cours_valides, obj.groupe.cours.count())
+    cours_valides.short_description = 'Completed courses'
+
+    def travaux_rendus(self, obj):
+        return "%s / %s" % (obj.nb_travaux_rendus,
+                Work.objects.filter(groupe=obj.groupe).count()) 
+    travaux_rendus.short_description = 'Uploaded assignments'
+
 admin.site.register(Utilisateur, UtilisateurAdmin)
 
 class EventAdmin(admin.ModelAdmin):
