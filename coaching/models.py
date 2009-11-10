@@ -321,7 +321,7 @@ class WorkDone(models.Model):
     utilisateur = models.ForeignKey(Utilisateur)
     work = models.ForeignKey(Work)
     date = models.DateTimeField()
-    fichier = models.FileField(upload_to='workdone')
+    fichier = models.FileField(upload_to=settings.WORKDONE_DIR)
     signature = models.CharField(max_length=54)
 
     class Meta:

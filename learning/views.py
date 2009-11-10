@@ -191,13 +191,16 @@ def assignment(request, work_id=None):
                             work.cours.slug)
                     try:
                         zf = zipfile.ZipFile(
-                            os.path.join(settings.MEDIA_ROOT,'workdone',zfichier),
+                            os.path.join(settings.MEDIA_ROOT,
+                                        settings.WORKDONE_DIR,zfichier),
                                         'a',zipfile.ZIP_DEFLATED)
                     except IOError:
                         zf = zipfile.ZipFile(
-                            os.path.join(settings.MEDIA_ROOT,'workdone',zfichier),
+                            os.path.join(settings.MEDIA_ROOT,
+                                        settings.WORKDONE_DIR,zfichier),
                                         'w',zipfile.ZIP_DEFLATED)
-                    zf.write(os.path.join(settings.MEDIA_ROOT,'workdone',fichier))
+                    zf.write(os.path.join(settings.MEDIA_ROOT,
+                                    settings.WORKDONE_DIR,fichier))
                     zf.close()
                     # login zipfile
                     zfichier = ''.join(('g%d' % request.user.groupe.id,'-', 
@@ -205,13 +208,16 @@ def assignment(request, work_id=None):
                                         '.zip'))
                     try:
                         zf = zipfile.ZipFile(
-                            os.path.join(settings.MEDIA_ROOT,'workdone',zfichier),
+                            os.path.join(settings.MEDIA_ROOT,
+                                        settings.WORKDONE_DIR,zfichier),
                                         'a',zipfile.ZIP_DEFLATED)
                     except IOError:
                         zf = zipfile.ZipFile(
-                            os.path.join(settings.MEDIA_ROOT,'workdone',zfichier),
+                            os.path.join(settings.MEDIA_ROOT,
+                                        settings.WORKDONE_DIR,zfichier),
                                         'w',zipfile.ZIP_DEFLATED)
-                    zf.write(os.path.join(settings.MEDIA_ROOT,'workdone',fichier))
+                    zf.write(os.path.join(settings.MEDIA_ROOT,
+                            settings.WORKDONE_DIR,fichier))
                     zf.close()
                     request.user.nb_travaux_rendus += 1
                     # cours validé ?
