@@ -19,7 +19,7 @@ class UserModule(object):
         self.module = module
         self.titre = self.module.titre(self.user.langue)
         self.contents = Contenu.objects.filter(module=self.module,
-                langue=self.user.langue)
+                langue=self.user.langue).order_by('type')
 
     def tests(self):
         return [UserGranule(self.user,g) \
