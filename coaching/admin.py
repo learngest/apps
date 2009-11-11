@@ -132,21 +132,25 @@ class UtilisateurAdmin(UserAdmin):
     search_fields = ('email', 'last_name',)
 
     def groupe_short_name(self, obj):
-        return obj.groupe.nom[:19]
-    groupe_short_name.short_description = 'Group'
+        return "<a href=\"%s\">%s</a>" % (
+                obj.groupe.get_absolute_url(), obj.groupe.nom[:19])
+    groupe_short_name.short_description = _('Group')
+    groupe_short_name.allow_tags = True
+    groupe_short_name.admin_order_field = 'groupe'
 
     def full_name(self, obj):
         return obj.get_full_name()
-    full_name.short_description = 'Name'
+    full_name.short_description = _('Name')
+    full_name.admin_order_field = 'last_name'
 
     def cours_valides(self, obj):
         return "%s / %s" % (obj.nb_cours_valides, obj.groupe.cours.count())
-    cours_valides.short_description = 'Completed courses'
+    cours_valides.short_description = _('Completed courses')
 
     def travaux_rendus(self, obj):
         return "%s / %s" % (obj.nb_travaux_rendus,
                 Work.objects.filter(groupe=obj.groupe).count()) 
-    travaux_rendus.short_description = 'Uploaded assignments'
+    travaux_rendus.short_description = _('Uploaded assignments')
 
 admin.site.register(Utilisateur, UtilisateurAdmin)
 
