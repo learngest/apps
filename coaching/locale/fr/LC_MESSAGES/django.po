@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-09 18:08+0100\n"
+"POT-Creation-Date: 2009-11-11 18:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,37 +60,60 @@ msgstr "Dates importantes"
 msgid "Groups"
 msgstr "Groupes"
 
-#: controllers.py:128
+#: admin.py:137 forms.py:61 templates/coaching/change_profile.html:18
+#: templates/coaching/change_profile.html:19
+#: templates/coaching/create_logins.html:26
+#: templates/coaching/create_logins2.html:15
+#: templates/coaching/create_logins2.html:17
+#: templates/coaching/create_logins3.html:14
+#: templates/coaching/create_logins3.html:16
+#: templates/coaching/tab_groupes.html:4
+msgid "Group"
+msgstr "Groupe"
+
+#: admin.py:143 templates/coaching/groupe.html:20
+msgid "Name"
+msgstr "Nom"
+
+#: admin.py:148
+msgid "Completed courses"
+msgstr "Cours validés"
+
+#: admin.py:153
+msgid "Uploaded assignments"
+msgstr "Devoirs rendus"
+
+#: controllers.py:165
 #, python-format
 msgid "Module %(titre)s completed on %(date)s"
 msgstr "Module %(titre)s validé le %(date)s"
 
-#: controllers.py:135 controllers.py:144
+#: controllers.py:172 controllers.py:181
 #, python-format
 msgid "Course %(titre)s completed on %(date)s"
 msgstr "Cours %(titre)s validé le %(date)s"
 
-#: controllers.py:154
+#: controllers.py:191
 #, python-format
 msgid "Working on module %s"
 msgstr "Module en cours : %s"
 
-#: controllers.py:168
+#: controllers.py:205
 #, python-format
 msgid "Late on %s"
 msgstr "En retard sur %s"
 
-#: controllers.py:171
+#: controllers.py:208
 #, python-format
 msgid "%d courses completed late"
 msgstr "%d cours validés en retard"
 
-#: controllers.py:177
+#: controllers.py:214
 #, python-format
 msgid "Closed on %s"
 msgstr "Fermé le %s"
 
-#: controllers.py:179
+#: controllers.py:216
 #, python-format
 msgid "Will close on %s"
 msgstr "Sera fermé le %s"
@@ -106,17 +129,6 @@ msgstr "Confirmation du nouveau mot de passe"
 #: forms.py:60 templates/coaching/create_logins2.html:10
 msgid "Source file"
 msgstr "Fichier source"
-
-#: forms.py:61 templates/coaching/change_profile.html:18
-#: templates/coaching/change_profile.html:19
-#: templates/coaching/create_logins.html:26
-#: templates/coaching/create_logins2.html:15
-#: templates/coaching/create_logins2.html:17
-#: templates/coaching/create_logins3.html:14
-#: templates/coaching/create_logins3.html:16
-#: templates/coaching/tab_groupes.html:4
-msgid "Group"
-msgstr "Groupe"
 
 #: forms.py:63 templates/coaching/create_logins2.html:24
 #: templates/coaching/create_logins3.html:23
@@ -281,7 +293,7 @@ msgstr "Nb validés en retard"
 msgid "# currently late"
 msgstr "Actuellement en retard"
 
-#: models.py:178 views.py:74
+#: models.py:178 views.py:91
 msgid "User"
 msgstr "Utilisateur"
 
@@ -329,40 +341,45 @@ msgstr "Profil"
 msgid "This group does not exist."
 msgstr "Ce groupe n'existe pas."
 
-#: views.py:59
+#: views.py:62 views.py:87
 msgid "You do not have admin rights on the requested group."
 msgstr "Vous n'êtes pas administrateur du groupe demandé."
 
-#: views.py:63
+#: views.py:66
 msgid "Group students"
 msgstr "Membres du groupe"
 
-#: views.py:115
+#: views.py:80
+msgid "This user does not exist."
+msgstr "Cet utilisateur n'existe pas."
+
+#: views.py:133
 msgid "Exists already."
 msgstr "Existe déjà."
 
-#: views.py:125
+#: views.py:143
 msgid "Saved."
 msgstr "Créé."
 
-#: views.py:139
+#: views.py:157
 msgid "Mail sent."
 msgstr "Mail envoyé."
 
-#: views.py:141
+#: views.py:159
 msgid "Mail error."
 msgstr "Erreur mail."
 
-#: views.py:151 views.py:190 views.py:203 views.py:214 views.py:223
+#: views.py:169 views.py:208 views.py:221 views.py:232 views.py:241
 msgid "Create logins"
 msgstr "Créer les logins"
 
-#: views.py:186
+#: views.py:204
 #, python-format
 msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
 
 #: templates/coaching/change_profile.html:6 templates/coaching/groupe.html:5
+#: templates/coaching/user.html:5
 msgid "dashboard"
 msgstr "tableau de bord"
 
@@ -429,7 +446,7 @@ msgstr "Nom"
 msgid "First name"
 msgstr "Prénom"
 
-#: templates/coaching/create_logins2.html:40 templates/coaching/groupe.html:12
+#: templates/coaching/create_logins2.html:40 templates/coaching/groupe.html:20
 msgid "Email"
 msgstr ""
 
@@ -453,39 +470,39 @@ msgstr ""
 msgid "Status"
 msgstr "État"
 
-#: templates/coaching/groupe.html:12
-msgid "Name"
-msgstr "Nom"
+#: templates/coaching/groupe.html:11
+msgid "Download works from this group:"
+msgstr "Télécharger les travaux de ce groupe :"
 
-#: templates/coaching/groupe.html:12
+#: templates/coaching/groupe.html:20
 msgid "Last login"
 msgstr "Dernière connexion"
 
-#: templates/coaching/groupe.html:12
+#: templates/coaching/groupe.html:20
 msgid "Completed <br />courses"
 msgstr "Cours<br />validés"
 
-#: templates/coaching/groupe.html:12
+#: templates/coaching/groupe.html:20
 msgid "Uploaded<br />works"
 msgstr "Travaux<br />rendus"
 
-#: templates/coaching/groupe.html:12
-msgid "Cours courant"
-msgstr "Cours ouverts"
+#: templates/coaching/groupe.html:20
+msgid "Current course"
+msgstr "Cours courant"
 
-#: templates/coaching/groupe.html:12
+#: templates/coaching/groupe.html:20
 msgid "Problems"
 msgstr "Problèmes"
 
-#: templates/coaching/groupe.html:13
+#: templates/coaching/groupe.html:21
 msgid "Title"
 msgstr "Titre"
 
-#: templates/coaching/groupe.html:13
+#: templates/coaching/groupe.html:21
 msgid "Validated modules"
 msgstr "Modules validés"
 
-#: templates/coaching/groupe.html:25
+#: templates/coaching/groupe.html:33
 msgid "This group is empty."
 msgstr "Ce groupe est vide."
 
@@ -508,6 +525,13 @@ msgstr "oui,non"
 #: templates/coaching/tab_groupes.html:13
 msgid "You do not manage any group at the moment."
 msgstr "Vous n'administrez aucun groupe actuellement."
+
+#: templates/coaching/user.html:11
+msgid "Download works from this user:"
+msgstr "Télécharger les travaux de cet étudiant :"
+
+#~ msgid "Cours courant"
+#~ msgstr "Cours ouverts"
 
 #~ msgid "Completed modules<br />in current course"
 #~ msgstr "Module validés<br />dans le cours courant"
