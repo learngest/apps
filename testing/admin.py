@@ -5,6 +5,8 @@ from testing.models import Granule, GranuleTitre, Enonce, Question, Reponse
 
 class GranuleAdmin(admin.ModelAdmin):
     ordering = ['slug'] 
+    list_display = ('id','slug',)
+    list_display_links = ('slug',)
 admin.site.register(Granule, GranuleAdmin)
 
 class GranuleTitreAdmin(admin.ModelAdmin):
