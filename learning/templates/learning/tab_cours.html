@@ -1,12 +1,16 @@
 {% load i18n %}
 <h3>{{ course.titre }}</h3>
-{{ course.state }}
+<p>{{ course.state }}</p>
 {% if course.is_open %}
 {% if course.modules %}
-<table class="tabcours" width="90%">
+<table class="tabcours">
+<thead>
     <tr><th width="40%">{% trans "Modules" %}</th><th width="12%">{% trans "Contents" %}</th><th width="25%">{% trans "Tests" %}</th><th>{% trans "Best score" %}</th><th style="text-align: center;">{% trans "# tries" %}</th></tr>
+</thead>
+<tfoot></tfoot>
+<tbody>
 {% for module in course.modules %}
-<tr>
+<tr class="{% cycle odd,even %}">
     <td>{{ module.titre }}{% if module.is_valide %}<br />{% trans "Completed on" %} {{ module.is_valide|date:"d/m/Y" }}{% endif %}</td>
     <td>{% for content in module.contents %}
         <a href="{{ content.get_absolute_url }}" title="{{ content.titre }}">{{ content.long_type|capfirst }}</a>{% if not forloop.last %}<br />{% endif %}{% endfor %}
@@ -22,6 +26,7 @@
     {% endfor %}</td>
 </tr>
 {% endfor %}
+</tbody>
 <table>
 {% endif %}
 {% if course.assignments %}
