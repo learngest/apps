@@ -68,6 +68,7 @@ class UserTest(object):
             Question.objects.filter(granule=self.granule, 
                     langue=self.langue).order_by('?')[:self.granule.nbq]
         if not questions:
+            self.langue = 'fr'
             questions = \
                 Question.objects.filter(granule=self.granule, 
                         langue='fr').order_by('?')[:self.granule.nbq]
