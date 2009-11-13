@@ -14,7 +14,7 @@
 {% include "dashboard/calendar.html" %}
 <p>{% trans "Your group is" %} {{ user.groupe.nom }}</p>
 {% if user.groupe.administrateur %}
-<p>{% trans "This group is managed by" %} {{ user.groupe.administrateur.get_full_name }}</p>
+<p>{% trans "This group is managed by" %} <a href="mailto:{{ user.groupe.administrateur.email }}">{{ user.groupe.administrateur.get_full_name }}</a></p>
 {% endif %}
 <h2>{% trans "Your planning for the" %} {{ planning.weeks }} {% trans "next weeks" %}</h2>
 <ul>
