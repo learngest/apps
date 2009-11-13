@@ -55,7 +55,8 @@ class CoursDuGroupeAdmin(admin.ModelAdmin):
 #admin.site.register(CoursDuGroupe, CoursDuGroupeAdmin)
 
 class UtilisateurAdminForm(ModelForm):
-    username = forms.EmailField(label=_("Username"), max_length=75)
+#    username = forms.EmailField(label=_("Username"), max_length=75)
+    email = forms.EmailField(label=_("Email"), max_length=75)
     password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput,
             required=False)
     password2 = forms.CharField(label=_("Password confirmation"), 
@@ -63,7 +64,8 @@ class UtilisateurAdminForm(ModelForm):
 
     class Meta:
         model = Utilisateur
-        exclude = ('password', 'email')
+#        exclude = ('password', 'email')
+        exclude = ('password', 'username')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
@@ -74,7 +76,7 @@ class UtilisateurAdminForm(ModelForm):
 
     def save(self, commit=True):
         user = super(UtilisateurAdminForm, self).save(commit=False)
-        user.email = user.username
+#        user.email = user.username
         if self.cleaned_data["password1"]:
             user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -90,12 +92,20 @@ class UtilisateurCreationForm(ModelForm):
         model = Utilisateur
         fields = ("username",)
 
+#    def clean_username(self):
+#        username = self.cleaned_data["username"].lower()
+#        try:
+#            Utilisateur.objects.get(username=username)
+#        except Utilisateur.DoesNotExist:
+#            return username
+#        raise forms.ValidationError(_("A user with that username already exists."))
+
     def clean_username(self):
-        username = self.cleaned_data["username"].lower()
+        self.email = self.cleaned_data["username"].lower()
         try:
-            Utilisateur.objects.get(username=username)
+            Utilisateur.objects.get(email=self.email)
         except Utilisateur.DoesNotExist:
-            return username
+            return self.email.split('@')[0][:30]
         raise forms.ValidationError(_("A user with that username already exists."))
 
     def clean_password2(self):
@@ -107,7 +117,8 @@ class UtilisateurCreationForm(ModelForm):
 
     def save(self, commit=True):
         user = super(UtilisateurCreationForm, self).save(commit=False)
-        user.email = user.username
+#        user.email = user.username
+        user.email = self.email
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -117,7 +128,8 @@ class UtilisateurAdmin(UserAdmin):
     form = UtilisateurAdminForm
     add_form = UtilisateurCreationForm
     fieldsets = (
-        (None, {'fields': ('username', 'password1', 'password2')}),
+#        (None, {'fields': ('username', 'password1', 'password2')}),
+        (None, {'fields': ('email', 'password1', 'password2')}),
         (_("Identity"), 
                 {'fields': ('last_name', 'first_name')}),
         (_("Parameters"), {'fields': ('statut', 'langue', 'groupe', 'fermeture')}),
