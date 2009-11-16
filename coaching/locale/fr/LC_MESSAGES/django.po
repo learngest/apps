@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-11 18:06+0100\n"
+"POT-Creation-Date: 2009-11-16 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,51 +16,65 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:21
+#: actions.py:31
+msgid "The message has been sent."
+msgstr "Le message a été envoyé."
+
+#: actions.py:35 actions.py:45 actions.py:54
+#: templates/coaching/sendmail.html:9
+msgid "Send an email"
+msgstr "Envoyer un mail"
+
+#: admin.py:22
 msgid "Group courses"
 msgstr "Cours de ce groupe"
 
-#: admin.py:58 admin.py:85
-msgid "Username"
-msgstr "Login"
+#: admin.py:60 templates/coaching/create_logins2.html:40
+#: templates/coaching/groupe.html:20
+msgid "Email"
+msgstr ""
 
-#: admin.py:59 admin.py:86 templates/coaching/create_logins3.html:40
+#: admin.py:61 admin.py:89 templates/coaching/create_logins3.html:40
 msgid "Password"
 msgstr "Mot de passe"
 
-#: admin.py:61 admin.py:87
+#: admin.py:63 admin.py:90
 msgid "Password confirmation"
 msgstr "Confirmation du mot de passe"
 
-#: admin.py:72 admin.py:105 forms.py:35
+#: admin.py:75 admin.py:116 forms.py:35
 msgid "The two password fields didn't match."
 msgstr "Les deux mots de passe ne concordent pas."
 
-#: admin.py:99
+#: admin.py:88
+msgid "Username"
+msgstr "Login"
+
+#: admin.py:110
 msgid "A user with that username already exists."
 msgstr "Un utilisateur avec ce login existe déjà."
 
-#: admin.py:121 templates/coaching/change_profile.html:22
+#: admin.py:134 templates/coaching/change_profile.html:22
 msgid "Identity"
 msgstr "Informations personnelles"
 
-#: admin.py:123
+#: admin.py:136
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: admin.py:124
+#: admin.py:137
 msgid "Permissions"
 msgstr ""
 
-#: admin.py:125
+#: admin.py:138
 msgid "Important dates"
 msgstr "Dates importantes"
 
-#: admin.py:126
+#: admin.py:139
 msgid "Groups"
 msgstr "Groupes"
 
-#: admin.py:137 forms.py:61 templates/coaching/change_profile.html:18
+#: admin.py:151 forms.py:61 templates/coaching/change_profile.html:18
 #: templates/coaching/change_profile.html:19
 #: templates/coaching/create_logins.html:26
 #: templates/coaching/create_logins2.html:15
@@ -71,49 +85,49 @@ msgstr "Groupes"
 msgid "Group"
 msgstr "Groupe"
 
-#: admin.py:143 templates/coaching/groupe.html:20
+#: admin.py:157 templates/coaching/groupe.html:20
 msgid "Name"
 msgstr "Nom"
 
-#: admin.py:148
+#: admin.py:162
 msgid "Completed courses"
 msgstr "Cours validés"
 
-#: admin.py:153
+#: admin.py:167
 msgid "Uploaded assignments"
 msgstr "Devoirs rendus"
 
-#: controllers.py:165
+#: controllers.py:167
 #, python-format
 msgid "Module %(titre)s completed on %(date)s"
 msgstr "Module %(titre)s validé le %(date)s"
 
-#: controllers.py:172 controllers.py:181
+#: controllers.py:174 controllers.py:183
 #, python-format
 msgid "Course %(titre)s completed on %(date)s"
 msgstr "Cours %(titre)s validé le %(date)s"
 
-#: controllers.py:191
+#: controllers.py:193
 #, python-format
 msgid "Working on module %s"
 msgstr "Module en cours : %s"
 
-#: controllers.py:205
+#: controllers.py:208
 #, python-format
 msgid "Late on %s"
 msgstr "En retard sur %s"
 
-#: controllers.py:208
+#: controllers.py:211
 #, python-format
 msgid "%d courses completed late"
 msgstr "%d cours validés en retard"
 
-#: controllers.py:214
+#: controllers.py:217
 #, python-format
 msgid "Closed on %s"
 msgstr "Fermé le %s"
 
-#: controllers.py:216
+#: controllers.py:219
 #, python-format
 msgid "Will close on %s"
 msgstr "Sera fermé le %s"
@@ -156,18 +170,26 @@ msgstr ""
 msgid "Send credentials by mail"
 msgstr "Envoi des informations par mail"
 
-#: forms.py:73
+#: forms.py:72
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: forms.py:85
+#: forms.py:84
 msgid "Filetype should be .doc, .docx, .xls, .xslx, .pdf or .zip"
 msgstr "Le type du fichier doit être .doc, .docx, .xls, .xlsx, .pdf ou .zip"
 
-#: forms.py:90
+#: forms.py:89
 #, python-format
 msgid "Maximum size allowed is 1 Mo, this file is %.2f Mo"
 msgstr "La taille maximum permise est 1 Mo, ce fichier pèse %2.f Mo"
+
+#: forms.py:96 templates/coaching/sendmail.html:29
+msgid "Subject"
+msgstr "Sujet"
+
+#: forms.py:97
+msgid "Text"
+msgstr "Texte du mail"
 
 #: models.py:36
 msgid "Customer name, required."
@@ -379,7 +401,7 @@ msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
 
 #: templates/coaching/change_profile.html:6 templates/coaching/groupe.html:5
-#: templates/coaching/user.html:5
+#: templates/coaching/sendmail.html:9 templates/coaching/user.html:5
 msgid "dashboard"
 msgstr "tableau de bord"
 
@@ -446,10 +468,6 @@ msgstr "Nom"
 msgid "First name"
 msgstr "Prénom"
 
-#: templates/coaching/create_logins2.html:40 templates/coaching/groupe.html:20
-msgid "Email"
-msgstr ""
-
 #: templates/coaching/create_logins2.html:60
 msgid "Create"
 msgstr "Créer"
@@ -506,6 +524,26 @@ msgstr "Modules validés"
 msgid "This group is empty."
 msgstr "Ce groupe est vide."
 
+#: templates/coaching/sendmail.html:16
+msgid "Header"
+msgstr "Entête"
+
+#: templates/coaching/sendmail.html:18
+msgid "From"
+msgstr "De"
+
+#: templates/coaching/sendmail.html:21
+msgid "To"
+msgstr "À"
+
+#: templates/coaching/sendmail.html:26 templates/coaching/sendmail.html:32
+msgid "Message"
+msgstr ""
+
+#: templates/coaching/sendmail.html:48
+msgid "Send"
+msgstr "Envoyer"
+
 #: templates/coaching/tab_groupes.html:4
 msgid "Logins"
 msgstr "Membres"
@@ -527,7 +565,7 @@ msgid "You do not manage any group at the moment."
 msgstr "Vous n'administrez aucun groupe actuellement."
 
 #: templates/coaching/user.html:11
-msgid "Download works from this user:"
+msgid "Download works from this student:"
 msgstr "Télécharger les travaux de cet étudiant :"
 
 #~ msgid "Cours courant"

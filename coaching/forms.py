@@ -65,7 +65,6 @@ class CreateLoginsForm(forms.Form):
     envoi_mail = forms.ChoiceField(choices=((0,_('No')),(1,_('Yes'))), 
                                 label=_('Send credentials by mail'))
 
-
 class WorkForm(forms.Form):
     """
     Affichage et rendu de devoirs
@@ -90,3 +89,9 @@ class WorkForm(forms.Form):
                     _('Maximum size allowed is 1 Mo, this file is %.2f Mo' % filelen))
         return self.cleaned_data['fichier']
 
+class MailForm(forms.Form):
+    """
+    Formulaire d'envoi de mails
+    """
+    subject = forms.CharField(max_length=100, label=_('Subject'))
+    content = forms.CharField(widget=forms.Textarea,label=_('Text'),required=False)

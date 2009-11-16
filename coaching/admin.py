@@ -8,6 +8,7 @@ from django import forms
 from django.forms import ModelForm
 
 from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work
+from coaching.actions import send_email
 
 admin.site.unregister(User)
 admin.site.unregister(Group)
@@ -142,6 +143,7 @@ class UtilisateurAdmin(UserAdmin):
     list_display_links = ('email',)
     list_filter = ('groupe', 'langue', 'fermeture')
     search_fields = ('email', 'last_name',)
+    actions = ['send_an_email']
 
     def groupe_short_name(self, obj):
         return "<a href=\"%s\">%s</a>" % (
@@ -163,6 +165,8 @@ class UtilisateurAdmin(UserAdmin):
         return "%s / %s" % (obj.nb_travaux_rendus,
                 Work.objects.filter(groupe=obj.groupe).count()) 
     travaux_rendus.short_description = _('Uploaded assignments')
+
+    send_an_email = send_email
 
 admin.site.register(Utilisateur, UtilisateurAdmin)
 

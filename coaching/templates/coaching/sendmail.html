@@ -1,0 +1,52 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/media/css/forms.css" />
+{% endblock %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt; {% trans "Send an email" %}
+</div>{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+
+<fieldset class="module aligned">
+<h2>{% trans "Header" %}</h2>
+<div class="form-row"><div>
+<label for="from">{% trans "From" %}</label> {{ user.get_full_name }} &lt;{{ user.email }}&gt;
+</div></div>
+<div class="form-row"><div>
+<label for="to">{% trans "To" %} </label>{% for dest in dest_list %}{{ dest }}{% if forloop.last %} {% else %}, {% endif %}{% endfor %}
+</div></div>
+</fieldset>
+
+<fieldset class="module aligned">
+<h2>{% trans "Message" %}</h2>
+{% if subject %}
+<div class="form-row"><div>
+<label for="id_subject">{% trans "Subject" %}</label> {{ subject }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_content">{% trans "Message" %}</label>
+{{ content }}
+</div></div>
+{% else %}
+<div class="form-row"><div>
+<label for="id_{{ form.subject.name }}">{{ form.subject.label }}</label> {{ form.subject }} {{ form.errors.subject }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_{{ form.content.name }}">{{ form.content.label }}</label> {{ form.content }}
+</div></div>
+</fieldset>
+{% for obj in queryset %}
+<input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk }}" />
+{% endfor %}
+<input type="hidden" name="action" value="send_an_email" />
+<input type="hidden" name="post" value="yes" />
+<input type="submit" value="{% trans "Send" %}" />
+{% endif %}
+</form>
+{% endblock content %}
+
