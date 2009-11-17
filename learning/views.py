@@ -110,23 +110,8 @@ def render_swf(request, c, base, contents_prefix):
                                 }, context_instance=RequestContext(request))
 
 def render_any(request, c, base, contents_prefix):
-    if not include_is_allowed(support_path):
-        HttpResponseRedirect('/tdb/')
-    try:
-        support = open(support_path).read()
-    except IOError:
-        if settings.DEBUG:
-            support = "Unable to open file %s" % support_path
-        else:
-            support = "<!-- Unable to open file %s -->\n" % support_path
-    return render_to_response('learning/support.html',
-                                {'visiteur': v.prenom_nom(),
-                                 'client': v.groupe.client,
-                                 'vgroupe': v.groupe,
-                                 'admin': v.status,
-                                 'baselink': base,
-                                 'msg': msg,
-                                 'support': support})
+    return HttpResponseRedirect("/%s/%s/%s/autres/%s" %
+                    (contents_prefix,c.module.slug, c.langue, c.ressource))
 
 @login_required
 def tabcours(request):
