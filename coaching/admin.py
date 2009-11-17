@@ -56,8 +56,8 @@ class CoursDuGroupeAdmin(admin.ModelAdmin):
 #admin.site.register(CoursDuGroupe, CoursDuGroupeAdmin)
 
 class UtilisateurAdminForm(ModelForm):
-#    username = forms.EmailField(label=_("Username"), max_length=75)
     email = forms.EmailField(label=_("Email"), max_length=75)
+#    username = forms.EmailField(label=_("Username"), max_length=75)
     password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput,
             required=False)
     password2 = forms.CharField(label=_("Password confirmation"), 
@@ -129,7 +129,6 @@ class UtilisateurAdmin(UserAdmin):
     form = UtilisateurAdminForm
     add_form = UtilisateurCreationForm
     fieldsets = (
-#        (None, {'fields': ('username', 'password1', 'password2')}),
         (None, {'fields': ('email', 'password1', 'password2')}),
         (_("Identity"), 
                 {'fields': ('last_name', 'first_name')}),
@@ -153,9 +152,11 @@ class UtilisateurAdmin(UserAdmin):
     groupe_short_name.admin_order_field = 'groupe'
 
     def full_name(self, obj):
-        return obj.get_full_name()
+        return "<a href=\"%s\">%s %s</a>" % (
+                obj.get_absolute_url(), obj.last_name, obj.first_name)
     full_name.short_description = _('Name')
     full_name.admin_order_field = 'last_name'
+    full_name.allow_tags = True
 
     def cours_valides(self, obj):
         return "%s / %s" % (obj.nb_cours_valides, obj.groupe.cours.count())
