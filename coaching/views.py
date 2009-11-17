@@ -11,7 +11,7 @@ from django.conf import settings
 
 from coaching.models import Utilisateur, Groupe
 from coaching.forms import UtilisateurChangeForm, CreateLoginsForm
-from coaching.controllers import AdminGroupe
+from coaching.controllers import AdminGroupe, UserState
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -73,8 +73,23 @@ def user(request, user_id):
     """
     Fiche récapitulative des performances d'un utilisateur
     """
+    try:
+        utilisateur = Utilisateur.objects.get(id=user_id)
+    except Utilisateur.DoesNotExist:
+        request.user.message_set.create(
+                message=_("This user does not exist."))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if not request.user.is_staff:
+        if not utilisateur.groupe.administrateur or \
+                request.user.id != utilisateur.groupe.administrateur.id:
+            request.user.message_set.create(
+                    message=_(
+                        "You do not have admin rights on the requested group."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    us = UserState(utilisateur)
     return render_to_response('coaching/user.html',
-                              {'title': _('User'),
+                              {'title': us.get_full_name,
+                               'student': us,
                               },
                               context_instance=RequestContext(request))
 

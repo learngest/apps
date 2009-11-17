@@ -1,0 +1,48 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{% load adminmedia %}
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/dashboard.css" />
+{% endblock extrastyle %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt; <a href="{{ student.user.groupe.get_absolute_url }}">{{ student.user.groupe.nom }}</a> &gt; {{ student.get_full_name }}
+</div>{% endblock %}
+
+{% block content %}
+<div class="colorbox">
+{% if student.nb_cours_en_retard %}
+<p class="red">{% trans "This student is currently late." %}</p>
+{% endif %}
+{% if student.is_inactif %}
+<p class="red">{% trans "This user account is currently not active." %}</p>
+{% endif %}
+{% if student.fermeture_prochaine %}
+<p class="red">{% trans "This user account will close on" %} {{ student.user.fermeture }}.</p>
+{% endif %}
+<p>{% trans "Last login:" %} <span class="bold">{{ student.last_login }}</span></p>
+{% if student.nb_cours_valides %}
+<p>{% trans "Completed courses:" %} <span class="bold">{{ student.nb_cours_valides }} / {{ student.nb_cours }} {% if student.nb_cours_valides_en_retard %}</span> ({{ student.nb_cours_valides_en_retard }} {% trans "completed late" %}){% endif %}</p>
+<p>{% trans "Uploaded assignments:" %} <span class="bold">{{ student.nb_travaux_rendus }} / {{ student.nb_travaux }}</span></p>
+{% else %}
+<p>{% trans "No courses completed so far." %}</p>
+{% endif %}
+<p>{% trans "Currently working on" %} <span class="bold">{{ student.cours_courant.titre }}</span> (<span class="bold">{{ student.nb_modules_valides_in_current }}/{{ student.nb_modules_in_current }}</span> {% trans "completed modules" %})</p>
+</div>
+{%if student.workdone %}
+<h2>{% trans "Download works from this student:" %}</h2>
+<ul>
+{% for work in student.workdone %}
+<li class="nop"><a href="{{ media_url }}{{ workdone }}/{{ work }}">{{ work }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+<h2>{% trans "Completed courses details" %}</h2>
+{% for course in student.cours %}
+{% include "coaching/tab_cours.html" %}
+{% empty %}
+{% trans "This student is not subscribed to any course" %}
+{% endfor %}
+{% endblock content %}
+

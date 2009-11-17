@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-16 11:58+0100\n"
+"POT-Creation-Date: 2009-11-17 17:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr "Envoyer un mail"
 msgid "Group courses"
 msgstr "Cours de ce groupe"
 
-#: admin.py:60 templates/coaching/create_logins2.html:40
+#: admin.py:59 templates/coaching/create_logins2.html:40
 #: templates/coaching/groupe.html:20
 msgid "Email"
 msgstr ""
@@ -54,27 +54,27 @@ msgstr "Login"
 msgid "A user with that username already exists."
 msgstr "Un utilisateur avec ce login existe déjà."
 
-#: admin.py:134 templates/coaching/change_profile.html:22
+#: admin.py:133 templates/coaching/change_profile.html:22
 msgid "Identity"
 msgstr "Informations personnelles"
 
-#: admin.py:136
+#: admin.py:135
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: admin.py:137
+#: admin.py:136
 msgid "Permissions"
 msgstr ""
 
-#: admin.py:138
+#: admin.py:137
 msgid "Important dates"
 msgstr "Dates importantes"
 
-#: admin.py:139
+#: admin.py:138
 msgid "Groups"
 msgstr "Groupes"
 
-#: admin.py:151 forms.py:61 templates/coaching/change_profile.html:18
+#: admin.py:150 forms.py:61 templates/coaching/change_profile.html:18
 #: templates/coaching/change_profile.html:19
 #: templates/coaching/create_logins.html:26
 #: templates/coaching/create_logins2.html:15
@@ -89,48 +89,13 @@ msgstr "Groupe"
 msgid "Name"
 msgstr "Nom"
 
-#: admin.py:162
+#: admin.py:163
 msgid "Completed courses"
 msgstr "Cours validés"
 
-#: admin.py:167
+#: admin.py:168
 msgid "Uploaded assignments"
 msgstr "Devoirs rendus"
-
-#: controllers.py:167
-#, python-format
-msgid "Module %(titre)s completed on %(date)s"
-msgstr "Module %(titre)s validé le %(date)s"
-
-#: controllers.py:174 controllers.py:183
-#, python-format
-msgid "Course %(titre)s completed on %(date)s"
-msgstr "Cours %(titre)s validé le %(date)s"
-
-#: controllers.py:193
-#, python-format
-msgid "Working on module %s"
-msgstr "Module en cours : %s"
-
-#: controllers.py:208
-#, python-format
-msgid "Late on %s"
-msgstr "En retard sur %s"
-
-#: controllers.py:211
-#, python-format
-msgid "%d courses completed late"
-msgstr "%d cours validés en retard"
-
-#: controllers.py:217
-#, python-format
-msgid "Closed on %s"
-msgstr "Fermé le %s"
-
-#: controllers.py:219
-#, python-format
-msgid "Will close on %s"
-msgstr "Sera fermé le %s"
 
 #: forms.py:21
 msgid "New password"
@@ -315,7 +280,7 @@ msgstr "Nb validés en retard"
 msgid "# currently late"
 msgstr "Actuellement en retard"
 
-#: models.py:178 views.py:91
+#: models.py:178
 msgid "User"
 msgstr "Utilisateur"
 
@@ -347,7 +312,7 @@ msgstr "Instructions"
 msgid "Assignment"
 msgstr "Devoir"
 
-#: models.py:307
+#: models.py:307 templates/coaching/tab_cours.html:31
 msgid "Assignments"
 msgstr "Devoirs"
 
@@ -401,7 +366,7 @@ msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
 
 #: templates/coaching/change_profile.html:6 templates/coaching/groupe.html:5
-#: templates/coaching/sendmail.html:9 templates/coaching/user.html:5
+#: templates/coaching/sendmail.html:9 templates/coaching/user.html:10
 msgid "dashboard"
 msgstr "tableau de bord"
 
@@ -544,6 +509,34 @@ msgstr ""
 msgid "Send"
 msgstr "Envoyer"
 
+#: templates/coaching/tab_cours.html:8
+msgid "Modules"
+msgstr ""
+
+#: templates/coaching/tab_cours.html:8
+msgid "Tests"
+msgstr ""
+
+#: templates/coaching/tab_cours.html:8
+msgid "Best score"
+msgstr "Meilleur score"
+
+#: templates/coaching/tab_cours.html:8
+msgid "# tries"
+msgstr "Nb essais"
+
+#: templates/coaching/tab_cours.html:14
+msgid "Completed on"
+msgstr "Validé le"
+
+#: templates/coaching/tab_cours.html:31
+msgid "Uploaded on"
+msgstr "Rendu le"
+
+#: templates/coaching/tab_cours.html:31
+msgid "Signature"
+msgstr ""
+
 #: templates/coaching/tab_groupes.html:4
 msgid "Logins"
 msgstr "Membres"
@@ -564,27 +557,55 @@ msgstr "oui,non"
 msgid "You do not manage any group at the moment."
 msgstr "Vous n'administrez aucun groupe actuellement."
 
-#: templates/coaching/user.html:11
+#: templates/coaching/user.html:16
+msgid "This student is currently late."
+msgstr "Cet étudiant est actuellement en retard."
+
+#: templates/coaching/user.html:19
+msgid "This user account is currently not active."
+msgstr "Le compte de cet étudiant n'est pas actif actuellement."
+
+#: templates/coaching/user.html:22
+msgid "This user account will close on"
+msgstr "Le compte de cet étudiant fermera le"
+
+#: templates/coaching/user.html:24
+msgid "Last login:"
+msgstr "Dernière connexion :"
+
+#: templates/coaching/user.html:26
+msgid "Completed courses:"
+msgstr "Cours validés :"
+
+#: templates/coaching/user.html:26
+msgid "completed late"
+msgstr "validés en retard"
+
+#: templates/coaching/user.html:27
+msgid "Uploaded assignments:"
+msgstr "Devoirs rendus :"
+
+#: templates/coaching/user.html:29
+msgid "No courses completed so far."
+msgstr "Pas de cours validés pour le moment."
+
+#: templates/coaching/user.html:31
+msgid "Currently working on"
+msgstr "Travail en cours :"
+
+#: templates/coaching/user.html:31
+msgid "completed modules"
+msgstr "modules validés"
+
+#: templates/coaching/user.html:34
 msgid "Download works from this student:"
 msgstr "Télécharger les travaux de cet étudiant :"
 
-#~ msgid "Cours courant"
-#~ msgstr "Cours ouverts"
+#: templates/coaching/user.html:41
+msgid "Completed courses details"
+msgstr "Détail des cours validés"
 
-#~ msgid "Completed modules<br />in current course"
-#~ msgstr "Module validés<br />dans le cours courant"
+#: templates/coaching/user.html:45
+msgid "This student is not subscribed to any course"
+msgstr "Cet étudiant n'est inscrit à aucun cours."
 
-#~ msgid ""
-#~ "Required. 30 characters or fewer. Alphanumeric characters only (letters, "
-#~ "digits and underscores)."
-#~ msgstr ""
-#~ "Requis. 30 caractères alphanumériques (lettre, chiffres et tiret de "
-#~ "soulignement)."
-
-#~ msgid "This value must contain only letters, numbers and underscores."
-#~ msgstr ""
-#~ "Ce champ ne peut contenir que des lettres, des chiffres ou le tiret de "
-#~ "soulignement."
-
-#~ msgid "current work"
-#~ msgstr "travail courant"

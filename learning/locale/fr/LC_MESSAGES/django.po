@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-06 12:05+0100\n"
+"POT-Creation-Date: 2009-11-17 16:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,17 +16,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:162
+#: controllers.py:165
 #, python-format
 msgid "This course will not open before %s"
 msgstr "Ouverture possible à partir du %s"
 
-#: controllers.py:165
+#: controllers.py:168
+#, python-format
+msgid "<span class=\"red\">Completed late on %s</span>"
+msgstr "<span class=\"red\">Validé en retard le %s</span>"
+
+#: controllers.py:171
 #, python-format
 msgid "Completed on %s"
 msgstr "Validé le %s"
 
-#: controllers.py:167
+#: controllers.py:174
+#, python-format
+msgid "<span class=\"red\">Late! Deadline was %s</span>"
+msgstr "<span class=\"red\">En retard ! Devait être validé avant le %s</span>"
+
+#: controllers.py:177
 #, python-format
 msgid "Deadline is %s"
 msgstr "À valider pour le %s"
@@ -83,7 +93,7 @@ msgstr "document texte"
 msgid "spreadsheet"
 msgstr "feuille de calcul"
 
-#: views.py:31 views.py:150
+#: views.py:31 views.py:135
 msgid "Requested url is invalid."
 msgstr "L'url demandée est invalide."
 
@@ -103,15 +113,15 @@ msgstr "Désolé, ce contenu n'est pas disponible dans la langue demandée."
 msgid "You are not allowed to browse the requested content."
 msgstr "Vous n'êtes pas autorisé à voir le contenu demandé."
 
-#: views.py:139 templates/learning/liste_cours.html:10
+#: views.py:124 templates/learning/liste_cours.html:10
 msgid "courses list"
 msgstr "liste des cours"
 
-#: views.py:156
+#: views.py:141
 msgid "Requested assignment does not exist"
 msgstr "Le devoir demandé n'existe pas."
 
-#: views.py:160
+#: views.py:145
 msgid "Requested assignment is not allowed"
 msgstr "Le devoir demandé n'est pas autorisé actuellement."
 
@@ -170,38 +180,38 @@ msgstr "Cacher ce message"
 msgid "You are not subscribed to any course"
 msgstr "Vous n'êtes inscrit à aucun cours"
 
-#: templates/learning/tab_cours.html:7
+#: templates/learning/tab_cours.html:8
 msgid "Modules"
 msgstr ""
 
-#: templates/learning/tab_cours.html:7
+#: templates/learning/tab_cours.html:8
 msgid "Contents"
 msgstr "Supports"
 
-#: templates/learning/tab_cours.html:7
+#: templates/learning/tab_cours.html:8
 msgid "Tests"
 msgstr ""
 
-#: templates/learning/tab_cours.html:7
+#: templates/learning/tab_cours.html:8
 msgid "Best score"
 msgstr "Meilleur score"
 
-#: templates/learning/tab_cours.html:7
+#: templates/learning/tab_cours.html:8
 msgid "# tries"
 msgstr "Nb essais"
 
-#: templates/learning/tab_cours.html:10
+#: templates/learning/tab_cours.html:14
 msgid "Completed on"
 msgstr "Validé le"
 
-#: templates/learning/tab_cours.html:29
+#: templates/learning/tab_cours.html:34
 msgid "Assignments"
 msgstr "Devoirs"
 
-#: templates/learning/tab_cours.html:29
+#: templates/learning/tab_cours.html:34
 msgid "Uploaded on"
 msgstr "Rendu le"
 
-#: templates/learning/tab_cours.html:29
+#: templates/learning/tab_cours.html:34
 msgid "Signature"
 msgstr ""

@@ -58,9 +58,14 @@ class UserState(object):
         self.email = user.email
         self.get_absolute_url = user.get_absolute_url()
         self.last_login = user.last_login
+        self._state = []
+        self._cours = []
 
-    def _usercours(self):
-        return [UserCours(self.user, c) for c in self.user.groupe.cours.order_by('coursdugroupe__rang')]
+    def cours(self):
+        if not self._cours:
+            self._cours = [UserCours(self.user, c)
+                for c in self.user.groupe.cours.order_by('coursdugroupe__rang')]
+        return self._cours
 
     def nb_cours(self):
         """
@@ -75,10 +80,38 @@ class UserState(object):
         """
         if self.user.nb_cours_valides is None or recalcul:
             self.user.nb_cours_valides = \
-                    len([1 for uc in self._usercours() if uc.date_validation()])
+                    len([1 for uc in self.cours() if uc.date_validation()])
             if sauve:
                 self.user.save()
         return self.user.nb_cours_valides
+
+    def nb_cours_en_retard(self, recalcul=False, sauve=True):
+        """
+        Nb de cours actuellement en retard,
+        stocké dans Utilisateur.nb_actuel ou recalculé
+        """
+        if self.user.nb_actuel is None or recalcul:
+            self.user.nb_actuel = len([1 for uc in self.cours() if uc.en_retard()])
+        return self.user.nb_actuel
+
+    def nb_cours_valides_en_retard(self, recalcul=False, sauve=True):
+        """
+        Nombre de cours validés en retard,
+        stocké dans Utilisateur.nb_retards ou recalculé
+        """
+        if self.user.nb_retards is None or recalcul:
+            self.user.nb_retards = \
+                len([1 for uc in self.cours()
+                    if uc.date_validation() > uc.fin])
+            if sauve:
+                self.user.save()
+        return self.user.nb_retards
+
+    def nb_travaux(self):
+        """
+        Retourne le nombre de travaux à rendre par cet utilisateur
+        """
+        return Work.objects.filter(groupe=self.user.groupe).count()
 
     def nb_travaux_rendus(self, recalcul=False, sauve=True):
         """
@@ -99,7 +132,7 @@ class UserState(object):
         Le cours courant est stocké dans Utilisateur.current 
         """
         if self.user.current is None or recalcul:
-            ucs = self._usercours()
+            ucs = self.cours()
             if not ucs:
                 return None
             else:
@@ -152,69 +185,18 @@ class UserState(object):
                 self.user.save()
         return self.user.nb_valides
 
-    def state(self):
-        state = []
-        last_modules = ModuleValide.objects.filter(
-                utilisateur=self.user).order_by('-date')
-        if last_modules:
-            last_module = last_modules[0]
-            last_module_str = {
-                    'titre':last_module.module.titre(self.user.langue), 
-                    'date':last_module.date
-                    }
-            last_module_str = _("Module %(titre)s completed on %(date)s") \
-                    % last_module_str
-            um = UserModule(self.user, last_module)
-            uc = UserCours(self.user, um.cours())
-            uc.datev = uc.date_validation()
-            if uc.date_v:
-                last_cours_str = {'titre':uc.titre, 'date':uc.date_v}
-                last_cours_str = _("Course %(titre)s completed on %(date)s") \
-                        % last_cours_str
-                state.append(last_cours_str)
-            else:
-                uc = uc.prec()
-                if uc:
-                    uc.datev = uc.date_validation()
-                    if uc.date_v:
-                        last_cours_str = {'titre':uc.titre, 'date':uc.date_v}
-                        last_cours_str = _("Course %(titre)s completed on %(date)s") \
-                                % last_cours_str
-                        state.append(last_cours_str)
-                        state.append(last_module_str)
-        else:
-            last_trys = Resultat.objects.filter(
-                    utilisateur=self.user).order_by('-date')
-            if last_trys:
-                last_try = last_trys[0]
-                last_try_str = last_try.granule.module.titre(self.user.langue)
-                last_try_str = _("Working on module %s") % last_try_str
-                state.append(last_try_str)
-        return state
-
-    def problems(self):
-        problems = []
-        cours = [UserCours(self.user, cours) 
-                for cours in self.user.groupe.cours.all()]
-        valides_en_retard = 0
-        en_retard = []
-        for uc in cours:
-            if uc.valide_en_retard():
-                valides_en_retard += 1
-            if uc.en_retard():
-                retard_str = _("Late on %s") % uc.titre
-                en_retard.append(retard_str)
-        if valides_en_retard:
-            problems.append(_("%d courses completed late") % valides_en_retard)
-        problems.extend(en_retard)
+    def fermeture_prochaine(self):
+        """
+        True si le compte de l'utilisateur ferme dans moins de 7 jours
+        """
         now = datetime.datetime.now()
         next_week = now + datetime.timedelta(days=7)
-        if self.user.fermeture < next_week:
-            if self.user.fermeture < now:
-                pb = _("Closed on %s") % self.user.fermeture.strftime('%Y/%m/%d')
-            else:
-                pb = _("Will close on %s") % self.user.fermeture.strftime('%Y/%m/%d')
-            problems.append(pb)
-        return problems
+        return self.user.fermeture > now and self.user.fermeture < next_week
 
-        
+    def is_inactif(self):
+        """
+        True si le compte de l'utilisateur est fermé ou inactif
+        """
+        now = datetime.datetime.now()
+        return not self.user.is_active or self.user.fermeture < now
+

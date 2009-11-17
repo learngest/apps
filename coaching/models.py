@@ -159,7 +159,7 @@ class Utilisateur(User):
     nb_valides = models.IntegerField(
             _("# completed"),
             null=True, editable=False)
-    # nb de modules validés, mais en retard
+    # nb de cours validés, mais en retard
     nb_retards = models.IntegerField(
             _("# completed late"),
             null=True, editable=False)

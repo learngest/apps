@@ -93,6 +93,7 @@ class UserCours(object):
         self.liste_cours = list(user.groupe.cours.order_by('coursdugroupe__rang'))
         self.rang = self.liste_cours.index(self.cours)
         self.titre = self.cours.titre(self.user.langue)
+        self.valide = self.date_validation()
 
     def modules(self):
         return [UserModule(self.user, m) for m in self.cours.liste_modules()]
@@ -119,12 +120,13 @@ class UserCours(object):
             return max(dates)
 
     def valide_en_retard(self):
-        if self.date_validation():
-            return self.date_validation() > self.fin
-        return False
+        return self.valide > self.fin
+#        if self.valide:
+#            return self.valide > self.fin
+#        return False
 
     def en_retard(self):
-        if self.fin and not self.date_validation():
+        if self.fin and not self.valide:
             return self.fin < datetime.datetime.now()
 
     def prec(self):
@@ -149,7 +151,7 @@ class UserCours(object):
             return True
         if self.rang == 0:
             return True
-        return self.prec().date_validation()
+        return self.prec().valide
 
     def state(self):
         """
@@ -160,12 +162,20 @@ class UserCours(object):
         - rien (si ouvert et commencé)
         """
         if self.debut > datetime.datetime.now():
-            return _("This course will not open before %s") % self.debut.strftime("%d/%m/%Y")
-        valide = self.date_validation()
-        if valide:
-            return _("Completed on %s") % valide.strftime("%d/%m/%Y")
+            return _("This course will not open before %s") \
+                    % self.debut.strftime("%d/%m/%Y")
+        if self.valide:
+            if self.valide_en_retard():
+                return _("<span class=\"red\">Completed late on %s</span>") \
+                            % self.valide.strftime("%d/%m/%Y")
+            else:
+                return _("Completed on %s") % self.valide.strftime("%d/%m/%Y")
         elif self.fin:
-            return _("Deadline is %s") % self.fin.strftime("%d/%m/%Y")
+            if self.en_retard():
+                return _("<span class=\"red\">Late! Deadline was %s</span>") \
+                             % self.fin.strftime("%d/%m/%Y")
+            else:
+                return _("Deadline is %s") % self.fin.strftime("%d/%m/%Y")
         else:
             return ""
 
