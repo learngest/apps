@@ -58,8 +58,9 @@ class UserState(object):
         self.email = user.email
         self.get_absolute_url = user.get_absolute_url()
         self.last_login = user.last_login
-        self._state = []
         self._cours = []
+        self._nb_cours = None
+        self._nb_travaux = None
 
     def cours(self):
         if not self._cours:
@@ -71,7 +72,9 @@ class UserState(object):
         """
         Retourne le nombre de cours auxquels l'utilisateur est inscrit
         """
-        return self.user.groupe.cours.count()
+        if not self._nb_cours:
+            self._nb_cours = self.user.groupe.cours.count()
+        return self._nb_cours
 
     def nb_cours_valides(self, recalcul=False, sauve=True):
         """
@@ -80,7 +83,7 @@ class UserState(object):
         """
         if self.user.nb_cours_valides is None or recalcul:
             self.user.nb_cours_valides = \
-                    len([1 for uc in self.cours() if uc.date_validation()])
+                    len([1 for uc in self.cours() if uc.valide])
             if sauve:
                 self.user.save()
         return self.user.nb_cours_valides
@@ -101,8 +104,7 @@ class UserState(object):
         """
         if self.user.nb_retards is None or recalcul:
             self.user.nb_retards = \
-                len([1 for uc in self.cours()
-                    if uc.date_validation() > uc.fin])
+                len([1 for uc in self.cours() if uc.valide_en_retard()])
             if sauve:
                 self.user.save()
         return self.user.nb_retards
@@ -111,7 +113,9 @@ class UserState(object):
         """
         Retourne le nombre de travaux à rendre par cet utilisateur
         """
-        return Work.objects.filter(groupe=self.user.groupe).count()
+        if not self._nb_travaux:
+            self._nb_travaux = Work.objects.filter(groupe=self.user.groupe).count()
+        return self._nb_travaux
 
     def nb_travaux_rendus(self, recalcul=False, sauve=True):
         """
@@ -137,7 +141,7 @@ class UserState(object):
                 return None
             else:
                 for uc in ucs:
-                    if uc.date_validation() is False:
+                    if uc.valide is False:
                         if uc.debut <= datetime.datetime.now():
                             self.user.current = uc.cours
                             if sauve:

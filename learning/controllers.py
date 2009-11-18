@@ -17,8 +17,14 @@ class UserModule(object):
     def __init__(self, user, module):
         self.user = user
         self.module = module
-        self.titre = self.module.titre(self.user.langue)
-        self.contents = Contenu.objects.filter(module=self.module,
+        self._date_validation = -1
+
+    def titre(self):
+        return self.module.titre(self.user.langue)
+
+    def contents(self):
+        return Contenu.objects.filter(
+                module=self.module,
                 langue=self.user.langue).order_by('type')
 
     def tests(self):
@@ -31,13 +37,16 @@ class UserModule(object):
         False s'il n'est pas validé
         None si le module n'a pas de tests
         """
-        dates =  [t.date_validation() for t in self.tests()]
-        if not dates:
-            return None
-        if False in dates:
-            return False
-        else:
-            return max(dates)
+        if self._date_validation == -1:
+            dates =  [t.date_validation() for t in self.tests()]
+            if not dates:
+                self._date_validation = None
+                return self._date_validation
+            if False in dates:
+                self._date_validation = False
+            else:
+                self._date_validation = max(dates)
+        return self._date_validation
 
     def cours(self):
         """
@@ -85,23 +94,45 @@ class UserCours(object):
     Controller d'un cours pour un utilisateur
     """
     def __init__(self, user, cours):
+        self._usermodules = -1
+        self._assignments = -1
+        self._date_validation = -1
         self.user = user
         self.cours = cours
         cdg = CoursDuGroupe.objects.get(cours=self.cours,groupe=self.user.groupe)
         self.debut = cdg.debut
         self.fin = cdg.fin
-        self.liste_cours = list(user.groupe.cours.order_by('coursdugroupe__rang'))
-        self.rang = self.liste_cours.index(self.cours)
-        self.titre = self.cours.titre(self.user.langue)
-        self.valide = self.date_validation()
+        self._liste_cours = []
+
+    def _get_liste_cours(self):
+        if not self._liste_cours:
+            self._liste_cours = list(
+                    self.user.groupe.cours.order_by('coursdugroupe__rang'))
+        return self._liste_cours
+
+    liste_cours = property(_get_liste_cours)
+
+    def _get_rang(self):
+        return self.liste_cours.index(self.cours)
+
+    rang = property(_get_rang)
+
+    def titre(self):
+        return self.cours.titre(self.user.langue)
 
     def modules(self):
-        return [UserModule(self.user, m) for m in self.cours.liste_modules()]
+        if self._usermodules == -1:
+            self._usermodules = [UserModule(self.user, m) 
+                    for m in self.cours.liste_modules()]
+        return self._usermodules
 
     def assignments(self):
-        return [UserWork(self.user, w) for w in Work.objects.filter(
-            cours=self.cours,
-            groupe=self.user.groupe)]
+        if self._assignments == -1:
+            self._assignments = [UserWork(self.user, w)
+                for w in Work.objects.filter(
+                cours=self.cours,
+                groupe=self.user.groupe)]
+        return self._assignments
 
     def modules_valides(self):
         return [um for um in self.modules() if um.date_validation()]
@@ -112,18 +143,21 @@ class UserCours(object):
         False s'il n'est pas validé
         None s'il n'y a pas de tests dans le cours
         """
-        dates =  [m.date_validation() for m in self.modules()]
-        dates.extend([w.date_remise for w in self.assignments()])
-        if False in dates:
-            return False
-        else:
-            return max(dates)
+        if self._date_validation == -1:
+            dates =  [m.date_validation() for m in self.modules()]
+            dates.extend([w.date_remise for w in self.assignments()])
+            if False in dates:
+                self._date_validation = False
+            else:
+                self._date_validation = max(dates)
+        return self._date_validation
+
+    valide = property(date_validation)
 
     def valide_en_retard(self):
-        return self.valide > self.fin
-#        if self.valide:
-#            return self.valide > self.fin
-#        return False
+        if self.valide:
+            return self.valide > self.fin
+        return False
 
     def en_retard(self):
         if self.fin and not self.valide:

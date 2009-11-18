@@ -16,31 +16,61 @@ class UserGranule(object):
         self.user = user
         self.granule = granule
         self.get_absolute_url = self.granule.get_absolute_url()
-        self.titre = self.granule.titre(self.user.langue)
-        resultats = Resultat.objects.filter(utilisateur=self.user,
-                        granule=self.granule).order_by('-score')
-        if resultats:
-            self.nb_tries = resultats.count()
-            self.best_score = resultats[0].score
-            self.str_best_score = "%2d %%" % self.best_score
-            self.best_score_date = resultats[0].date
-        else:
-            self.nb_tries = 0
-            self.best_score = 0
-            self.str_best_score = ''
-            self.best_score_date = None
+        self._date_validation = -1
+        self._resultats = -1
+        self._perfs = []
+
+    def titre(self):
+        return self.granule.titre(self.user.langue)
+
+    def resultats(self):
+        if self._resultats == -1:
+            self._resultats = Resultat.objects.filter(
+                    utilisateur=self.user,
+                    granule=self.granule).order_by('-score')
+        return self._resultats
+
+    def perfs(self):
+        if not self._perfs:
+            resultats = self.resultats()
+            if resultats:
+                nb_tries = resultats.count()
+                best_score = resultats[0].score
+                str_best_score = "%2d %%" % best_score
+                best_score_date = resultats[0].date
+            else:
+                nb_tries = 0
+                best_score = 0
+                str_best_score = ''
+                best_score_date = None
+            self._perfs = [nb_tries, best_score, str_best_score, best_score_date]
+        return self._perfs
+
+    def nb_tries(self):
+        return self.perfs()[0]
+
+    def best_score(self):
+        return self.perfs()[1]
+
+    def str_best_score(self):
+        return self.perfs()[2]
+
+    def best_score_date(self):
+        return self.perfs()[3]
 
     def date_validation(self):
         """
         Renvoie la date de validation du test
         False s'il n'est pas validé
         """
-        try:
-            v =GranuleValide.objects.get(utilisateur=self.user,
-                                            granule=self.granule)
-        except GranuleValide.DoesNotExist:
-            return False
-        return v.date
+        if self._date_validation == -1:
+            try:
+                v = GranuleValide.objects.get(utilisateur=self.user,
+                                                granule=self.granule)
+                self._date_validation = v.date
+            except GranuleValide.DoesNotExist:
+                self._date_validation = False
+        return self._date_validation
 
 class UserTest(object):
     """
@@ -292,11 +322,11 @@ class UserSubmittedTest(object):
                     mvalide = False
                     break
             if mvalide:
-                modules_key = \
-                        "Utilisateur.%s.liste_modules_autorises" % self.user.id
-                cache.delete(modules_key)
-                cours_key = "Utilisateur.%s.liste_cours_ouverts" % self.user.id
-                cache.delete(cours_key)
+#                modules_key = \
+#                        "Utilisateur.%s.liste_modules_autorises" % self.user.id
+#                cache.delete(modules_key)
+#                cours_key = "Utilisateur.%s.liste_cours_ouverts" % self.user.id
+#                cache.delete(cours_key)
                 # si module déjà validé on ne fait rien
                 try:
                     ModuleValide.objects.get(
@@ -310,7 +340,7 @@ class UserSubmittedTest(object):
                     self.user.nb_valides +=1
                     # module validé, est-ce que ça valide le cours ?
                     uc = UserCours(self.user, self.user.current)
-                    if uc.date_validation():
+                    if uc.valide:
                         self.user.nb_cours_valides += 1
                         # nouveau cours, raz nb_modules et nb_valides
                         self.user.nb_modules = None
