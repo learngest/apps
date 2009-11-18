@@ -178,6 +178,11 @@ class Utilisateur(User):
         verbose_name = _("User")
         ordering = ('groupe',)
 
+    def get_admin_url(self):
+        from django.core import urlresolvers
+        return urlresolvers.reverse('admin:coaching_utilisateur_change',
+                args=(str(self.id),))
+
     @models.permalink
     def get_absolute_url(self):
         return('coaching.views.user', [str(self.id)])

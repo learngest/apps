@@ -11,6 +11,11 @@
 </div>{% endblock %}
 
 {% block content %}
+{% block object-tools %}
+<ul class="object-tools">
+{% if user.is_staff %}<li style="line-height: 1.25"><a href="{{ student.user.get_admin_url }}" class="viewsitelink">{% trans "Change profile" %}</a></li>{% endif%}
+</ul>
+{% endblock %}
 <div class="colorbox">
 {% if student.nb_cours_en_retard %}
 <p class="red">{% trans "This student is currently late." %}</p>

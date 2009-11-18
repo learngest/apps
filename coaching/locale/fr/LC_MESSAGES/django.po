@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-17 17:51+0100\n"
+"POT-Creation-Date: 2009-11-18 10:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,7 +209,7 @@ msgstr ""
 msgid "Courses to which group members are subscribed."
 msgstr "Cours auxquels les membres du groupe sont inscrits."
 
-#: models.py:110 models.py:191
+#: models.py:110 models.py:196
 msgid "Group, required."
 msgstr "Groupe, requis."
 
@@ -284,35 +284,35 @@ msgstr "Actuellement en retard"
 msgid "User"
 msgstr "Utilisateur"
 
-#: models.py:192
+#: models.py:197
 msgid "When ?"
 msgstr "Quand ?"
 
-#: models.py:193
+#: models.py:198
 msgid "Event date, required."
 msgstr "Date de l'évènement, requis."
 
-#: models.py:194
+#: models.py:199
 msgid "Description"
 msgstr ""
 
-#: models.py:195
+#: models.py:200
 msgid "Event description, required."
 msgstr "Description de l'évènement, requis."
 
-#: models.py:199
+#: models.py:204
 msgid "Event"
 msgstr "Évènement"
 
-#: models.py:299
+#: models.py:304
 msgid "Directions"
 msgstr "Instructions"
 
-#: models.py:306
+#: models.py:311
 msgid "Assignment"
 msgstr "Devoir"
 
-#: models.py:307 templates/coaching/tab_cours.html:31
+#: models.py:312 templates/coaching/tab_cours.html:31
 msgid "Assignments"
 msgstr "Devoirs"
 
@@ -558,54 +558,57 @@ msgid "You do not manage any group at the moment."
 msgstr "Vous n'administrez aucun groupe actuellement."
 
 #: templates/coaching/user.html:16
+msgid "Change profile"
+msgstr "Modifier le profil"
+
+#: templates/coaching/user.html:21
 msgid "This student is currently late."
 msgstr "Cet étudiant est actuellement en retard."
 
-#: templates/coaching/user.html:19
+#: templates/coaching/user.html:24
 msgid "This user account is currently not active."
 msgstr "Le compte de cet étudiant n'est pas actif actuellement."
 
-#: templates/coaching/user.html:22
+#: templates/coaching/user.html:27
 msgid "This user account will close on"
 msgstr "Le compte de cet étudiant fermera le"
 
-#: templates/coaching/user.html:24
+#: templates/coaching/user.html:29
 msgid "Last login:"
 msgstr "Dernière connexion :"
 
-#: templates/coaching/user.html:26
+#: templates/coaching/user.html:31
 msgid "Completed courses:"
 msgstr "Cours validés :"
 
-#: templates/coaching/user.html:26
+#: templates/coaching/user.html:31
 msgid "completed late"
 msgstr "validés en retard"
 
-#: templates/coaching/user.html:27
+#: templates/coaching/user.html:32
 msgid "Uploaded assignments:"
 msgstr "Devoirs rendus :"
 
-#: templates/coaching/user.html:29
+#: templates/coaching/user.html:34
 msgid "No courses completed so far."
 msgstr "Pas de cours validés pour le moment."
 
-#: templates/coaching/user.html:31
+#: templates/coaching/user.html:36
 msgid "Currently working on"
 msgstr "Travail en cours :"
 
-#: templates/coaching/user.html:31
+#: templates/coaching/user.html:36
 msgid "completed modules"
 msgstr "modules validés"
 
-#: templates/coaching/user.html:34
+#: templates/coaching/user.html:39
 msgid "Download works from this student:"
 msgstr "Télécharger les travaux de cet étudiant :"
 
-#: templates/coaching/user.html:41
+#: templates/coaching/user.html:46
 msgid "Completed courses details"
 msgstr "Détail des cours validés"
 
-#: templates/coaching/user.html:45
+#: templates/coaching/user.html:50
 msgid "This student is not subscribed to any course"
 msgstr "Cet étudiant n'est inscrit à aucun cours."
-
