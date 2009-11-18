@@ -1,9 +1,9 @@
 {% load i18n %}
 <h3>{{ course.titre }}</h3>
-<p>{{ course.state }}</p>
+<p>{{ course.state|safe }}</p>
 {% if course.is_open %}
 {% if course.modules %}
-<table class="tabcours">
+<table class="tabcours" width="95%">
 <thead>
     <tr><th width="40%">{% trans "Modules" %}</th><th width="12%">{% trans "Contents" %}</th><th width="25%">{% trans "Tests" %}</th><th>{% trans "Best score" %}</th><th style="text-align: center;">{% trans "# tries" %}</th></tr>
 </thead>
@@ -30,7 +30,7 @@
 <table>
 {% endif %}
 {% if course.assignments %}
-<table class="tabcours" width="90%">
+<table class="tabcours" width="95%">
 	<tr><th width="40%">{% trans "Assignments" %}</th><th>{% trans "Uploaded on" %}</th><th>{% trans "Signature" %}</th></tr>
 {% for assignment in course.assignments %}
 {% if assignment.date_remise %}
