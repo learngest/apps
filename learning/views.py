@@ -207,8 +207,11 @@ def assignment(request, work_id=None):
                     request.user.nb_travaux_rendus += 1
                     # cours validé ?
                     uc = UserCours(request.user, request.user.current)
-                    if uc.date_validation():
+                    if uc.valide:
                         request.user.nb_cours_valides += 1
+                        # nouveau cours, raz nb_modules et nb_valides
+                        request.user.nb_modules = None
+                        request.user.nb_valides = 0
                         try:
                             request.user.current = uc.liste_cours[uc.rang+1]
                         except IndexError:
