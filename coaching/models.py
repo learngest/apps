@@ -293,6 +293,35 @@ class CoursValide(CommonResultat):
                 self.date = datetime.datetime.now()
         super(CoursValide, self).save(force_insert, force_update)
 
+def upload_path(instance, filename):
+    import os.path
+    from django.template.defaultfilters import slugify
+    return os.path.join('otherdocs',
+                slugify(instance.groupe.nom),
+                instance.cours.slug,
+                filename)
+
+class AutresDocs(models.Model):
+    """
+    Documents supplémentaires pour un groupes-cours
+    """
+
+    groupe = models.ForeignKey(Groupe)
+    cours = models.ForeignKey(Cours)
+    titre = models.CharField(max_length=100)
+    fichier = models.FileField(upload_to=upload_path)
+
+    class Meta:
+        ordering = ['groupe','cours']
+        verbose_name = _("Additional document")
+        verbose_name_plural = _("Additional documents")
+
+    def __unicode__(self):
+        return u'%s - %s - %s' % (self.titre, self.groupe, self.cours)
+
+    def get_absolute_url(self):
+        return self.fichier.url
+
 class Work(models.Model):
     """
     Devoir à rendre par un groupe pour un cours.

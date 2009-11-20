@@ -2,6 +2,9 @@
 <h3>{{ course.titre }}</h3>
 <p>{{ course.state|safe }}</p>
 {% if course.is_open %}
+{% for doc in course.autres_docs %}
+<p><a href="{{ doc.get_absolute_url }}"><strong>{{ doc.titre }}</strong></a><p>
+{% endfor %}
 {% if course.modules %}
 <table class="tabcours" width="95%">
 <thead>

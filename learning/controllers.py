@@ -5,7 +5,7 @@ import datetime
 from django.utils.translation import ugettext as _
 from django.core.cache import cache
 
-from coaching.models import CoursDuGroupe, Work, WorkDone
+from coaching.models import CoursDuGroupe, Work, WorkDone, AutresDocs
 from learning.models import Contenu
 from testing.models import Granule
 from testing.controllers import UserGranule
@@ -96,6 +96,7 @@ class UserCours(object):
     def __init__(self, user, cours):
         self._usermodules = -1
         self._assignments = -1
+        self._autres_docs = -1
         self._date_validation = -1
         self.user = user
         self.cours = cours
@@ -125,6 +126,12 @@ class UserCours(object):
             self._usermodules = [UserModule(self.user, m) 
                     for m in self.cours.liste_modules()]
         return self._usermodules
+
+    def autres_docs(self):
+        if self._autres_docs == -1:
+            self._autres_docs = AutresDocs.objects.filter(
+                    groupe=self.user.groupe, cours = self.cours)
+        return self._autres_docs
 
     def assignments(self):
         if self._assignments == -1:
