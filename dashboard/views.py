@@ -21,6 +21,7 @@ def dashboard(request):
     - staff
     - admin
     - prof
+    - assistant
     - etudiant
     """
     curmod = sys.modules['dashboard.views']

@@ -4,6 +4,7 @@ import datetime
 
 from django.utils.translation import ugettext as _
 from django.core.cache import cache
+from django.conf import settings
 
 from coaching.models import CoursDuGroupe, Work, WorkDone, AutresDocs
 from learning.models import Contenu
@@ -63,7 +64,7 @@ class UserModule(object):
         """
         Renvoie True si le module est ouvert
         """
-        if self.user.statut == 3:
+        if self.user.statut == settings.STAFF:
             return True
         if not self.cours():
             return False
@@ -186,7 +187,7 @@ class UserCours(object):
         - ce cours est le premier pour le groupe
         - le cours précédent est validé
         """
-        if self.user.statut > 0:
+        if self.user.statut > settings.ASSISTANT:
             return True
         if self.user.groupe.is_open:
             return True
