@@ -6,6 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User, Group
 from django import forms
 from django.forms import ModelForm
+from django.conf import settings
 
 from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work, AutresDocs
 from coaching.actions import send_email
@@ -21,7 +22,15 @@ class CoursDuGroupeInline(admin.TabularInline):
     model = CoursDuGroupe
     verbose_name_plural = _('Group courses')
 
+class GroupeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GroupeForm, self).__init__(*args, **kwargs)
+        w = self.fields['administrateur'].widget
+        w.choices = [(u.pk, u.email)
+                for u in Utilisateur.objects.filter(statut__gte=settings.ADMIN)]
+
 class GroupeAdmin(admin.ModelAdmin):
+    form = GroupeForm
     fieldsets = (
         (None, {'fields': ('nom',)}),
         (None, {'fields': ('administrateur','client')}),
