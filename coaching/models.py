@@ -178,6 +178,9 @@ class Utilisateur(User):
         verbose_name = _("User")
         ordering = ('groupe',)
 
+    def __unicode__(self):
+        return self.email
+
     def get_admin_url(self):
         from django.core import urlresolvers
         return urlresolvers.reverse('admin:coaching_utilisateur_change',
