@@ -82,6 +82,10 @@ class Groupe(models.Model):
         through='CoursDuGroupe',
         help_text=_("Courses to which group members are subscribed."))
 
+    assistant = models.ManyToManyField('Utilisateur', blank=True, null=True,
+        through='Assistants', related_name='assistants',
+        help_text=_("Assistants pour ce groupe."))
+
     class Meta:
         ordering = ['client', 'nom']
 
@@ -124,6 +128,22 @@ class CoursDuGroupe(models.Model):
 
     def __unicode__(self):
         return "%s - %s" % (self.groupe, self.cours)
+
+class Assistants(models.Model):
+    """
+    Assistant pour un groupe
+    """
+
+    utilisateur = models.ForeignKey('Utilisateur', related_name='assistant')
+    groupe = models.ForeignKey(Groupe)
+
+    class Meta:
+        ordering = ('groupe',)
+        verbose_name = 'Assistant'
+        verbose_name_plural = 'Assistants'
+
+    def __unicode__(self):
+        return "%s - %s" % (self.groupe, self.utilisateur)
 
 class Utilisateur(User):
     """

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 10:13+0100\n"
+"POT-Creation-Date: 2009-11-23 15:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,56 +25,60 @@ msgstr "Le message a été envoyé."
 msgid "Send an email"
 msgstr "Envoyer un mail"
 
-#: admin.py:22
+#: admin.py:31
+msgid "Group assistants"
+msgstr "Assistants pour ce groupe"
+
+#: admin.py:41
 msgid "Group courses"
 msgstr "Cours de ce groupe"
 
-#: admin.py:69 templates/coaching/create_logins2.html:40
-#: templates/coaching/groupe.html:20
+#: admin.py:96 templates/coaching/create_logins2.html:40
+#: templates/coaching/groupe.html:44
 msgid "Email"
 msgstr ""
 
-#: admin.py:71 admin.py:99 templates/coaching/create_logins3.html:40
+#: admin.py:98 admin.py:126 templates/coaching/create_logins3.html:40
 msgid "Password"
 msgstr "Mot de passe"
 
-#: admin.py:73 admin.py:100
+#: admin.py:100 admin.py:127
 msgid "Password confirmation"
 msgstr "Confirmation du mot de passe"
 
-#: admin.py:85 admin.py:126 forms.py:35
+#: admin.py:112 admin.py:153 forms.py:35
 msgid "The two password fields didn't match."
 msgstr "Les deux mots de passe ne concordent pas."
 
-#: admin.py:98
+#: admin.py:125
 msgid "Username"
 msgstr "Login"
 
-#: admin.py:120
+#: admin.py:147
 msgid "A user with that username already exists."
 msgstr "Un utilisateur avec ce login existe déjà."
 
-#: admin.py:143 templates/coaching/change_profile.html:22
+#: admin.py:170 templates/coaching/change_profile.html:22
 msgid "Identity"
 msgstr "Informations personnelles"
 
-#: admin.py:145
+#: admin.py:172
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: admin.py:146
+#: admin.py:173
 msgid "Permissions"
 msgstr ""
 
-#: admin.py:147
+#: admin.py:174
 msgid "Important dates"
 msgstr "Dates importantes"
 
-#: admin.py:148
+#: admin.py:175
 msgid "Groups"
 msgstr "Groupes"
 
-#: admin.py:160 forms.py:61 templates/coaching/change_profile.html:18
+#: admin.py:187 forms.py:61 templates/coaching/change_profile.html:18
 #: templates/coaching/change_profile.html:19
 #: templates/coaching/create_logins.html:26
 #: templates/coaching/create_logins2.html:15
@@ -85,15 +89,15 @@ msgstr "Groupes"
 msgid "Group"
 msgstr "Groupe"
 
-#: admin.py:167 templates/coaching/groupe.html:20
+#: admin.py:194 templates/coaching/groupe.html:43
 msgid "Name"
 msgstr "Nom"
 
-#: admin.py:173
+#: admin.py:200
 msgid "Completed courses"
 msgstr "Cours validés"
 
-#: admin.py:178
+#: admin.py:205
 msgid "Uploaded assignments"
 msgstr "Devoirs rendus"
 
@@ -209,118 +213,122 @@ msgstr ""
 msgid "Courses to which group members are subscribed."
 msgstr "Cours auxquels les membres du groupe sont inscrits."
 
-#: models.py:115 models.py:201
+#: models.py:87
+msgid "Assistants pour ce groupe."
+msgstr ""
+
+#: models.py:113 models.py:218
 msgid "Group, required."
 msgstr "Groupe, requis."
 
-#: models.py:117
+#: models.py:115
 msgid "Course, required."
 msgstr "Identifiant du cours, requis."
 
-#: models.py:118
+#: models.py:116
 msgid "rank"
 msgstr "rang"
 
-#: models.py:119
+#: models.py:117
 msgid "Opening date"
 msgstr "Date d'ouverture au plus tôt"
 
-#: models.py:121
+#: models.py:119
 msgid "Date at which the course will open"
 msgstr "Date avant laquelle le cours ne sera pas disponible"
 
-#: models.py:122
+#: models.py:120
 msgid "Deadline"
 msgstr "Échéance"
 
-#: models.py:124
+#: models.py:122
 msgid "Course deadline"
 msgstr "Date avant laquelle le cours doit être validé."
 
-#: models.py:129
+#: models.py:127
 msgid "Groups courses"
 msgstr "Cours des groupes"
 
-#: models.py:138 templates/coaching/change_profile.html:27
+#: models.py:152 templates/coaching/change_profile.html:27
 msgid "Expiration date"
 msgstr "Validité"
 
-#: models.py:140
+#: models.py:154
 msgid "Account is valid till this date. Account is valid forever if empty."
 msgstr ""
 "Le compte est valide jusqu'à cette date. Laisser vide pour une validité "
 "permanente."
 
-#: models.py:144
+#: models.py:158
 msgid ""
 "User's prefered language for interface, messages and contents, required."
 msgstr "Langue préférée pour l'interace, les messages et les contenus, requis."
 
-#: models.py:147
+#: models.py:161
 msgid "User's status, required."
 msgstr "Statut de l'utilisateur, requis."
 
-#: models.py:151
+#: models.py:165
 msgid "User's group, required and unique."
 msgstr "Groupe de l'utilisateur, requis."
 
-#: models.py:162
+#: models.py:176
 msgid "# modules"
 msgstr "Nb de modules"
 
-#: models.py:165
+#: models.py:179
 msgid "# completed"
 msgstr "Nb validés"
 
-#: models.py:169
+#: models.py:183
 msgid "# completed late"
 msgstr "Nb validés en retard"
 
-#: models.py:173
+#: models.py:187
 msgid "# currently late"
 msgstr "Actuellement en retard"
 
-#: models.py:183
+#: models.py:197
 msgid "User"
 msgstr "Utilisateur"
 
-#: models.py:202
+#: models.py:219
 msgid "When ?"
 msgstr "Quand ?"
 
-#: models.py:203
+#: models.py:220
 msgid "Event date, required."
 msgstr "Date de l'évènement, requis."
 
-#: models.py:204
+#: models.py:221
 msgid "Description"
 msgstr ""
 
-#: models.py:205
+#: models.py:222
 msgid "Event description, required."
 msgstr "Description de l'évènement, requis."
 
-#: models.py:209
+#: models.py:226
 msgid "Event"
 msgstr "Évènement"
 
-#: models.py:321
+#: models.py:338
 msgid "Additional document"
 msgstr "Document supplémentaire"
 
-#: models.py:322
+#: models.py:339
 msgid "Additional documents"
 msgstr "Documents supplémentaires"
 
-#: models.py:338
+#: models.py:355
 msgid "Directions"
 msgstr "Instructions"
 
-#: models.py:345
+#: models.py:362
 msgid "Assignment"
 msgstr "Devoir"
 
-#: models.py:346 templates/coaching/tab_cours.html:31
+#: models.py:363 templates/coaching/tab_cours.html:31
 msgid "Assignments"
 msgstr "Devoirs"
 
@@ -373,7 +381,7 @@ msgstr "Créer les logins"
 msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
 
-#: templates/coaching/change_profile.html:6 templates/coaching/groupe.html:5
+#: templates/coaching/change_profile.html:6 templates/coaching/groupe.html:15
 #: templates/coaching/sendmail.html:9 templates/coaching/user.html:10
 msgid "dashboard"
 msgstr "tableau de bord"
@@ -461,39 +469,35 @@ msgstr ""
 msgid "Status"
 msgstr "État"
 
-#: templates/coaching/groupe.html:11
+#: templates/coaching/groupe.html:21
 msgid "Download works from this group:"
 msgstr "Télécharger les travaux de ce groupe :"
 
-#: templates/coaching/groupe.html:20
+#: templates/coaching/groupe.html:45
 msgid "Last login"
 msgstr "Dernière connexion"
 
-#: templates/coaching/groupe.html:20
+#: templates/coaching/groupe.html:47
 msgid "Completed <br />courses"
 msgstr "Cours<br />validés"
 
-#: templates/coaching/groupe.html:20
+#: templates/coaching/groupe.html:50
 msgid "Uploaded<br />works"
 msgstr "Travaux<br />rendus"
 
-#: templates/coaching/groupe.html:20
+#: templates/coaching/groupe.html:53
 msgid "Current course"
 msgstr "Cours courant"
 
-#: templates/coaching/groupe.html:20
-msgid "Problems"
-msgstr "Problèmes"
+#: templates/coaching/groupe.html:55
+msgid "Validated modules<br />in current course"
+msgstr "Modules validés<br />dans le cours courant"
 
-#: templates/coaching/groupe.html:21
-msgid "Title"
-msgstr "Titre"
+#: templates/coaching/groupe.html:57
+msgid "State"
+msgstr "État"
 
-#: templates/coaching/groupe.html:21
-msgid "Validated modules"
-msgstr "Modules validés"
-
-#: templates/coaching/groupe.html:33
+#: templates/coaching/groupe.html:80
 msgid "This group is empty."
 msgstr "Ce groupe est vide."
 

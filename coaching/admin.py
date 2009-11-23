@@ -8,7 +8,7 @@ from django import forms
 from django.forms import ModelForm
 from django.conf import settings
 
-from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work, AutresDocs
+from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work, AutresDocs, Assistants
 from coaching.actions import send_email
 
 admin.site.unregister(User)
@@ -17,6 +17,24 @@ admin.site.unregister(Group)
 class ClientAdmin(admin.ModelAdmin):
     search_fields = ('nom',)
 admin.site.register(Client, ClientAdmin)
+
+class AssistantFormset(ModelForm):
+    utilisateur = forms.ModelChoiceField(label='Assistant',
+            queryset=Utilisateur.objects.filter(statut__gte=settings.ASSISTANT))
+
+    class Meta:
+        model = Assistants
+
+class AssistantsDuGroupeInline(admin.TabularInline):
+    model = Assistants
+    verbose_name = 'Assistant'
+    verbose_name_plural = _('Group assistants')
+
+    def get_formset(self, request, obj=None, **kwargs):
+        if obj is not None:
+            self.form = AssistantFormset
+        return super(AssistantsDuGroupeInline,
+                    self).get_formset(request, obj, **kwargs)
 
 class CoursDuGroupeInline(admin.TabularInline):
     model = CoursDuGroupe
@@ -27,7 +45,7 @@ class GroupeForm(forms.ModelForm):
         super(GroupeForm, self).__init__(*args, **kwargs)
         w = self.fields['administrateur'].widget
         w.choices = [(u.pk, u.email)
-                for u in Utilisateur.objects.filter(statut__gte=settings.ADMIN)]
+            for u in Utilisateur.objects.filter(statut__gte=settings.ADMIN)]
 
 class GroupeAdmin(admin.ModelAdmin):
     form = GroupeForm
@@ -40,7 +58,7 @@ class GroupeAdmin(admin.ModelAdmin):
     list_display_links = ('nom',)
     list_filter = ('client',)
     search_fields = ('nom',)
-    inlines = (CoursDuGroupeInline,)
+    inlines = (AssistantsDuGroupeInline, CoursDuGroupeInline,)
 admin.site.register(Groupe, GroupeAdmin)
 
 class WorkAdmin(admin.ModelAdmin):
