@@ -21,7 +21,6 @@ class AdminGroupe(object):
         self.is_demo = self.groupe.is_demo
         self.get_absolute_url = self.groupe.get_absolute_url()
         self.nb_logins = Utilisateur.objects.filter(groupe=groupe).count()
-        #self.nb_cours = self.groupe.coursdugroupe_set.all().count()
         self.nb_cours = self.groupe.cours.count()
         self.nb_works = Work.objects.filter(groupe=self.groupe).count()
 
@@ -55,9 +54,11 @@ class UserState(object):
     def __init__(self, user):
         self.user = user
         self.get_full_name = user.get_full_name()
+        self.get_name = '%s %s' % (user.last_name, user.first_name)
         self.email = user.email
         self.get_absolute_url = user.get_absolute_url()
         self.last_login = user.last_login
+        self._state = None
         self._cours = []
         self._nb_cours = None
         self._nb_travaux = None
@@ -204,3 +205,14 @@ class UserState(object):
         now = datetime.datetime.now()
         return not self.user.is_active or self.user.fermeture < now
 
+    def state(self):
+        """
+        True s'il y a un problème :
+        - actuellement en retard
+        - compte inactif
+        - compte ferme dans moins d'une semaine
+        """
+        if self._state is None:
+            self._state = self.is_inactif() \
+                    or self.fermeture_prochaine() or self.nb_cours_en_retard()
+        return self._state
