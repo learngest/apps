@@ -205,6 +205,17 @@ class Utilisateur(User):
         return urlresolvers.reverse('admin:coaching_utilisateur_change',
                 args=(str(self.id),))
 
+    def may_see_groupe(self, grpe):
+        """
+        True si l'utilisateur peut consulter ce groupe
+        """
+        if self.is_staff:
+            return True
+        if grpe.administrateur == self:
+            return True
+        if self in grpe.assistant.all():
+            return True
+
     @models.permalink
     def get_absolute_url(self):
         return('coaching.views.user', [str(self.id)])
