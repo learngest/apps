@@ -95,7 +95,6 @@ class Groupe(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        #return('group_view', (), {'groupe_id': str(self.id)})
         return('coaching.views.groupe', [str(self.id)])
 
 class CoursDuGroupe(models.Model):
