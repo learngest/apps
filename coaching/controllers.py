@@ -69,6 +69,21 @@ class UserState(object):
                 for c in self.user.groupe.cours.order_by('coursdugroupe__rang')]
         return self._cours
 
+    def recalcule_tout(self, sauver=True):
+        """
+        Recalcule tous les éléments de performance
+        stockés de l'utilisateur
+        """
+        self.nb_travaux_rendus(recalcul=True, sauve=False)
+        self.nb_cours_valides(recalcul=True, sauve=False)
+        self.nb_cours_en_retard(recalcul=True, sauve=False)
+        self.nb_cours_valides_en_retard(recalcul=True, sauve=False)
+        self.cours_courant(recalcul=True,sauve=False)
+        self.nb_modules_in_current(recalcul=True,sauve=False)
+        self.nb_modules_valides_in_current(recalcul=True,sauve=False)
+        if sauver:
+            self.user.save()
+
     def nb_cours(self):
         """
         Retourne le nombre de cours auxquels l'utilisateur est inscrit
