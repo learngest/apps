@@ -63,6 +63,22 @@ def dashboard_admin(request):
                                   },
                                   context_instance=RequestContext(request))
 
+def dashboard_assistant(request):
+    """
+    Tableau de bord assistant
+    """
+    groupes = [AdminGroupe(request.user, groupe)
+            for groupe in Groupe.objects.filter(assistant=request.user)]
+    if len(groupes)==1:
+        return HttpResponseRedirect(groupes[0].get_absolute_url)
+    else:
+        return render_to_response('dashboard/admin.html',
+                                  {'title': _('dashboard'),
+                                   'groupes': groupes,
+                                  },
+                                  context_instance=RequestContext(request))
+
+
 def dashboard_staff(request):
     """
     Tableau de bord staff, lien vers l'admin

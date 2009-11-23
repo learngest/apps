@@ -1,12 +1,12 @@
 {% load i18n %}
-<table class="tabgroupes">
+<table class="tabcours" width="95%">
     <thead>
-        <tr><th width="25%">{% trans "Group" %}</th><th style="text-align: center;">{% trans "Logins" %}</th><th style="text-align: center;">{% trans "Open ?" %}</th><th style="text-align: center;">{% trans "Demo" %}</th></tr>
+        <tr><th width="35%">{% trans "Group" %}</th><th style="text-align: center;">{% trans "Logins" %}</th><th style="text-align: center;">{% trans "Open ?" %}</th><th style="text-align: center;">{% trans "Demo" %}</th></tr>
     </thead>
     <tfoot></tfoot>
     <tbody>
 {% for groupe in groupes %}
-<tr>
+<tr class="{% cycle odd,even %}">
     <td><a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a></td><td style="text-align: center;">{{ groupe.nb_logins }}</td><td style="text-align: center;">{{ groupe.is_open|yesno:_("yes,no") }}</td><td style="text-align: center;">{{ groupe.is_demo|yesno:_("yes,no") }}</td>
 </tr>
 {% empty %}

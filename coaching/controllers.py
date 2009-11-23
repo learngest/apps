@@ -12,6 +12,7 @@ from learning.controllers import UserModule, UserCours
 class AdminGroupe(object):
     """
     Controller du groupe d'un administrateur
+    ou d'un assistant
     """
     def __init__(self, admin, groupe):
         self.admin = admin
