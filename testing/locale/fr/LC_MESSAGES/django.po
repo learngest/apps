@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-06 11:53+0100\n"
+"POT-Creation-Date: 2009-11-24 11:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,63 +16,63 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:75
+#: controllers.py:106
 msgid "We are sorry, this content is not available in your preferred language."
 msgstr ""
 "Nous sommes désolés, ce test n'est pas disponible dans la langue demandée."
 
-#: controllers.py:142 controllers.py:216 controllers.py:237
+#: controllers.py:173 controllers.py:247 controllers.py:268
 msgid "nothing"
 msgstr "aucune réponse"
 
-#: views.py:25 templates/testing/noter.html:5
-msgid "grade"
-msgstr "notation"
-
-#: views.py:30
+#: views.py:26
 msgid "Requested url is invalid."
 msgstr "L'URL demandée est invalide."
 
-#: views.py:37
+#: views.py:33
 msgid "Requested test does not exist"
 msgstr "Le test demandé n'existe pas"
 
-#: views.py:41
+#: views.py:37
 msgid "Requested test is not allowed."
 msgstr "Vous n'êtes pas autorisé à faire le test demandé."
 
-#: views.py:45
+#: views.py:52 templates/testing/noter.html:15
+msgid "grade"
+msgstr "notation"
+
+#: views.py:59
 msgid "test"
 msgstr ""
 
-#: templates/testing/noter.html:5 templates/testing/test.html:5
-msgid "dashboard"
-msgstr "tableau de bord"
+#: templates/testing/noter.html:15 templates/testing/test.html:15
+msgid "Dashboard"
+msgstr "Tableau de bord"
 
-#: templates/testing/noter.html:14
+#: templates/testing/noter.html:24
 msgid "You answered"
 msgstr "Vous avez répondu"
 
-#: templates/testing/noter.html:19
+#: templates/testing/noter.html:29
 msgid "Final score"
 msgstr "Score final"
 
-#: templates/testing/noter.html:21
+#: templates/testing/noter.html:31
 msgid "Congratulations, you succeeded !"
 msgstr "Bravo, vous avez réussi ce test !"
 
-#: templates/testing/noter.html:21
+#: templates/testing/noter.html:31
 msgid "Back to your dashboard"
 msgstr "Retour au tableau de bord"
 
-#: templates/testing/noter.html:23
+#: templates/testing/noter.html:33
 msgid "Your score is too low, please try again."
 msgstr "Ce score est trop faible, il vous faudra retenter ce test."
 
-#: templates/testing/noter.html:23
+#: templates/testing/noter.html:33
 msgid "Try again now"
 msgstr "Essayer maintenant"
 
-#: templates/testing/test.html:19
+#: templates/testing/test.html:29
 msgid "Grade the test"
 msgstr "Noter le test"

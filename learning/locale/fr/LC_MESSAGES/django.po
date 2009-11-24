@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 11:05+0100\n"
+"POT-Creation-Date: 2009-11-24 11:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,8 +129,8 @@ msgstr "Le devoir demandé n'est pas autorisé actuellement."
 #: templates/learning/html_support.html:18
 #: templates/learning/liste_cours.html:10
 #: templates/learning/swf_support.html:16
-msgid "dashboard"
-msgstr "tableau de bord"
+msgid "Dashboard"
+msgstr "Tableau de bord"
 
 #: templates/learning/assignment.html:9
 msgid "assignment"

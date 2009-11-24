@@ -7,7 +7,7 @@
 {% endblock extrastyle %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    <a href="{% url dashboard.views.dashboard %}">{% trans "dashboard" %}</a> &gt; <a href="{{ student.user.groupe.get_absolute_url }}">{{ student.user.groupe.nom }}</a> &gt; {{ student.get_full_name }}
+    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ student.user.groupe.get_absolute_url }}">{{ student.user.groupe.nom }}</a> &gt; {{ student.get_full_name }}
 </div>{% endblock %}
 
 {% block content %}

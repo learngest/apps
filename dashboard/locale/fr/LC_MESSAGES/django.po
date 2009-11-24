@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-05 14:31+0100\n"
+"POT-Creation-Date: 2009-11-24 11:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,13 +54,17 @@ msgid "Su"
 msgstr "Di"
 
 #: planning.py:139
+#, python-format
 msgid "Deadline for assignment %s"
 msgstr "Date limite de remise du devoir %s"
 
-#: views.py:43 views.py:60 templates/dashboard/admin.html:10
-#: templates/dashboard/etudiant.html:10
+#: views.py:44 views.py:61 views.py:76 views.py:91
 msgid "dashboard"
 msgstr "tableau de bord"
+
+#: templates/dashboard/admin.html:10 templates/dashboard/etudiant.html:10
+msgid "Dashboard"
+msgstr "Tableau de bord"
 
 #: templates/dashboard/admin.html:14
 msgid "Your groups"
