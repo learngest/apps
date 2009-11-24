@@ -5,22 +5,46 @@
 {% if course.modules %}
 <table class="tabcours" width="95%">
 <thead>
-    <tr><th width="45%">{% trans "Modules" %}</th><th width="32%">{% trans "Tests" %}</th><th>{% trans "Best score" %}</th><th style="text-align: center;">{% trans "# tries" %}</th></tr>
+    <tr>
+        <th width="45%">{% trans "Modules" %}</th>
+        <th width="32%">{% trans "Tests" %}</th>
+        <th>{% trans "Best score" %}</th>
+        <th style="text-align: center;">{% trans "# tries" %}</th>
+    </tr>
 </thead>
 <tfoot></tfoot>
 <tbody>
 {% for module in course.modules %}
 <tr class="{% cycle odd,even %}">
-    <td>{{ module.titre }}{% if module.is_valide %}<br />{% trans "Completed on" %} {{ module.is_valide|date:"d/m/Y" }}{% endif %}</td>
-    <td>{% for test in module.tests %}
-        {{ test.titre }}{% if not forloop.last %}<br />{% endif %}{% endfor %}
+    <td>{% if module.date_validation %}
+        <span style="color: #079;">{{ module.titre }}
+        <span style="font-size: smaller;">({% trans "Completed on" %} 
+            {{ module.date_validation|date:"d/m/Y" }})</span></span>
+        {% else %}
+        {{ module.titre }}
+        {% endif %}
     </td>
     <td>{% for test in module.tests %}
-        {{ test.str_best_score }} - {{ test.best_score_date|date:"d/m/Y" }}{% if not forloop.last %}<br />{% endif %}
-    {% endfor %}</td>
-    <td style="text-align: center;">{% for test in module.tests %}
+        {{ test.titre }}
+        {% if not forloop.last %}<br />{% endif %}
+        {% endfor %}
+    </td>
+    <td>{% for test in module.tests %}
+        {% if test.date_validation %}
+            <span style="color: #079;">
+            {{ test.str_best_score }} - {{ test.best_score_date|date:"d/m/Y" }}
+            </span>
+        {% else %}
+            {{ test.str_best_score }} - {{ test.best_score_date|date:"d/m/Y" }}
+        {% endif %}
+        {% if not forloop.last %}<br />{% endif %}
+        {% endfor %}
+    </td>
+    <td style="text-align: center;">
+        {% for test in module.tests %}
         {{ test.nb_tries }}{% if not forloop.last %}<br />{% endif %}
-    {% endfor %}</td>
+        {% endfor %}
+    </td>
 </tr>
 {% endfor %}
 </tbody>
@@ -28,12 +52,24 @@
 {% endif %}
 {% if course.assignments %}
 <table class="tabcours" width="95%">
-	<tr><th width="45%">{% trans "Assignments" %}</th><th>{% trans "Uploaded on" %}</th><th>{% trans "Signature" %}</th></tr>
+    <tr>
+        <th width="45%">{% trans "Assignments" %}</th>
+        <th>{% trans "Uploaded on" %}</th>
+        <th>{% trans "Signature" %}</th>
+    </tr>
 {% for assignment in course.assignments %}
 {% if assignment.date_remise %}
-<tr><td>{{ assignment.titre }}</td><td>{{ assignment.date_remise }}</td><td>{{ assignment.signature }}</td></tr>
+<tr>
+    <td>{{ assignment.titre }}</td>
+    <td>{{ assignment.date_remise }}</td>
+    <td>{{ assignment.signature }}</td>
+</tr>
 {% else %}
-<tr><td>{{ assignment.titre }}</td><td></td><td></td></tr>
+<tr>
+    <td>{{ assignment.titre }}</td>
+    <td></td>
+    <td></td>
+</tr>
 {% endif %}
 {% endfor %}
 <table>
