@@ -97,6 +97,11 @@ class Groupe(models.Model):
             self.is_open=True
         super(Groupe, self).save()
 
+    def get_admin_url(self):
+        from django.core import urlresolvers
+        return urlresolvers.reverse('admin:coaching_groupe_change',
+                args=(str(self.id),))
+
     @models.permalink
     def get_absolute_url(self):
         return('coaching.views.groupe', [str(self.id)])

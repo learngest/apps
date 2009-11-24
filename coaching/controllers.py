@@ -21,6 +21,7 @@ class AdminGroupe(object):
         self.is_open = self.groupe.is_open
         self.is_demo = self.groupe.is_demo
         self.get_absolute_url = self.groupe.get_absolute_url()
+        self.get_admin_url = self.groupe.get_admin_url()
         self.nb_logins = Utilisateur.objects.filter(groupe=groupe).count()
         self.nb_cours = self.groupe.cours.count()
         self.nb_works = Work.objects.filter(groupe=self.groupe).count()

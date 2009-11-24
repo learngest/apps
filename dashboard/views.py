@@ -78,9 +78,17 @@ def dashboard_assistant(request):
                                   },
                                   context_instance=RequestContext(request))
 
-
 def dashboard_staff(request):
     """
-    Tableau de bord staff, lien vers l'admin
+    Tableau de bord staff
     """
-    return HttpResponseRedirect("/staff/")
+    groupes = [AdminGroupe(request.user, groupe)
+                for groupe in Groupe.objects.all()]
+    if len(groupes)==1:
+        return HttpResponseRedirect(groupes[0].get_absolute_url)
+    else:
+        return render_to_response('dashboard/admin.html',
+                                  {'title': _('dashboard'),
+                                   'groupes': groupes,
+                                  },
+                                  context_instance=RequestContext(request))
