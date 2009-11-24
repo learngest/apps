@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-24 11:16+0100\n"
+"POT-Creation-Date: 2009-11-24 11:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr "Le message a été envoyé."
 msgid "Send an email"
 msgstr "Envoyer un mail"
 
-#: admin.py:31
+#: admin.py:31 models.py:87
 msgid "Group assistants"
 msgstr "Assistants pour ce groupe"
 
@@ -212,10 +212,6 @@ msgstr ""
 #: models.py:83
 msgid "Courses to which group members are subscribed."
 msgstr "Cours auxquels les membres du groupe sont inscrits."
-
-#: models.py:87
-msgid "Assistants pour ce groupe."
-msgstr ""
 
 #: models.py:118 models.py:234
 msgid "Group, required."
@@ -625,5 +621,3 @@ msgstr "Détail des cours validés"
 msgid "This student is not subscribed to any course"
 msgstr "Cet étudiant n'est inscrit à aucun cours."
 
-#~ msgid "Group students"
-#~ msgstr "Membres du groupe"

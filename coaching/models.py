@@ -84,7 +84,7 @@ class Groupe(models.Model):
 
     assistant = models.ManyToManyField('Utilisateur', blank=True, null=True,
         through='Assistants', related_name='assistants',
-        help_text=_("Assistants pour ce groupe."))
+        help_text=_("Group assistants"))
 
     class Meta:
         ordering = ['client', 'nom']
