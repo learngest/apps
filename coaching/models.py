@@ -150,6 +150,22 @@ class Assistants(models.Model):
     def __unicode__(self):
         return "%s - %s" % (self.groupe, self.utilisateur)
 
+class Prof(models.Model):
+    """
+    Professeur pour un groupe-cours
+    """
+
+    utilisateur = models.ForeignKey('Utilisateur', related_name='prof')
+    groupe = models.ForeignKey(Groupe)
+    cours = models.ForeignKey(Cours)
+
+    class Meta:
+        ordering = ('groupe',)
+        verbose_name = 'Professor'
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (self.utilisateur, self.groupe, self.cours)
+
 class Utilisateur(User):
     """
     Utilisateur pour les applications Learngest

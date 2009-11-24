@@ -8,7 +8,7 @@ from django import forms
 from django.forms import ModelForm
 from django.conf import settings
 
-from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work, AutresDocs, Assistants
+from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work, AutresDocs, Assistants, Prof
 from coaching.actions import send_email
 
 admin.site.unregister(User)
@@ -232,3 +232,18 @@ class EventAdmin(admin.ModelAdmin):
     list_editable = ('date','event')
     list_filter = ('groupe',)
 admin.site.register(Event, EventAdmin)
+
+class ProfForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProfForm, self).__init__(*args, **kwargs)
+        w = self.fields['utilisateur'].widget
+        w.choices = [(u.pk, u.email)
+            for u in Utilisateur.objects.filter(statut__gte=settings.PROF)]
+
+class ProfAdmin(admin.ModelAdmin):
+    form = ProfForm
+    fieldsets = (
+        (None, {'fields': ('groupe', 'cours', 'utilisateur')}),
+    )
+    list_filter = ('groupe',)
+admin.site.register(Prof, ProfAdmin)
