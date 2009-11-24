@@ -170,26 +170,25 @@ class Utilisateur(User):
         help_text=_("User's group, required and unique."))
 
     current = models.ForeignKey(Cours,
+        verbose_name=_('current course'),
         blank=True, null=True,
         editable=False)
     
     # desérialisation, non éditables
-    nb_cours_valides = models.IntegerField(null=True, editable=False)
-    nb_travaux_rendus = models.IntegerField(null=True, editable=False)
-
+    nb_cours_valides = models.IntegerField(
+            _('courses completed'),null=True, editable=False)
+    nb_travaux_rendus = models.IntegerField(
+            _('assignments uploaded'),null=True, editable=False)
     nb_modules = models.IntegerField(
-            _("# modules"),
-            null=True, editable=False)
+            _("# modules"), null=True, editable=False)
+    # nb modules validés dans le cours courant
     nb_valides = models.IntegerField(
-            _("# completed"),
-            null=True, editable=False)
+            _("# completed"), null=True, editable=False)
     # nb de cours validés, mais en retard
-    nb_retards = models.IntegerField(
-            _("# completed late"),
+    nb_retards = models.IntegerField( _("# completed late"),
             null=True, editable=False)
     # nb de retards courant
-    nb_actuel = models.IntegerField(
-            _("# currently late"),
+    nb_actuel = models.IntegerField( _("delays"),
             null=True, editable=False)
 
     # inutilisé, réservé

@@ -54,11 +54,18 @@ class GroupeAdmin(admin.ModelAdmin):
         (None, {'fields': ('administrateur','client')}),
         ('Permissions', {'fields': ('is_demo', 'is_open')}),
     )
-    list_display = ('client','nom','administrateur','is_demo','is_open')
-    list_display_links = ('nom',)
+    list_display = ('id','client','nom_url','administrateur','is_demo','is_open')
     list_filter = ('client',)
     search_fields = ('nom',)
     inlines = (AssistantsDuGroupeInline, CoursDuGroupeInline,)
+
+    def nom_url(self, obj):
+        return "<a href=\"%s\">%s</a>" % (
+                obj.get_absolute_url(), obj.nom)
+    nom_url.short_description = _('Name')
+    nom_url.admin_order_field = 'nom'
+    nom_url.allow_tags = True
+
 admin.site.register(Groupe, GroupeAdmin)
 
 class WorkAdmin(admin.ModelAdmin):
@@ -174,10 +181,11 @@ class UtilisateurAdmin(UserAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('Groups'), {'fields': ('groups',)}),
     )
-    list_display = ('groupe_short_name','email', 'full_name',
-            'cours_valides','travaux_rendus',)
-    list_display_links = ('email',)
-    list_filter = ('groupe', 'langue', 'fermeture')
+    list_display = ('id','groupe_short_name','full_name',
+            'cours_valides','current','modules_valides',
+            'travaux_rendus','nb_actuel',)
+    list_display_links = ('id',)
+    list_filter = ('groupe', 'nb_cours_valides','nb_actuel')
     search_fields = ('email', 'last_name',)
     actions = ['send_an_email']
 
@@ -198,11 +206,18 @@ class UtilisateurAdmin(UserAdmin):
     def cours_valides(self, obj):
         return "%s / %s" % (obj.nb_cours_valides, obj.groupe.cours.count())
     cours_valides.short_description = _('Completed courses')
+    cours_valides.admin_order_field = 'nb_cours_valides'
+
+    def modules_valides(self, obj):
+        return "%s / %s" % (obj.nb_valides, obj.nb_modules)
+    modules_valides.short_description = _('Validated modules')
+    modules_valides.admin_order_field = 'nb_valides'
 
     def travaux_rendus(self, obj):
         return "%s / %s" % (obj.nb_travaux_rendus,
                 Work.objects.filter(groupe=obj.groupe).count()) 
     travaux_rendus.short_description = _('Uploaded assignments')
+    travaux_rendus.admin_order_field = 'nb_travaux_rendus'
 
     send_an_email = send_email
 
