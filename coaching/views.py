@@ -61,7 +61,7 @@ def groupe(request, groupe_id):
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     groupe = AdminGroupe(request.user, groupe)
     return render_to_response('coaching/groupe.html',
-                              {'title': _('Group students'),
+                              {'title': groupe.nom,
                                'groupe': groupe,
                               },
                               context_instance=RequestContext(request))
