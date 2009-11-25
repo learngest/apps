@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-24 15:28+0100\n"
+"POT-Creation-Date: 2009-11-25 09:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr "Assistants pour ce groupe"
 msgid "Group courses"
 msgstr "Cours de ce groupe"
 
-#: admin.py:65 admin.py:202 templates/coaching/groupe.html:49
+#: admin.py:65 admin.py:207 templates/coaching/groupe.html:49
 msgid "Name"
 msgstr "Nom"
 
@@ -82,7 +82,11 @@ msgstr "Dates importantes"
 msgid "Groups"
 msgstr "Groupes"
 
-#: admin.py:195 forms.py:61 templates/coaching/change_profile.html:18
+#: admin.py:194 templates/coaching/groupe.html:51
+msgid "Last login"
+msgstr "Dernier login"
+
+#: admin.py:200 forms.py:61 templates/coaching/change_profile.html:18
 #: templates/coaching/change_profile.html:19
 #: templates/coaching/create_logins.html:26
 #: templates/coaching/create_logins2.html:15
@@ -93,15 +97,15 @@ msgstr "Groupes"
 msgid "Group"
 msgstr "Groupe"
 
-#: admin.py:208
+#: admin.py:213
 msgid "Completed courses"
 msgstr "Cours validés"
 
-#: admin.py:213
+#: admin.py:218
 msgid "Validated modules"
-msgstr "Modules validés"
+msgstr "Mod. validés"
 
-#: admin.py:219
+#: admin.py:224
 msgid "Uploaded assignments"
 msgstr "Devoirs rendus"
 
@@ -217,7 +221,7 @@ msgstr ""
 msgid "Courses to which group members are subscribed."
 msgstr "Cours auxquels les membres du groupe sont inscrits."
 
-#: models.py:118 models.py:233
+#: models.py:118 models.py:249
 msgid "Group, required."
 msgstr "Groupe, requis."
 
@@ -249,98 +253,98 @@ msgstr "Date avant laquelle le cours doit être validé."
 msgid "Groups courses"
 msgstr "Cours des groupes"
 
-#: models.py:157 templates/coaching/change_profile.html:27
+#: models.py:173 templates/coaching/change_profile.html:27
 msgid "Expiration date"
 msgstr "Validité"
 
-#: models.py:159
+#: models.py:175
 msgid "Account is valid till this date. Account is valid forever if empty."
 msgstr ""
 "Le compte est valide jusqu'à cette date. Laisser vide pour une validité "
 "permanente."
 
-#: models.py:163
+#: models.py:179
 msgid ""
 "User's prefered language for interface, messages and contents, required."
 msgstr "Langue préférée pour l'interace, les messages et les contenus, requis."
 
-#: models.py:166
+#: models.py:182
 msgid "User's status, required."
 msgstr "Statut de l'utilisateur, requis."
 
-#: models.py:170
+#: models.py:186
 msgid "User's group, required and unique."
 msgstr "Groupe de l'utilisateur, requis."
 
-#: models.py:173
+#: models.py:189
 msgid "current course"
 msgstr "cours courant"
 
-#: models.py:179
+#: models.py:195
 msgid "courses completed"
 msgstr "cours validés"
 
-#: models.py:181
+#: models.py:197
 msgid "assignments uploaded"
 msgstr "devoirs rendus"
 
-#: models.py:183
+#: models.py:199
 msgid "# modules"
 msgstr "Nb de modules"
 
-#: models.py:186
+#: models.py:202
 msgid "# completed"
 msgstr "modules validés"
 
-#: models.py:188
+#: models.py:204
 msgid "# completed late"
 msgstr "nb validés en retard"
 
-#: models.py:191
+#: models.py:207
 msgid "delays"
 msgstr "retards"
 
-#: models.py:201
+#: models.py:217
 msgid "User"
 msgstr "Utilisateur"
 
-#: models.py:234
+#: models.py:250
 msgid "When ?"
 msgstr "Quand ?"
 
-#: models.py:235
+#: models.py:251
 msgid "Event date, required."
 msgstr "Date de l'évènement, requis."
 
-#: models.py:236
+#: models.py:252
 msgid "Description"
 msgstr ""
 
-#: models.py:237
+#: models.py:253
 msgid "Event description, required."
 msgstr "Description de l'évènement, requis."
 
-#: models.py:241
+#: models.py:257
 msgid "Event"
 msgstr "Évènement"
 
-#: models.py:353
+#: models.py:369
 msgid "Additional document"
 msgstr "Document supplémentaire"
 
-#: models.py:354
+#: models.py:370
 msgid "Additional documents"
 msgstr "Documents supplémentaires"
 
-#: models.py:370
+#: models.py:386
 msgid "Directions"
 msgstr "Instructions"
 
-#: models.py:377
+#: models.py:393
 msgid "Assignment"
 msgstr "Devoir"
 
-#: models.py:378 templates/coaching/tab_cours.html:56
+#: models.py:394 templates/coaching/tab_cours.html:56
 msgid "Assignments"
 msgstr "Devoirs"
 
@@ -484,10 +488,6 @@ msgstr "Modifier le groupe"
 #: templates/coaching/groupe.html:27
 msgid "Download works from this group:"
 msgstr "Télécharger les travaux de ce groupe :"
-
-#: templates/coaching/groupe.html:51
-msgid "Last login"
-msgstr "Dernière connexion"
 
 #: templates/coaching/groupe.html:53
 msgid "Completed <br />courses"

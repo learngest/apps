@@ -181,13 +181,18 @@ class UtilisateurAdmin(UserAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('Groups'), {'fields': ('groups',)}),
     )
-    list_display = ('id','groupe_short_name','full_name',
+    list_display = ('id','groupe_short_name','full_name','derniere_cnx',
             'cours_valides','current','modules_valides',
             'travaux_rendus','nb_actuel',)
     list_display_links = ('id',)
     list_filter = ('groupe', 'nb_cours_valides','nb_actuel')
     search_fields = ('email', 'last_name',)
     actions = ['send_an_email']
+
+    def derniere_cnx(self, obj):
+        return obj.last_login.strftime('%Y-%m-%d')
+    derniere_cnx.short_description = _('Last login')
+    derniere_cnx.admin_order_field = 'last_login'
 
     def groupe_short_name(self, obj):
         return "<a href=\"%s\">%s</a>" % (
