@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-24 11:25+0100\n"
+"POT-Creation-Date: 2009-11-25 13:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,27 +16,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:207
+#: controllers.py:211
 #, python-format
 msgid "This course will not open before %s"
 msgstr "Ouverture possible à partir du %s"
 
-#: controllers.py:211
+#: controllers.py:215
 #, python-format
 msgid "<span class=\"red\">Completed late on %s</span>"
 msgstr "<span class=\"red\">Validé en retard le %s</span>"
 
-#: controllers.py:214
+#: controllers.py:218
 #, python-format
 msgid "Completed on %s"
 msgstr "Validé le %s"
 
-#: controllers.py:217
+#: controllers.py:221
 #, python-format
 msgid "<span class=\"red\">Late! Deadline was %s</span>"
 msgstr "<span class=\"red\">En retard ! Devait être validé avant le %s</span>"
 
-#: controllers.py:220
+#: controllers.py:224
 #, python-format
 msgid "Deadline is %s"
 msgstr "À valider pour le %s"
@@ -180,38 +180,42 @@ msgstr "Cacher ce message"
 msgid "You are not subscribed to any course"
 msgstr "Vous n'êtes inscrit à aucun cours"
 
-#: templates/learning/tab_cours.html:11
+#: templates/learning/tab_cours.html:6
+msgid "Professor"
+msgstr "Professeur"
+
+#: templates/learning/tab_cours.html:20
 msgid "Modules"
 msgstr ""
 
-#: templates/learning/tab_cours.html:11
+#: templates/learning/tab_cours.html:20
 msgid "Contents"
 msgstr "Supports"
 
-#: templates/learning/tab_cours.html:11
+#: templates/learning/tab_cours.html:20
 msgid "Tests"
 msgstr ""
 
-#: templates/learning/tab_cours.html:11
+#: templates/learning/tab_cours.html:20
 msgid "Best score"
 msgstr "Meilleur score"
 
-#: templates/learning/tab_cours.html:11
+#: templates/learning/tab_cours.html:20
 msgid "# tries"
 msgstr "Nb essais"
 
-#: templates/learning/tab_cours.html:17
+#: templates/learning/tab_cours.html:26
 msgid "Completed on"
 msgstr "Validé le"
 
-#: templates/learning/tab_cours.html:37
+#: templates/learning/tab_cours.html:46
 msgid "Assignments"
 msgstr "Devoirs"
 
-#: templates/learning/tab_cours.html:37
+#: templates/learning/tab_cours.html:46
 msgid "Uploaded on"
 msgstr "Rendu le"
 
-#: templates/learning/tab_cours.html:37
+#: templates/learning/tab_cours.html:46
 msgid "Signature"
 msgstr ""

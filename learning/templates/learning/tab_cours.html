@@ -1,6 +1,15 @@
 {% load i18n %}
 <h3>{{ course.titre }}</h3>
 <p>{{ course.state|safe }}</p>
+{% with course.profs as profs %}
+{% if profs %}
+<p>{% trans "Professor" %}{{ profs|pluralize }} :
+{% for prof in profs %}
+<a href="mailto:{{ prof.email }}">{{ prof.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</p>
+{% endif %}
+{% endwith %}
 {% if course.is_open %}
 {% for doc in course.autres_docs %}
 <p><a href="{{ doc.get_absolute_url }}"><strong>{{ doc.titre }}</strong></a><p>

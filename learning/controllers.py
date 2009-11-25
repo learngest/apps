@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 from django.core.cache import cache
 from django.conf import settings
 
-from coaching.models import CoursDuGroupe, Work, WorkDone, AutresDocs
+from coaching.models import CoursDuGroupe, Work, WorkDone, AutresDocs, Prof
 from learning.models import Contenu
 from testing.models import Granule
 from testing.controllers import UserGranule
@@ -118,6 +118,10 @@ class UserCours(object):
         return self.liste_cours.index(self.cours)
 
     rang = property(_get_rang)
+
+    def profs(self):
+        return [prof.utilisateur for prof in
+                Prof.objects.filter(groupe=self.user.groupe,cours=self.cours)]
 
     def titre(self):
         return self.cours.titre(self.user.langue)
