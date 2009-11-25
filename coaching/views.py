@@ -9,9 +9,9 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
 
-from coaching.models import Utilisateur, Groupe
+from coaching.models import Utilisateur, Groupe, Prof
 from coaching.forms import UtilisateurChangeForm, CreateLoginsForm
-from coaching.controllers import AdminGroupe, UserState
+from coaching.controllers import AdminGroupe, UserState, ProfCours
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -63,6 +63,28 @@ def groupe(request, groupe_id):
     return render_to_response('coaching/groupe.html',
                               {'title': groupe.nom,
                                'groupe': groupe,
+                              },
+                              context_instance=RequestContext(request))
+
+@login_required
+def cours(request, gcp_id):
+    """
+    Voir les résultats d'un groupe pour un seul cours
+    """
+    try:
+        gcp = Prof.objects.get(id=gcp_id)
+    except Prof.DoesNotExist:
+        request.user.message_set.create(
+            message=_("You do not have professor rights on the requested group."))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if not request.user == gcp.utilisateur:
+        request.user.message_set.create(
+            message=_("You do not have professor rights on the requested group."))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    cours = ProfCours(request.user, gcp)
+    return render_to_response('coaching/cours.html',
+                              {'title': gcp.groupe.nom,
+                               'cours': cours,
                               },
                               context_instance=RequestContext(request))
 

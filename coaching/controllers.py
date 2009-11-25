@@ -9,6 +9,24 @@ from django.conf import settings
 from coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone
 from learning.controllers import UserModule, UserCours
 
+class ProfCours(object):
+    """
+    Controller d'un cours géré par un prof pour un groupe
+    """
+    def __init__(self, prof, gcp):
+        self.prof = prof
+        self.groupe = gcp.groupe
+        self.cours = gcp.cours
+        self.nb_modules = len(self.cours.liste_modules())
+        self.titre = gcp.cours.titre(prof.langue)
+
+    def users(self):
+        """
+        Return cours users
+        """
+        return [UserState(u, self.cours) for u in
+                Utilisateur.objects.filter(groupe=self.groupe)]
+
 class AdminGroupe(object):
     """
     Controller du groupe d'un administrateur
@@ -53,8 +71,9 @@ class UserState(object):
     """
     Controller d'un utilisateur avec état des performances
     """
-    def __init__(self, user):
+    def __init__(self, user, le_cours=None):
         self.user = user
+        self.le_cours = le_cours
         self.get_full_name = user.get_full_name()
         self.get_name = '%s %s' % (user.last_name, user.first_name)
         self.email = user.email
@@ -176,6 +195,14 @@ class UserState(object):
                     self.user.save()
                 return ucs[-1]
         return UserCours(self.user, self.user.current)
+
+    def nb_modules_valides(self):
+        """
+        Nb de module validés dans self.le_cours
+        """
+        if self.le_cours:
+            return len(UserCours(self.user, self.le_cours).modules_valides())
+        return None
 
     def nb_modules_in_current(self, recalcul=False, sauve=True):
         """

@@ -12,7 +12,7 @@ from django.core import urlresolvers
 from dashboard.planning import Calendrier, Planning
 from learning.controllers import UserCours
 from coaching.controllers import AdminGroupe, UserState
-from coaching.models import Groupe
+from coaching.models import Groupe, Prof
 
 @login_required
 def dashboard(request):
@@ -63,6 +63,21 @@ def dashboard_admin(request):
                                    'groupes': groupes,
                                   },
                                   context_instance=RequestContext(request))
+
+def dashboard_prof(request):
+    """
+    Tableau de bord prof
+    """
+    cours = Prof.objects.filter(utilisateur=request.user)
+    if len(cours)==1:
+        return HttpResponseRedirect(cours[0].get_absolute_url())
+    else:
+        return render_to_response('dashboard/prof.html',
+                                  {'title': _('dashboard'),
+                                   'cours': cours,
+                                  },
+                                  context_instance=RequestContext(request))
+
 
 def dashboard_assistant(request):
     """

@@ -1,0 +1,26 @@
+{% load i18n %}
+<table class="tabcours" width="95%">
+    <thead>
+        <tr>
+            <th width="35%">{% trans "Course" %}</th>
+            <th width="35%">{% trans "Group" %}</th>
+            <th style="text-align: center;">{% trans "Logins" %}</th>
+        </tr>
+    </thead>
+    <tfoot></tfoot>
+    <tbody>
+        {% for cours in gc %}
+        <tr class="{% cycle odd,even %}">
+            <td><a href="{{ cours.get_absolute_url }}">{{ cours.titre }}</a></td>
+            <td>{{ cours.groupe.nom }}</td>
+            <td style="text-align: center;">{{ groupe.nb_logins }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">
+                {% trans "You do not manage any group at the moment." %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+<table>

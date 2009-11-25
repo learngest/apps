@@ -155,7 +155,8 @@ class Prof(models.Model):
     Professeur pour un groupe-cours
     """
 
-    utilisateur = models.ForeignKey('Utilisateur', related_name='prof')
+    utilisateur = models.ForeignKey('Utilisateur', verbose_name=_('professor'),
+            related_name='prof')
     groupe = models.ForeignKey(Groupe)
     cours = models.ForeignKey(Cours)
 
@@ -165,6 +166,13 @@ class Prof(models.Model):
 
     def __unicode__(self):
         return "%s - %s - %s" % (self.utilisateur, self.groupe, self.cours)
+
+    def titre(self):
+        return cours.titre(utilisateur.langue)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return('coaching.views.cours', [str(self.id)])
 
 class Utilisateur(User):
     """
