@@ -17,6 +17,7 @@
 </ul>
 {% endblock %}
 <div class="colorbox">
+<p>{{ student.email }}</p>
 {% if student.nb_cours_en_retard %}
 <p class="red">{% trans "This student is currently late." %}</p>
 {% endif %}
