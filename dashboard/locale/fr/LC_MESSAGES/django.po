@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-24 11:25+0100\n"
+"POT-Creation-Date: 2009-11-27 13:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,11 +58,12 @@ msgstr "Di"
 msgid "Deadline for assignment %s"
 msgstr "Date limite de remise du devoir %s"
 
-#: views.py:44 views.py:61 views.py:76 views.py:91
+#: views.py:46 views.py:64 views.py:78 views.py:93
 msgid "dashboard"
 msgstr "tableau de bord"
 
 #: templates/dashboard/admin.html:10 templates/dashboard/etudiant.html:10
+#: templates/dashboard/prof.html:10
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -90,10 +91,18 @@ msgstr "prochaines semaines"
 msgid "Nothing special so far !"
 msgstr "Rien de spécial pour le moment."
 
-#: templates/dashboard/etudiant.html:27
+#: templates/dashboard/etudiant.html:28
+msgid "Documents to download"
+msgstr "Documents à télécharger"
+
+#: templates/dashboard/etudiant.html:33
 msgid "Current work"
 msgstr "Travail en cours"
 
-#: templates/dashboard/etudiant.html:28
+#: templates/dashboard/etudiant.html:34
 msgid "See complete courses list"
 msgstr "Voir la liste de tous les cours"
+
+#: templates/dashboard/prof.html:14
+msgid "Your courses"
+msgstr "Tous vos cours"

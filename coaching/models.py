@@ -357,9 +357,13 @@ class CoursValide(CommonResultat):
 def upload_path(instance, filename):
     import os.path
     from django.template.defaultfilters import slugify
+    if instance.cours:
+        slug = instance.cours.slug
+    else:
+        slug = ''
     return os.path.join('otherdocs',
                 slugify(instance.groupe.nom),
-                instance.cours.slug,
+                slug,
                 filename)
 
 class AutresDocs(models.Model):
@@ -368,7 +372,7 @@ class AutresDocs(models.Model):
     """
 
     groupe = models.ForeignKey(Groupe)
-    cours = models.ForeignKey(Cours)
+    cours = models.ForeignKey(Cours, blank=True, null=True)
     titre = models.CharField(max_length=100)
     fichier = models.FileField(upload_to=upload_path)
 

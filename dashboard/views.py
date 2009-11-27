@@ -12,7 +12,7 @@ from django.core import urlresolvers
 from dashboard.planning import Calendrier, Planning
 from learning.controllers import UserCours
 from coaching.controllers import AdminGroupe, UserState
-from coaching.models import Groupe, Prof
+from coaching.models import Groupe, Prof, AutresDocs
 
 @login_required
 def dashboard(request):
@@ -39,6 +39,7 @@ def dashboard_student(request):
     us = UserState(request.user)
     course = us.cours_courant(recalcul=True)
     #course = UserCours(request.user, request.user.current)
+    docs = AutresDocs.objects.filter(groupe=request.user.groupe,cours=None)
 
 
     return render_to_response('dashboard/etudiant.html',
@@ -46,6 +47,7 @@ def dashboard_student(request):
                                'cal': cal,
                                'planning': planning,
                                'course': course,
+                               'docs': docs,
                               },
                               context_instance=RequestContext(request))
 
@@ -77,7 +79,6 @@ def dashboard_prof(request):
                                    'cours': cours,
                                   },
                                   context_instance=RequestContext(request))
-
 
 def dashboard_assistant(request):
     """

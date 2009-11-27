@@ -24,6 +24,12 @@
 <li>{% trans "Nothing special so far !" %}</li>
 {% endfor %}
 </ul>
+{% if docs %}
+<h2>{% trans "Documents to download" %}</h2>
+{% for doc in docs %}
+<p><a href="{{ doc.get_absolute_url }}"><strong>{{ doc.titre }}</strong></a><p>
+{% endfor %}
+{% endif %}
 <h2>{% trans "Current work" %}</h2>
 <a href="{% url learning.views.tabcours %}">{% trans "See complete courses list" %}</a>
 {% include "learning/tab_cours.html" %}
