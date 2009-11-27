@@ -96,6 +96,7 @@ class UserCours(object):
     """
     def __init__(self, user, cours):
         self._usermodules = -1
+        self._usermodules_a_valider = -1
         self._assignments = -1
         self._autres_docs = -1
         self._date_validation = -1
@@ -131,6 +132,12 @@ class UserCours(object):
             self._usermodules = [UserModule(self.user, m) 
                     for m in self.cours.liste_modules()]
         return self._usermodules
+
+    def modules_a_valider(self):
+        if self._usermodules_a_valider == -1:
+            self._usermodules_a_valider = [m for m in self.modules()
+                    if len(m.tests())]
+        return self._usermodules_a_valider
 
     def autres_docs(self):
         if self._autres_docs == -1:

@@ -206,13 +206,13 @@ class UserState(object):
 
     def nb_modules_in_current(self, recalcul=False, sauve=True):
         """
-        Nombre de modules dans le usercours courant
+        Nombre de modules à valider dans le usercours courant
         stocké dans Utilisateur.nb_modules ou recalculé
         """
         if self.user.nb_modules is None or recalcul:
             courant = self.cours_courant()
             if courant:
-                self.user.nb_modules = len(courant.modules())
+                self.user.nb_modules = len(courant.modules_a_valider())
             else:
                 self.user.nb_modules = 0
             if sauve:
