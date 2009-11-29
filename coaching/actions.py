@@ -24,7 +24,7 @@ def send_email(modeladmin, request, queryset):
             from_email = request.user.email
             recipient_list = email_list
             attach = None
-            if f.cleaned_data['attach']:
+            if 'attach' in request.FILES:
                 attach = request.FILES['attach']
             try:
                 mail = EmailMessage(subject=subject,
