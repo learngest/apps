@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-29 17:50+0100\n"
+"POT-Creation-Date: 2009-11-29 19:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions.py:31
+#: actions.py:39
 msgid "The message has been sent."
 msgstr "Le message a été envoyé."
 
-#: actions.py:35 actions.py:45 actions.py:54
+#: actions.py:42
+msgid "Error: unable to send message."
+msgstr "Erreur : impossible d'envoyer le message."
+
+#: actions.py:46 actions.py:55 actions.py:64
 #: templates/coaching/sendmail.html:9
 msgid "Send an email"
 msgstr "Envoyer un mail"
@@ -166,7 +170,7 @@ msgstr "Nom du fichier"
 msgid "Filetype should be .doc, .docx, .xls, .xslx, .pdf or .zip"
 msgstr "Le type du fichier doit être .doc, .docx, .xls, .xlsx, .pdf ou .zip"
 
-#: forms.py:89
+#: forms.py:89 forms.py:106
 #, python-format
 msgid "Maximum size allowed is 1 Mo, this file is %.2f Mo"
 msgstr "La taille maximum permise est 1 Mo, ce fichier pèse %2.f Mo"
@@ -178,6 +182,10 @@ msgstr "Sujet"
 #: forms.py:97
 msgid "Text"
 msgstr "Texte du mail"
+
+#: forms.py:99
+msgid "Attach a file"
+msgstr "Joindre un fichier"
 
 #: models.py:36
 msgid "Customer name, required."
@@ -549,11 +557,15 @@ msgstr "De"
 msgid "To"
 msgstr "À"
 
-#: templates/coaching/sendmail.html:26 templates/coaching/sendmail.html:32
+#: templates/coaching/sendmail.html:26 templates/coaching/sendmail.html:35
 msgid "Message"
 msgstr ""
 
-#: templates/coaching/sendmail.html:48
+#: templates/coaching/sendmail.html:32
+msgid "Attached file"
+msgstr ""
+
+#: templates/coaching/sendmail.html:54
 msgid "Send"
 msgstr "Envoyer"
 
