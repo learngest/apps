@@ -95,3 +95,13 @@ class MailForm(forms.Form):
     """
     subject = forms.CharField(max_length=100, label=_('Subject'))
     content = forms.CharField(widget=forms.Textarea,label=_('Text'),required=False)
+    attach = forms.FileField(widget=forms.FileInput,
+            label=_('Attach a file'), required=False)
+
+    def clean_attach(self):
+        if self.cleaned_data['attach']:
+            filelen = float(self.cleaned_data['attach'],size) / 1024
+            if filelen > 1024:
+                raise forms.ValidationError(
+                    _('Maximum size allowed is 1 Mo, this file is %.2f Mo' % filelen))
+        return self.cleaned_data['attach']

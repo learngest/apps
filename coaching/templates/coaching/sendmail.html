@@ -10,7 +10,7 @@
 </div>{% endblock %}
 
 {% block content %}
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 
 <fieldset class="module aligned">
 <h2>{% trans "Header" %}</h2>
@@ -29,12 +29,18 @@
 <label for="id_subject">{% trans "Subject" %}</label> {{ subject }}
 </div></div>
 <div class="form-row"><div>
+<label for="id_attach">{% trans "Attached file" %}</label> {{ attach }}
+</div></div>
+<div class="form-row"><div>
 <label for="id_content">{% trans "Message" %}</label>
 {{ content }}
 </div></div>
 {% else %}
 <div class="form-row"><div>
 <label for="id_{{ form.subject.name }}">{{ form.subject.label }}</label> {{ form.subject }} {{ form.errors.subject }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_{{ form.attach.name }}">{{ form.attach.label }}</label> {{ form.attach }} {{ form.errors.attach }}
 </div></div>
 <div class="form-row"><div>
 <label for="id_{{ form.content.name }}">{{ form.content.label }}</label> {{ form.content }}
