@@ -11,7 +11,7 @@ from django.conf import settings
 
 from coaching.models import Utilisateur, Groupe, Prof
 from coaching.forms import UtilisateurChangeForm, CreateLoginsForm
-from coaching.controllers import AdminGroupe, UserState, ProfCours
+from coaching.controllers import AdminGroupe, UserState, ProfCours, filters
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -59,10 +59,23 @@ def groupe(request, groupe_id):
                     message=_(
                         "You do not have admin rights on the requested group."))
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
-    groupe = AdminGroupe(request.user, groupe)
+    groupe_complet = AdminGroupe(request.user, groupe)
+    filtdict = {}
+    if request.method == 'POST':
+        if 'filter' in request.POST:
+            if request.POST['filter']:
+                for f in request.POST['filter'].split('&'):
+                    key, value = f.split('=')
+                    filtdict[str(key)] = int(value)
+            filtres = filters(request.user, groupe_complet, request.POST['filter'])
+            groupe = AdminGroupe(request.user, groupe, filtdict)
+    else:
+        filtres = filters(request.user, groupe_complet)
+        groupe = groupe_complet
     return render_to_response('coaching/groupe.html',
                               {'title': groupe.nom,
                                'groupe': groupe,
+                               'filters': filtres,
                               },
                               context_instance=RequestContext(request))
 

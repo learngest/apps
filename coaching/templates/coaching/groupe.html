@@ -31,23 +31,33 @@
 {% endfor %}
 </ul>
 {% endif %}
+<form action="" method="post">
+	<label>
+		{% trans "Filter (Current course - # validated modules):" %}
+		<select name="filter">
+			{% for filter in filters %}
+			<option value="{{ filter.query }}"{% if filter.selected %} selected="selected"{% endif %}>
+				{{ filter.titre }}
+			</option>
+			{% endfor %}
+		</select>
+		<input type="submit" value="Ok" />
+	</label>
+</form>
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#lista").tablesorter({ widgets: ['zebra']});
-		{% if gid %}
-		var c = [[0,0]];
-		{% else %}
-		var c = [[0,0],[1,0]];
-		{% endif %}
+			$("#lista").tablesorter({
+				widgets: ['zebra']
+			});
+		var c = [[2,0],[5,0],[1,0]];
         $("#lista").trigger("sorton",[c]);
         return false;
 })
 </script>
 <table id="lista" class="tabcours" width="100%">
     <thead>
-        <tr>
+		<tr>
             <th>{% trans "Name" %}</th>
-            <th>{% trans "Email" %}</th>
             <th style="text-align: center;">{% trans "Last login" %}</th>
             <th style="text-align:center;">
                 {% trans "Completed <br />courses" %} / {{ groupe.nb_cours }}
@@ -67,12 +77,14 @@
     <tbody>
 	{% for student in groupe.users %}
     <tr>
-        <td>{{ student.get_name }}</td>
-        <td><a href="{{ student.get_absolute_url }}">{{ student.email }}</a></td>
-        <td style="text-align: center;">{{ student.last_login }}</td>
+		<td>
+			<a href="{{ student.get_absolute_url }}"
+				title="{{ student.email }}">{{ student.get_name }}</a>
+		</td>
+        <td style="text-align: center;">{{ student.last_login|date }}</td>
         <td style="text-align: center;">{{ student.nb_cours_valides }}</td>
         <td style="text-align: center;">{{ student.nb_travaux_rendus }}</td>
-        <td style="text-align: center;">{{ student.cours_courant.titre }}</td>
+		<td style="text-align: center;">{{ student.cours_courant.titre }}</td>
         <td style="text-align: center;">
             {{ student.nb_modules_valides_in_current }}
             / {{ student.nb_modules_in_current }}

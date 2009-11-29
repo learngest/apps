@@ -27,14 +27,37 @@ class ProfCours(object):
         return [UserState(u, self.cours) for u in
                 Utilisateur.objects.filter(groupe=self.groupe)]
 
+def filters(admin, groupe, selected=None):
+    """
+    Filtres de tri du groupe par performance
+    """
+
+    def titre(c):
+        if c[1]:
+            return _('%(titre)s - %(nb)s or less') \
+                    % {'titre':c[0].titre(admin.langue),'nb':c[1]}
+        return '%s - %s' % (c[0].titre(admin.langue),c[1])
+
+    filters = [{'titre':_('Everything'), 'query':'', 'selected': selected==None}]
+    for c in groupe.filtres():
+        query = 'current__id=%s&nb_valides__lte=%s' % (c[0].id, c[1])
+        filters.append({
+          'titre': titre(c),
+          'query': query,
+          'selected': selected==query,
+          })
+    return filters
+
 class AdminGroupe(object):
     """
     Controller du groupe d'un administrateur
     ou d'un assistant
     """
-    def __init__(self, admin, groupe):
+    def __init__(self, admin, groupe, selection=None):
+        self._users = -1
         self.admin = admin
         self.groupe = groupe
+        self.selection = selection
         self.nom = self.groupe.nom
         self.is_open = self.groupe.is_open
         self.is_demo = self.groupe.is_demo
@@ -48,8 +71,26 @@ class AdminGroupe(object):
         """
         Return groups users, as list of dict
         """
-        return [UserState(u) for u in
-                Utilisateur.objects.filter(groupe=self.groupe)]
+        if self._users == -1:
+            lookup = {'groupe': self.groupe,}
+            if self.selection:
+                lookup.update(self.selection)
+            self._users = [UserState(u) for u in
+                    Utilisateur.objects.filter(**lookup)]
+        return self._users
+
+    def filtres(self):
+        """
+        Filtres applicables à ce groupe
+        """
+        courants = list(set(
+            [(u.cours_courant().cours, u.nb_modules_valides_in_current())
+            for u in self.users()]))
+        tous_les_cours = list(self.groupe.cours.order_by('coursdugroupe__rang'))
+        for c in courants:
+            c[0].rang = tous_les_cours.index(c[0])
+        courants.sort(key=lambda x: (x[0].rang,x[1]))
+        return courants
 
     def workdone(self):
         """
