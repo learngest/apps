@@ -17,11 +17,11 @@
 
 {% block content %}
 
-{% block object-tools %}
-<ul class="object-tools">
-{% if user.is_staff %}<li style="line-height: 1.25"><a href="{{ groupe.get_admin_url }}" class="viewsitelink">{% trans "Group admin" %}</a></li>{% endif%}
-</ul>
-{% endblock %}
+<div class="actions">
+    {% for action in actions %}
+    <p><a href="{{ action.url }}">{{ action.libel }}</a></p>
+    {% endfor %}
+</div>
 
 {%if groupe.workdone %}
 <p>{% trans "Download works from this group:" %}</p>

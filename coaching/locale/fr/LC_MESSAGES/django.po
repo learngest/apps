@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-29 19:03+0100\n"
+"POT-Creation-Date: 2009-11-30 16:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,16 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions.py:39
+#: actions.py:38 views.py:152
 msgid "The message has been sent."
 msgstr "Le message a été envoyé."
 
-#: actions.py:42
+#: actions.py:41 views.py:155
 msgid "Error: unable to send message."
 msgstr "Erreur : impossible d'envoyer le message."
 
-#: actions.py:46 actions.py:55 actions.py:64
-#: templates/coaching/sendmail.html:9
+#: actions.py:45 actions.py:55 actions.py:63 views.py:127 views.py:159
+#: templates/coaching/sendmail.html:9 templates/coaching/sendmailadmin.html:9
 msgid "Send an email"
 msgstr "Envoyer un mail"
 
@@ -175,7 +175,7 @@ msgstr "Le type du fichier doit être .doc, .docx, .xls, .xlsx, .pdf ou .zip"
 msgid "Maximum size allowed is 1 Mo, this file is %.2f Mo"
 msgstr "La taille maximum permise est 1 Mo, ce fichier pèse %2.f Mo"
 
-#: forms.py:96 templates/coaching/sendmail.html:29
+#: forms.py:96
 msgid "Subject"
 msgstr "Sujet"
 
@@ -379,50 +379,66 @@ msgstr "Modifications sauvegardées avec succès."
 msgid "Change account"
 msgstr "Profil"
 
-#: views.py:55
+#: views.py:55 views.py:109
 msgid "This group does not exist."
 msgstr "Ce groupe n'existe pas."
 
-#: views.py:60 views.py:118
+#: views.py:60 views.py:114 views.py:202
 msgid "You do not have admin rights on the requested group."
 msgstr "Vous n'êtes pas administrateur du groupe demandé."
 
-#: views.py:91 views.py:95
+#: views.py:77
+msgid "Download group results"
+msgstr "Télécharger les résultats du groupe"
+
+#: views.py:80
+msgid "Upload a file for this group"
+msgstr "Déposer un fichier pour ce groupe"
+
+#: views.py:82
+msgid "Send an email to selected students"
+msgstr "Envoyer un mail aux étudiants sélectionnés"
+
+#: views.py:85
+msgid "Group admin"
+msgstr "Modifier le groupe"
+
+#: views.py:175 views.py:179
 msgid "You do not have professor rights on the requested group."
 msgstr "Vous n'êtes pas professeur du groupe demandé."
 
-#: views.py:113
+#: views.py:197
 msgid "This user does not exist."
 msgstr "Cet utilisateur n'existe pas."
 
-#: views.py:164
+#: views.py:248
 msgid "Exists already."
 msgstr "Existe déjà."
 
-#: views.py:174
+#: views.py:258
 msgid "Saved."
 msgstr "Créé."
 
-#: views.py:188
+#: views.py:272
 msgid "Mail sent."
 msgstr "Mail envoyé."
 
-#: views.py:190
+#: views.py:274
 msgid "Mail error."
 msgstr "Erreur mail."
 
-#: views.py:200 views.py:239 views.py:252 views.py:263 views.py:272
+#: views.py:284 views.py:323 views.py:336 views.py:347 views.py:356
 msgid "Create logins"
 msgstr "Créer les logins"
 
-#: views.py:235
+#: views.py:319
 #, python-format
 msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
 
 #: templates/coaching/change_profile.html:6 templates/coaching/cours.html:15
 #: templates/coaching/groupe.html:15 templates/coaching/sendmail.html:9
-#: templates/coaching/user.html:10
+#: templates/coaching/sendmailadmin.html:9 templates/coaching/user.html:10
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -517,10 +533,6 @@ msgstr ""
 msgid "Status"
 msgstr "État"
 
-#: templates/coaching/groupe.html:22
-msgid "Group admin"
-msgstr "Modifier le groupe"
-
 #: templates/coaching/groupe.html:36
 msgid "Filter (Current course - # validated modules):"
 msgstr "Sélection (Cours courant - Nb de modules validés) :"
@@ -545,27 +557,24 @@ msgstr "Modules validés<br />dans le cours courant"
 msgid "State"
 msgstr "État"
 
-#: templates/coaching/sendmail.html:16
+#: templates/coaching/mailform.html:4
 msgid "Header"
 msgstr "Entête"
 
-#: templates/coaching/sendmail.html:18
+#: templates/coaching/mailform.html:6
 msgid "From"
 msgstr "De"
 
-#: templates/coaching/sendmail.html:21
+#: templates/coaching/mailform.html:9
 msgid "To"
 msgstr "À"
 
-#: templates/coaching/sendmail.html:26 templates/coaching/sendmail.html:35
+#: templates/coaching/mailform.html:14
 msgid "Message"
 msgstr ""
 
-#: templates/coaching/sendmail.html:32
-msgid "Attached file"
-msgstr ""
-
-#: templates/coaching/sendmail.html:54
+#: templates/coaching/sendmail.html:15
+#: templates/coaching/sendmailadmin.html:20
 msgid "Send"
 msgstr "Envoyer"
 

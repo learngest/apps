@@ -6,11 +6,12 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.core import urlresolvers
+from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
 from coaching.models import Utilisateur, Groupe, Prof
-from coaching.forms import UtilisateurChangeForm, CreateLoginsForm
+from coaching.forms import UtilisateurChangeForm, CreateLoginsForm, MailForm
 from coaching.controllers import AdminGroupe, UserState, ProfCours, filters
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
@@ -61,22 +62,109 @@ def groupe(request, groupe_id):
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     groupe_complet = AdminGroupe(request.user, groupe)
     filtdict = {}
+    filtraw = ''
     if request.method == 'POST':
         if 'filter' in request.POST:
             if request.POST['filter']:
-                for f in request.POST['filter'].split('&'):
+                filtraw = request.POST['filter']
+                for f in filtraw.split('&'):
                     key, value = f.split('=')
                     filtdict[str(key)] = int(value)
-            filtres = filters(request.user, groupe_complet, request.POST['filter'])
+            filtres = filters(request.user, groupe_complet, filtraw)
             groupe = AdminGroupe(request.user, groupe, filtdict)
     else:
         filtres = filters(request.user, groupe_complet)
         groupe = groupe_complet
+    actions = []
+#    actions = [{'libel':_('Download group results'),
+#                'url':'/coaching/csv/?id=%s' % groupe_id},]
+    actions_admin = [
+#            {'libel':_('Upload a file for this group'),
+#             'url':'/coaching/upload/?id=%s' % groupe_id},
+            {'libel':_('Send an email to selected students'),
+             'url': '%s?id=%s&%s' % (
+                urlresolvers.reverse('coaching.views.sendmail'),
+                groupe_id, filtraw)},]
+    actions_staff = [
+            {'libel':_('Group admin'),
+             'url': groupe.get_admin_url},]
+    if request.user.statut > settings.PROF:
+        actions.extend(actions_admin)
+        if request.user.statut == settings.STAFF:
+            actions.extend(actions_staff)
     return render_to_response('coaching/groupe.html',
                               {'title': groupe.nom,
+                               'actions': actions,
                                'groupe': groupe,
                                'filters': filtres,
                               },
+                              context_instance=RequestContext(request))
+
+@login_required
+def sendmail(request):
+    """
+    Send an email to selected users
+    """
+    if 'id' in request.GET:
+        try:
+            groupe = Groupe.objects.get(id=request.GET['id'])
+        except Groupe.DoesNotExist:
+            request.user.message_set.create(
+                    message=_("This group does not exist."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        if not request.user.may_see_groupe(groupe):
+            request.user.message_set.create(
+                message=_(
+                    "You do not have admin rights on the requested group."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        destinataires = Utilisateur.objects.filter(groupe=groupe)
+        filtdict = {}
+        for key,value in request.GET.items():
+            if key != 'id':
+                filtdict.update({str(key): int(value)})
+        destinataires = destinataires.filter(**filtdict)
+        dest_list = [u.get_full_name() for u in destinataires]
+        email_list = [u.email for u in destinataires]
+    if request.method != 'POST':
+        f = MailForm()
+        return render_to_response('coaching/sendmail.html',
+                            {'title': _('Send an email'),
+                             'groupe': groupe,
+                             'dest_list': dest_list,
+                             'form': f,
+                            },
+                          context_instance=RequestContext(request))
+    if request.method == 'POST':
+        f = MailForm(request.POST)
+        if f.is_valid():
+            subject = f.cleaned_data['subject']
+            message = f.cleaned_data['content']
+            from_email = request.user.email
+            attach = None
+            if 'attach' in request.FILES:
+                attach = request.FILES['attach']
+            try:
+                mail = EmailMessage(subject=subject,
+                        body=message,
+                        from_email=from_email,
+                        to=email_list,
+                        headers={'Reply-To': from_email})
+                if attach:
+                    mail.attach(attach.name, attach.read(), attach.content_type)
+                mail.send()
+                request.user.message_set.create(
+                        message=_("The message has been sent."))
+            except:
+                request.user.message_set.create(
+                        message=_("Error: unable to send message."))
+            return HttpResponseRedirect(groupe.get_absolute_url())
+        else:
+            return render_to_response('coaching/sendmail.html',
+                                {'title': _('Send an email'),
+                                 'groupe': groupe,
+                                 'dest_list': dest_list,
+                                 'form': f,
+                                },
                               context_instance=RequestContext(request))
 
 @login_required
