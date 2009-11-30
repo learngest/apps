@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.admin import widgets
 from django.conf import settings
 
-from coaching.models import Utilisateur
+from coaching.models import Utilisateur, AutresDocs
 
 class UtilisateurChangeForm(forms.ModelForm):
     """
@@ -48,6 +48,23 @@ class UtilisateurChangeForm(forms.ModelForm):
     class Meta:
         model = Utilisateur
         fields = ('email', 'langue',)
+
+class DocumentForm(forms.ModelForm):
+    """
+    Ajout de AutresDocs pour admins
+    """
+    def clean_fichier(self):
+        if self.cleaned_data['fichier']:
+            filelen = float(self.cleaned_data['fichier'].size) / 1024
+            if filelen > 1024:
+                filelen = filelen / 1024
+                raise forms.ValidationError(
+                    _('Maximum size allowed is 1 Mo, this file is %.2f Mo' % filelen))
+        return self.cleaned_data['fichier']
+
+    class Meta:
+        model = AutresDocs
+        fields = ('cours','titre','fichier')
 
 class CreateLoginsForm(forms.Form):
     """

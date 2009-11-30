@@ -7,4 +7,5 @@ urlpatterns = patterns('coaching.views',
     (r'^cours/(?P<gcp_id>\d+)/$', 'cours',),
     (r'^user/(?P<user_id>\d+)/$', 'user',),
     (r'^sendmail/$', 'sendmail',),
+    (r'^upload/$', 'add_doc',),
 )

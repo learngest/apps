@@ -10,8 +10,8 @@ from django.core import urlresolvers
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
-from coaching.models import Utilisateur, Groupe, Prof
-from coaching.forms import UtilisateurChangeForm, CreateLoginsForm, MailForm
+from coaching.models import Utilisateur, Groupe, Prof, AutresDocs
+from coaching.forms import UtilisateurChangeForm, CreateLoginsForm, MailForm, DocumentForm
 from coaching.controllers import AdminGroupe, UserState, ProfCours, filters
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
@@ -79,8 +79,10 @@ def groupe(request, groupe_id):
 #    actions = [{'libel':_('Download group results'),
 #                'url':'/coaching/csv/?id=%s' % groupe_id},]
     actions_admin = [
-#            {'libel':_('Upload a file for this group'),
-#             'url':'/coaching/upload/?id=%s' % groupe_id},
+            {'libel':_('Upload a file for this group'),
+             'url':'%s?id=%s' % (
+                 urlresolvers.reverse('coaching.views.add_doc'),
+                 groupe_id)},
             {'libel':_('Send an email to selected students'),
              'url': '%s?id=%s&%s' % (
                 urlresolvers.reverse('coaching.views.sendmail'),
@@ -99,6 +101,52 @@ def groupe(request, groupe_id):
                                'filters': filtres,
                               },
                               context_instance=RequestContext(request))
+
+@login_required
+def add_doc(request):
+    """
+    Dépôt de document pour un groupe
+    """
+    if 'id' in request.GET:
+        try:
+            groupe = Groupe.objects.get(id=request.GET['id'])
+        except Groupe.DoesNotExist:
+            request.user.message_set.create(
+                    message=_("This group does not exist."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        if not request.user.may_see_groupe(groupe):
+            request.user.message_set.create(
+                message=_(
+                    "You do not have admin rights on the requested group."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if request.method != 'POST':
+        f = DocumentForm()
+        return render_to_response('coaching/upload.html',
+                            {'title': _('Upload a file for %s') % groupe.nom,
+                             'groupe': groupe,
+                             'form': f,
+                            },
+                          context_instance=RequestContext(request))
+    else:
+        f = DocumentForm(request.POST, request.FILES)
+        if f.is_valid():
+            fichier = request.FILES['fichier']
+            doc = AutresDocs(
+                    groupe=groupe,
+                    cours=f.cleaned_data['cours'],
+                    titre=f.cleaned_data['titre'],
+                    fichier=fichier.name)
+            doc.fichier.save(fichier.name, fichier, save=True)
+            request.user.message_set.create(
+                    message=_("The document has been uploaded correctly."))
+            return HttpResponseRedirect(groupe.get_absolute_url())
+        else:
+            return render_to_response('coaching/upload.html',
+                            {'title': _('Upload a file for %s') % groupe.nom,
+                             'groupe': groupe,
+                             'form': f,
+                            },
+                          context_instance=RequestContext(request))
 
 @login_required
 def sendmail(request):

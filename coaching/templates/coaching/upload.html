@@ -1,0 +1,36 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/media/css/forms.css" />
+{% endblock %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a> &gt; {% trans "Upload a file" %}
+</div>{% endblock %}
+
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+
+<fieldset class="module aligned">
+<div class="form-row"><div>
+<label for="groupe">{% trans "Group" %}</label> {{ groupe.nom }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_{{ form.cours.name}}">{{ form.cours.label }} </label>{{ form.cours }} {{ form.errors.cours }}
+</div></div>
+</fieldset>
+
+<fieldset class="module aligned">
+<div class="form-row"><div>
+<label for="id_{{ form.titre.name }}">{{ form.titre.label }}</label> {{ form.titre }} {{ form.errors.titre }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_{{ form.fichier.name }}">{{ form.fichier.label }}</label> {{ form.fichier }} {{ form.errors.fichier }}
+</div></div>
+</fieldset>
+
+<input type="submit" value="{% trans "Send" %}" />
+</form>
+{% endblock content %}
+
