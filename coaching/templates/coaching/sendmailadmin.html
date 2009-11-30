@@ -1,0 +1,23 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/media/css/forms.css" />
+{% endblock %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; {% trans "Send an email" %}
+</div>{% endblock %}
+
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+{% include "coaching/mailform.html" %}
+{% for obj in queryset %}
+<input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk }}" />
+{% endfor %}
+<input type="hidden" name="action" value="send_an_email" />
+<input type="hidden" name="post" value="yes" />
+<input type="submit" value="{% trans "Send" %}" />
+</form>
+{% endblock content %}
+

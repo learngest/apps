@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<fieldset class="module aligned">
+<h2>{% trans "Header" %}</h2>
+<div class="form-row"><div>
+<label for="from">{% trans "From" %}</label> {{ user.get_full_name }} &lt;{{ user.email }}&gt;
+</div></div>
+<div class="form-row"><div>
+<label for="to">{% trans "To" %} </label>{% for dest in dest_list %}{{ dest }}{% if forloop.last %} {% else %}, {% endif %}{% endfor %}
+</div></div>
+</fieldset>
+
+<fieldset class="module aligned">
+<h2>{% trans "Message" %}</h2>
+<div class="form-row"><div>
+<label for="id_{{ form.subject.name }}">{{ form.subject.label }}</label> {{ form.subject }} {{ form.errors.subject }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_{{ form.attach.name }}">{{ form.attach.label }}</label> {{ form.attach }} {{ form.errors.attach }}
+</div></div>
+<div class="form-row"><div>
+<label for="id_{{ form.content.name }}">{{ form.content.label }}</label> {{ form.content }}
+</div></div>
+</fieldset>

@@ -22,7 +22,6 @@ def send_email(modeladmin, request, queryset):
             subject = f.cleaned_data['subject']
             message = f.cleaned_data['content']
             from_email = request.user.email
-            recipient_list = email_list
             attach = None
             if 'attach' in request.FILES:
                 attach = request.FILES['attach']
@@ -30,7 +29,7 @@ def send_email(modeladmin, request, queryset):
                 mail = EmailMessage(subject=subject,
                         body=message,
                         from_email=from_email,
-                        to=recipient_list,
+                        to=email_list,
                         headers={'Reply-To': from_email})
                 if attach:
                     mail.attach(attach.name, attach.read(), attach.content_type)
@@ -42,23 +41,23 @@ def send_email(modeladmin, request, queryset):
                         message=_("Error: unable to send message."))
             return None
         else:
-            return render_to_response('coaching/sendmail.html',
-                                        {'title': _('Send an email'),
-                                         'from': request.user.email,
-                                         'dest_list': dest_list,
-                                         'form': f,
-                                        },
-                                        context_instance=RequestContext(request))
-    else:
-        f = MailForm()
-        return render_to_response('coaching/sendmail.html',
-                                    {'title': _('Send an email'),
+            return render_to_response('coaching/sendmailadmin.html',
+                            {'title': _('Send an email'),
                             'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
                             'queryset': queryset,
-                            'from': request.user.email,
                             'dest_list': dest_list,
                             'form': f,
-                                    },
-                                    context_instance=RequestContext(request))
+                            },
+                            context_instance=RequestContext(request))
+    else:
+        f = MailForm()
+        return render_to_response('coaching/sendmailadmin.html',
+                            {'title': _('Send an email'),
+                            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+                            'queryset': queryset,
+                            'dest_list': dest_list,
+                            'form': f,
+                            },
+                            context_instance=RequestContext(request))
 
 send_email.short_description = _('Send an email')
