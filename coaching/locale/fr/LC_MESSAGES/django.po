@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-30 16:32+0100\n"
+"POT-Creation-Date: 2009-11-30 23:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions.py:38 views.py:152
+#: actions.py:38 views.py:204
 msgid "The message has been sent."
 msgstr "Le message a été envoyé."
 
-#: actions.py:41 views.py:155
+#: actions.py:41 views.py:207
 msgid "Error: unable to send message."
 msgstr "Erreur : impossible d'envoyer le message."
 
-#: actions.py:45 actions.py:55 actions.py:63 views.py:127 views.py:159
+#: actions.py:45 actions.py:55 actions.py:63 views.py:179 views.py:211
 #: templates/coaching/sendmail.html:9 templates/coaching/sendmailadmin.html:9
 msgid "Send an email"
 msgstr "Envoyer un mail"
@@ -92,14 +92,14 @@ msgstr "Groupes"
 msgid "Last login"
 msgstr "Dernier login"
 
-#: admin.py:200 forms.py:61 templates/coaching/change_profile.html:18
+#: admin.py:200 forms.py:78 templates/coaching/change_profile.html:18
 #: templates/coaching/change_profile.html:19
 #: templates/coaching/create_logins.html:26
 #: templates/coaching/create_logins2.html:15
 #: templates/coaching/create_logins2.html:17
 #: templates/coaching/create_logins3.html:14
 #: templates/coaching/create_logins3.html:16 templates/coaching/tab_gc.html:6
-#: templates/coaching/tab_groupes.html:4
+#: templates/coaching/tab_groupes.html:4 templates/coaching/upload.html:17
 msgid "Group"
 msgstr "Groupe"
 
@@ -132,58 +132,58 @@ msgstr "Nouveau mot de passe"
 msgid "New password confirmation"
 msgstr "Confirmation du nouveau mot de passe"
 
-#: forms.py:60 templates/coaching/create_logins2.html:10
+#: forms.py:62 forms.py:106 forms.py:123
+#, python-format
+msgid "Maximum size allowed is 1 Mo, this file is %.2f Mo"
+msgstr "La taille maximum permise est 1 Mo, ce fichier pèse %2.f Mo"
+
+#: forms.py:77 templates/coaching/create_logins2.html:10
 msgid "Source file"
 msgstr "Fichier source"
 
-#: forms.py:63 templates/coaching/create_logins2.html:24
+#: forms.py:80 templates/coaching/create_logins2.html:24
 #: templates/coaching/create_logins3.html:23
 msgid "Preferred language"
 msgstr "Langue préférée"
 
-#: forms.py:64 templates/coaching/change_profile.html:29
+#: forms.py:81 templates/coaching/change_profile.html:29
 #: templates/coaching/create_logins2.html:27
 #: templates/coaching/create_logins3.html:26
 msgid "Valid till"
 msgstr "Valide jusqu'au"
 
-#: forms.py:65 templates/coaching/create_logins2.html:30
+#: forms.py:82 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
 msgid "No"
 msgstr ""
 
-#: forms.py:65 templates/coaching/create_logins2.html:30
+#: forms.py:82 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
 msgid "Yes"
 msgstr ""
 
-#: forms.py:66 templates/coaching/create_logins2.html:30
+#: forms.py:83 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
 msgid "Send credentials by mail"
 msgstr "Envoi des informations par mail"
 
-#: forms.py:72
+#: forms.py:89
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: forms.py:84
+#: forms.py:101
 msgid "Filetype should be .doc, .docx, .xls, .xslx, .pdf or .zip"
 msgstr "Le type du fichier doit être .doc, .docx, .xls, .xlsx, .pdf ou .zip"
 
-#: forms.py:89 forms.py:106
-#, python-format
-msgid "Maximum size allowed is 1 Mo, this file is %.2f Mo"
-msgstr "La taille maximum permise est 1 Mo, ce fichier pèse %2.f Mo"
-
-#: forms.py:96
+#: forms.py:113
 msgid "Subject"
 msgstr "Sujet"
 
-#: forms.py:97
+#: forms.py:114
 msgid "Text"
 msgstr "Texte du mail"
 
-#: forms.py:99
+#: forms.py:116
 msgid "Attach a file"
 msgstr "Joindre un fichier"
 
@@ -371,74 +371,80 @@ msgstr "Devoir"
 msgid "Assignments"
 msgstr "Devoirs"
 
-#: views.py:33
+#: views.py:34
 msgid "Changes saved successfully."
 msgstr "Modifications sauvegardées avec succès."
 
-#: views.py:42
+#: views.py:43
 msgid "Change account"
 msgstr "Profil"
 
-#: views.py:55 views.py:109
+#: views.py:56 views.py:115 views.py:161
 msgid "This group does not exist."
 msgstr "Ce groupe n'existe pas."
 
-#: views.py:60 views.py:114 views.py:202
+#: views.py:61 views.py:120 views.py:166 views.py:254
 msgid "You do not have admin rights on the requested group."
 msgstr "Vous n'êtes pas administrateur du groupe demandé."
 
-#: views.py:77
-msgid "Download group results"
-msgstr "Télécharger les résultats du groupe"
-
-#: views.py:80
+#: views.py:82
 msgid "Upload a file for this group"
 msgstr "Déposer un fichier pour ce groupe"
 
-#: views.py:82
+#: views.py:86
 msgid "Send an email to selected students"
 msgstr "Envoyer un mail aux étudiants sélectionnés"
 
-#: views.py:85
+#: views.py:91
 msgid "Group admin"
 msgstr "Modifier le groupe"
 
-#: views.py:175 views.py:179
+#: views.py:125 views.py:145
+#, python-format
+msgid "Upload a file for %s"
+msgstr "Déposer un fichier pour le groupe %s"
+
+#: views.py:141
+msgid "The document has been uploaded correctly."
+msgstr "Le document a été déposé avec succès."
+
+#: views.py:227 views.py:231
 msgid "You do not have professor rights on the requested group."
 msgstr "Vous n'êtes pas professeur du groupe demandé."
 
-#: views.py:197
+#: views.py:249
 msgid "This user does not exist."
 msgstr "Cet utilisateur n'existe pas."
 
-#: views.py:248
+#: views.py:300
 msgid "Exists already."
 msgstr "Existe déjà."
 
-#: views.py:258
+#: views.py:310
 msgid "Saved."
 msgstr "Créé."
 
-#: views.py:272
+#: views.py:324
 msgid "Mail sent."
 msgstr "Mail envoyé."
 
-#: views.py:274
+#: views.py:326
 msgid "Mail error."
 msgstr "Erreur mail."
 
-#: views.py:284 views.py:323 views.py:336 views.py:347 views.py:356
+#: views.py:336 views.py:375 views.py:388 views.py:399 views.py:408
 msgid "Create logins"
 msgstr "Créer les logins"
 
-#: views.py:319
+#: views.py:371
 #, python-format
 msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
 
 #: templates/coaching/change_profile.html:6 templates/coaching/cours.html:15
 #: templates/coaching/groupe.html:15 templates/coaching/sendmail.html:9
-#: templates/coaching/sendmailadmin.html:9 templates/coaching/user.html:10
+#: templates/coaching/sendmailadmin.html:9 templates/coaching/upload.html:9
+#: templates/coaching/user.html:10
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -574,7 +580,7 @@ msgid "Message"
 msgstr ""
 
 #: templates/coaching/sendmail.html:15
-#: templates/coaching/sendmailadmin.html:20
+#: templates/coaching/sendmailadmin.html:20 templates/coaching/upload.html:33
 msgid "Send"
 msgstr "Envoyer"
 
@@ -629,6 +635,10 @@ msgstr "Démonstration"
 #: templates/coaching/tab_groupes.html:10
 msgid "yes,no"
 msgstr "oui,non"
+
+#: templates/coaching/upload.html:9
+msgid "Upload a file"
+msgstr "Déposer un fichier"
 
 #: templates/coaching/user.html:16
 msgid "Change profile"
@@ -685,3 +695,6 @@ msgstr "Détail des cours validés"
 #: templates/coaching/user.html:51
 msgid "This student is not subscribed to any course"
 msgstr "Cet étudiant n'est inscrit à aucun cours."
+
+#~ msgid "Download group results"
+#~ msgstr "Télécharger les résultats du groupe"
