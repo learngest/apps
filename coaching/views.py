@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.template import RequestContext
@@ -75,9 +75,10 @@ def groupe(request, groupe_id):
     else:
         filtres = filters(request.user, groupe_complet)
         groupe = groupe_complet
-    actions = []
-#    actions = [{'libel':_('Download group results'),
-#                'url':'/coaching/csv/?id=%s' % groupe_id},]
+    actions = [{'libel':_('Download group results'),
+                'url':'%s?id=%s' % (
+                    urlresolvers.reverse('coaching.views.csvperf'),
+                    groupe_id)},]
     actions_admin = [
             {'libel':_('Upload a file for this group'),
              'url':'%s?id=%s' % (
@@ -101,6 +102,58 @@ def groupe(request, groupe_id):
                                'filters': filtres,
                               },
                               context_instance=RequestContext(request))
+
+@login_required
+def csvperf(request):
+    """
+    Download group performances as .csv file
+    """
+    import csv
+    from django.template.defaultfilters import slugify
+    if 'id' in request.GET:
+        try:
+            groupe = Groupe.objects.get(id=request.GET['id'])
+        except Groupe.DoesNotExist:
+            request.user.message_set.create(
+                    message=_("This group does not exist."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        if not request.user.may_see_groupe(groupe):
+            request.user.message_set.create(
+                message=_(
+                    "You do not have admin rights on the requested group."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    response = HttpResponse(mimetype='text/csv')
+    response['Content-Disposition'] = \
+            'attachment; filename=groupe-%s.csv' % slugify(groupe.nom)
+    writer = csv.writer(response,delimiter=';')
+    groupe = AdminGroupe(request.user, groupe)
+    writer.writerow([s.encode("iso-8859-1") for s in [
+                    _('Last Name'),
+                    _('First Name'),
+                    _('Email'),
+                    _('Last login'),
+                    _('Valid till'),
+                    _('Completed courses / %d') % groupe.nb_cours,
+                    _('Uploaded works / %d') % groupe.nb_works,
+                    _('Current course'),
+                    _('Validated modules in current course'),
+                    _('# modules in current course'),
+                    _('Delays'),]])
+    for u in groupe.users():
+        writer.writerow([
+            u.user.last_name.encode("iso-8859-1"),
+            u.user.first_name.encode("iso-8859-1"),
+            u.email.encode("iso-8859-1"),
+            u.last_login,
+            u.user.fermeture,
+            u.nb_cours_valides(),
+            u.nb_travaux_rendus(),
+            u.cours_courant().titre().encode("iso-8859-1"),
+            u.nb_modules_valides_in_current(),
+            u.nb_modules_in_current(),
+            u.nb_cours_en_retard(),
+            ])
+    return response
 
 @login_required
 def add_doc(request):

@@ -8,4 +8,5 @@ urlpatterns = patterns('coaching.views',
     (r'^user/(?P<user_id>\d+)/$', 'user',),
     (r'^sendmail/$', 'sendmail',),
     (r'^upload/$', 'add_doc',),
+    (r'^csv/$', 'csvperf',),
 )

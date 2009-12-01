@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-30 23:13+0100\n"
+"POT-Creation-Date: 2009-12-01 15:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions.py:38 views.py:204
+#: actions.py:38 views.py:257
 msgid "The message has been sent."
 msgstr "Le message a été envoyé."
 
-#: actions.py:41 views.py:207
+#: actions.py:41 views.py:260
 msgid "Error: unable to send message."
 msgstr "Erreur : impossible d'envoyer le message."
 
-#: actions.py:45 actions.py:55 actions.py:63 views.py:179 views.py:211
+#: actions.py:45 actions.py:55 actions.py:63 views.py:232 views.py:264
 #: templates/coaching/sendmail.html:9 templates/coaching/sendmailadmin.html:9
 msgid "Send an email"
 msgstr "Envoyer un mail"
@@ -42,7 +42,7 @@ msgstr "Cours de ce groupe"
 msgid "Name"
 msgstr "Nom"
 
-#: admin.py:103 templates/coaching/cours.html:46
+#: admin.py:103 views.py:133 templates/coaching/cours.html:46
 #: templates/coaching/create_logins2.html:40
 msgid "Email"
 msgstr ""
@@ -87,7 +87,7 @@ msgstr "Dates importantes"
 msgid "Groups"
 msgstr "Groupes"
 
-#: admin.py:194 templates/coaching/cours.html:47
+#: admin.py:194 views.py:134 templates/coaching/cours.html:47
 #: templates/coaching/groupe.html:61
 msgid "Last login"
 msgstr "Dernier login"
@@ -146,7 +146,7 @@ msgstr "Fichier source"
 msgid "Preferred language"
 msgstr "Langue préférée"
 
-#: forms.py:81 templates/coaching/change_profile.html:29
+#: forms.py:81 views.py:135 templates/coaching/change_profile.html:29
 #: templates/coaching/create_logins2.html:27
 #: templates/coaching/create_logins3.html:26
 msgid "Valid till"
@@ -240,7 +240,7 @@ msgstr ""
 msgid "Courses to which group members are subscribed."
 msgstr "Cours auxquels les membres du groupe sont inscrits."
 
-#: models.py:118 models.py:257
+#: models.py:118 models.py:268
 msgid "Group, required."
 msgstr "Groupe, requis."
 
@@ -331,43 +331,43 @@ msgstr "retards"
 msgid "User"
 msgstr "Utilisateur"
 
-#: models.py:258
+#: models.py:269
 msgid "When ?"
 msgstr "Quand ?"
 
-#: models.py:259
+#: models.py:270
 msgid "Event date, required."
 msgstr "Date de l'évènement, requis."
 
-#: models.py:260
+#: models.py:271
 msgid "Description"
 msgstr ""
 
-#: models.py:261
+#: models.py:272
 msgid "Event description, required."
 msgstr "Description de l'évènement, requis."
 
-#: models.py:265
+#: models.py:276
 msgid "Event"
 msgstr "Évènement"
 
-#: models.py:381
+#: models.py:392
 msgid "Additional document"
 msgstr "Document supplémentaire"
 
-#: models.py:382
+#: models.py:393
 msgid "Additional documents"
 msgstr "Documents supplémentaires"
 
-#: models.py:398
+#: models.py:409
 msgid "Directions"
 msgstr "Instructions"
 
-#: models.py:405
+#: models.py:416
 msgid "Assignment"
 msgstr "Devoir"
 
-#: models.py:406 templates/coaching/tab_cours.html:56
+#: models.py:417 templates/coaching/tab_cours.html:56
 msgid "Assignments"
 msgstr "Devoirs"
 
@@ -379,64 +379,102 @@ msgstr "Modifications sauvegardées avec succès."
 msgid "Change account"
 msgstr "Profil"
 
-#: views.py:56 views.py:115 views.py:161
+#: views.py:56 views.py:118 views.py:168 views.py:214
 msgid "This group does not exist."
 msgstr "Ce groupe n'existe pas."
 
-#: views.py:61 views.py:120 views.py:166 views.py:254
+#: views.py:61 views.py:123 views.py:173 views.py:219 views.py:307
 msgid "You do not have admin rights on the requested group."
 msgstr "Vous n'êtes pas administrateur du groupe demandé."
 
-#: views.py:82
+#: views.py:78
+msgid "Download group results"
+msgstr "Télécharger les résultats du groupe"
+
+#: views.py:83
 msgid "Upload a file for this group"
 msgstr "Déposer un fichier pour ce groupe"
 
-#: views.py:86
+#: views.py:87
 msgid "Send an email to selected students"
 msgstr "Envoyer un mail aux étudiants sélectionnés"
 
-#: views.py:91
+#: views.py:92
 msgid "Group admin"
 msgstr "Modifier le groupe"
 
-#: views.py:125 views.py:145
+#: views.py:131 templates/coaching/change_profile.html:23
+msgid "Last Name"
+msgstr "Nom"
+
+#: views.py:132 templates/coaching/change_profile.html:24
+msgid "First Name"
+msgstr "Prénom"
+
+#: views.py:136
+#, python-format
+msgid "Completed courses / %d"
+msgstr "Cours validés / %d"
+
+#: views.py:137
+#, python-format
+msgid "Uploaded works / %d"
+msgstr "Travaux rendus / %d"
+
+#: views.py:138 templates/coaching/groupe.html:69
+msgid "Current course"
+msgstr "Cours courant"
+
+#: views.py:139
+msgid "Validated modules in current course"
+msgstr "Modules validés dans le cours courant"
+
+#: views.py:140
+msgid "# modules in current course"
+msgstr "Nb modules dans le cours courant"
+
+#: views.py:141
+msgid "Delays"
+msgstr "Retards"
+
+#: views.py:178 views.py:198
 #, python-format
 msgid "Upload a file for %s"
 msgstr "Déposer un fichier pour le groupe %s"
 
-#: views.py:141
+#: views.py:194
 msgid "The document has been uploaded correctly."
 msgstr "Le document a été déposé avec succès."
 
-#: views.py:227 views.py:231
+#: views.py:280 views.py:284
 msgid "You do not have professor rights on the requested group."
 msgstr "Vous n'êtes pas professeur du groupe demandé."
 
-#: views.py:249
+#: views.py:302
 msgid "This user does not exist."
 msgstr "Cet utilisateur n'existe pas."
 
-#: views.py:300
+#: views.py:353
 msgid "Exists already."
 msgstr "Existe déjà."
 
-#: views.py:310
+#: views.py:363
 msgid "Saved."
 msgstr "Créé."
 
-#: views.py:324
+#: views.py:377
 msgid "Mail sent."
 msgstr "Mail envoyé."
 
-#: views.py:326
+#: views.py:379
 msgid "Mail error."
 msgstr "Erreur mail."
 
-#: views.py:336 views.py:375 views.py:388 views.py:399 views.py:408
+#: views.py:389 views.py:428 views.py:441 views.py:452 views.py:461
 msgid "Create logins"
 msgstr "Créer les logins"
 
-#: views.py:371
+#: views.py:424
 #, python-format
 msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
@@ -455,14 +493,6 @@ msgstr "profil"
 #: templates/coaching/change_profile.html:12
 msgid "Credentials"
 msgstr "Informations de connexion"
-
-#: templates/coaching/change_profile.html:23
-msgid "Last Name"
-msgstr "Nom"
-
-#: templates/coaching/change_profile.html:24
-msgid "First Name"
-msgstr "Prénom"
 
 #: templates/coaching/change_profile.html:31
 msgid "No expiration date"
@@ -550,10 +580,6 @@ msgstr "Cours<br />validés"
 #: templates/coaching/groupe.html:66
 msgid "Uploaded<br />works"
 msgstr "Travaux<br />rendus"
-
-#: templates/coaching/groupe.html:69
-msgid "Current course"
-msgstr "Cours courant"
 
 #: templates/coaching/groupe.html:71
 msgid "Validated modules<br />in current course"
@@ -695,6 +721,3 @@ msgstr "Détail des cours validés"
 #: templates/coaching/user.html:51
 msgid "This student is not subscribed to any course"
 msgstr "Cet étudiant n'est inscrit à aucun cours."
-
-#~ msgid "Download group results"
-#~ msgstr "Télécharger les résultats du groupe"
