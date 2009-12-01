@@ -114,7 +114,7 @@ def add_doc(request):
             request.user.message_set.create(
                     message=_("This group does not exist."))
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
-        if not request.user.may_see_groupe(groupe):
+        if not request.user.may_admin_groupe(groupe):
             request.user.message_set.create(
                 message=_(
                     "You do not have admin rights on the requested group."))
@@ -160,7 +160,7 @@ def sendmail(request):
             request.user.message_set.create(
                     message=_("This group does not exist."))
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
-        if not request.user.may_see_groupe(groupe):
+        if not request.user.may_admin_groupe(groupe):
             request.user.message_set.create(
                 message=_(
                     "You do not have admin rights on the requested group."))
