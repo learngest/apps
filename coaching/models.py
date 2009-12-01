@@ -243,6 +243,17 @@ class Utilisateur(User):
             return True
         if self in grpe.assistant.all():
             return True
+        return False
+
+    def may_admin_groupe(self, grpe):
+        """
+        True si l'utilisateur peut administrer ce groupe
+        """
+        if self.is_staff:
+            return True
+        if grpe.administrateur == self:
+            return True
+        return False
 
     @models.permalink
     def get_absolute_url(self):
