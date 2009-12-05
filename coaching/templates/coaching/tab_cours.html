@@ -60,7 +60,7 @@
 {% for assignment in course.assignments %}
 {% if assignment.date_remise %}
 <tr>
-    <td>{{ assignment.titre }}</td>
+    <td><a href="{{ assignment.url }}">{{ assignment.titre }}</a></td>
     <td>{{ assignment.date_remise }}</td>
     <td>{{ assignment.signature }}</td>
 </tr>
