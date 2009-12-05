@@ -30,20 +30,12 @@
 <p>{% trans "Last login:" %} <span class="bold">{{ student.last_login }}</span></p>
 {% if student.nb_cours_valides %}
 <p>{% trans "Completed courses:" %} <span class="bold">{{ student.nb_cours_valides }} / {{ student.nb_cours }} {% if student.nb_cours_valides_en_retard %}</span> ({{ student.nb_cours_valides_en_retard }} {% trans "completed late" %}){% endif %}</p>
-<p>{% trans "Uploaded assignments:" %} <span class="bold">{{ student.nb_travaux_rendus }} / {{ student.nb_travaux }}</span></p>
 {% else %}
 <p>{% trans "No courses completed so far." %}</p>
 {% endif %}
+<p>{% trans "Uploaded assignments:" %} <span class="bold">{{ student.nb_travaux_rendus }} / {{ student.nb_travaux }}</span> (<a href="{{ media_url }}{{ student.workdone }}">{% trans "download all assignments" %}</a>)</p>
 <p>{% trans "Currently working on" %} <span class="bold">{{ student.cours_courant.titre }}</span> (<span class="bold">{{ student.nb_modules_valides_in_current }}/{{ student.nb_modules_in_current }}</span> {% trans "completed modules" %})</p>
 </div>
-{%if student.workdone %}
-<h2>{% trans "Download works from this student:" %}</h2>
-<ul>
-{% for work in student.workdone %}
-<li class="nop"><a href="{{ media_url }}{{ workdone }}/{{ work }}">{{ work }}</a></li>
-{% endfor %}
-</ul>
-{% endif %}
 <h2>{% trans "Completed courses details" %}</h2>
 {% for course in student.cours %}
 {% include "coaching/tab_cours.html" %}

@@ -301,3 +301,15 @@ class UserState(object):
             self._state = self.is_inactif() \
                     or self.fermeture_prochaine() or self.nb_cours_en_retard()
         return self._state
+
+    def workdone(self):
+        """
+        Return user's assignments to download,
+        as a zipfile
+        """
+        import os.path
+        zipname = 'g%d-%s.zip' % (self.user.groupe.id, self.user.username)
+        zipfile = os.path.join(settings.MEDIA_ROOT,
+                settings.WORKDONE_DIR,zipname)
+        if os.path.exists(zipfile):
+            return zipname

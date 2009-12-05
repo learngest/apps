@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-01 15:00+0100\n"
+"POT-Creation-Date: 2009-12-05 16:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,13 +694,17 @@ msgstr "Cours validés :"
 msgid "completed late"
 msgstr "validés en retard"
 
-#: templates/coaching/user.html:33
+#: templates/coaching/user.html:34
+msgid "No courses completed so far."
+msgstr "Pas de cours validés pour le moment."
+
+#: templates/coaching/user.html:36
 msgid "Uploaded assignments:"
 msgstr "Devoirs rendus :"
 
-#: templates/coaching/user.html:35
-msgid "No courses completed so far."
-msgstr "Pas de cours validés pour le moment."
+#: templates/coaching/user.html:36
+msgid "download all assignments"
+msgstr "télécharger tous les devoirs"
 
 #: templates/coaching/user.html:37
 msgid "Currently working on"
@@ -710,14 +714,13 @@ msgstr "Travail en cours :"
 msgid "completed modules"
 msgstr "modules validés"
 
-#: templates/coaching/user.html:40
-msgid "Download works from this student:"
-msgstr "Télécharger les travaux de cet étudiant :"
-
-#: templates/coaching/user.html:47
+#: templates/coaching/user.html:39
 msgid "Completed courses details"
 msgstr "Détail des cours validés"
 
-#: templates/coaching/user.html:51
+#: templates/coaching/user.html:43
 msgid "This student is not subscribed to any course"
 msgstr "Cet étudiant n'est inscrit à aucun cours."
+
+#~ msgid "Download works from this student:"
+#~ msgstr "Télécharger les travaux de cet étudiant :"
