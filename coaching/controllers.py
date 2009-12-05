@@ -99,12 +99,12 @@ class AdminGroupe(object):
         """
         import os.path
         lworkdone = []
-        for c in self.groupe.cours:
+        for c in self.groupe.cours.all():
             zipname = 'g%d-%s.zip' % (self.groupe.id, c.slug)
             zipfile = os.path.join(settings.MEDIA_ROOT,
                     settings.WORKDONE_DIR,zipname)
             if os.path.exists(zipfile):
-                lwordone.append(zipname)
+                lworkdone.append(zipname)
         return lworkdone
 
 
