@@ -33,7 +33,7 @@
 {% else %}
 <p>{% trans "No courses completed so far." %}</p>
 {% endif %}
-<p>{% trans "Uploaded assignments:" %} <span class="bold">{{ student.nb_travaux_rendus }} / {{ student.nb_travaux }}</span> (<a href="{{ media_url }}{{ student.workdone }}">{% trans "download all assignments" %}</a>)</p>
+<p>{% trans "Uploaded assignments:" %} <span class="bold">{{ student.nb_travaux_rendus }} / {{ student.nb_travaux }}</span> {% if student.nb_travaux_rendus %}(<a href="{{ media_url }}{{ student.workdone }}">{% trans "download all assignments" %}</a>){% endif %}</p>
 <p>{% trans "Currently working on" %} <span class="bold">{{ student.cours_courant.titre }}</span> (<span class="bold">{{ student.nb_modules_valides_in_current }}/{{ student.nb_modules_in_current }}</span> {% trans "completed modules" %})</p>
 </div>
 <h2>{% trans "Completed courses details" %}</h2>
