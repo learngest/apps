@@ -85,7 +85,7 @@ class AdminGroupe(object):
         """
         courants = list(set(
             [(u.cours_courant().cours, u.nb_modules_valides_in_current())
-            for u in self.users()]))
+            for u in self.users() if u.cours()]))
         tous_les_cours = list(self.groupe.cours.order_by('coursdugroupe__rang'))
         for c in courants:
             c[0].rang = tous_les_cours.index(c[0])
