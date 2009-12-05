@@ -85,9 +85,11 @@ class UserWork(object):
             wd = WorkDone.objects.get(utilisateur=self.user, work=self.work)
             self.date_remise = wd.date
             self.signature = wd.signature
+            self.url = wd.fichier.url
         except WorkDone.DoesNotExist:
             self.date_remise = False
             self.signature = None
+            self.url = None
 
 
 class UserCours(object):
@@ -163,12 +165,16 @@ class UserCours(object):
         None s'il n'y a pas de tests dans le cours
         """
         if self._date_validation == -1:
-            dates =  [m.date_validation() for m in self.modules()]
+            dates =  [m.date_validation() for m in self.modules()
+                                if m.date_validation() is not None]
             dates.extend([w.date_remise for w in self.assignments()])
-            if False in dates:
-                self._date_validation = False
+            if dates:
+                if False in dates:
+                    self._date_validation = False
+                else:
+                    self._date_validation = max(dates)
             else:
-                self._date_validation = max(dates)
+                self._date_validation = None
         return self._date_validation
 
     valide = property(date_validation)
@@ -196,7 +202,7 @@ class UserCours(object):
         Renvoie True si le cours est ouvert :
         - tous les cours sont ouverts pour le groupe
         - ce cours est le premier pour le groupe
-        - le cours précédent est validé
+        - le cours précédent est validé et la date d'ouverture est passée
         """
         if self.user.statut > settings.ASSISTANT:
             return True
@@ -204,6 +210,17 @@ class UserCours(object):
             return True
         if self.rang == 0:
             return True
+        if self.prec().valide:
+            if self.debut:
+                if datetime.datetime.now() >= self.debut:
+                    return True
+                else:
+                    return False
+            else:
+                return True
+        return False
+
+            
         return self.prec().valide
 
     def state(self):
