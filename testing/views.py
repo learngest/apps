@@ -3,11 +3,11 @@
 import os.path
 
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.translation import ugettext as _
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
+from django.template import RequestContext, loader
 from django.conf import settings
 
 from testing.models import Granule
@@ -55,9 +55,17 @@ def test(request, granule_id=None):
                                     }, context_instance=RequestContext(request))
 
     test = UserTest(request.user, granule, langue)
-    return render_to_response('testing/test.html',{
-                                'title' : _("test"),
-                                'test' : test,
-                                'baselink' : base,
-                                }, context_instance=RequestContext(request))
+    t = loader.get_template('testing/test.html')
+    c = RequestContext(request,{
+                'title' : _("test"),
+                'test' : test,
+                'baselink' : base,})
+    response = HttpResponse(t.render(c))
+    response['Cache-Control'] = 'no-cache, no-store'
+    return response
+#    return render_to_response('testing/test.html',{
+#                                'title' : _("test"),
+#                                'test' : test,
+#                                'baselink' : base,
+#                                }, context_instance=RequestContext(request))
 
