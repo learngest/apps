@@ -21,7 +21,8 @@ def send_email(modeladmin, request, queryset):
         if f.is_valid():
             subject = f.cleaned_data['subject']
             message = f.cleaned_data['content']
-            from_email = request.user.email
+            from_email = '%s <profs@learngest.com>' % request.user.get_full_name()
+            reply_to = request.user.email
             attach = None
             if 'attach' in request.FILES:
                 attach = request.FILES['attach']
@@ -30,7 +31,7 @@ def send_email(modeladmin, request, queryset):
                         body=message,
                         from_email=from_email,
                         to=email_list,
-                        headers={'Reply-To': from_email})
+                        headers={'Reply-To': reply_to})
                 if attach:
                     mail.attach(attach.name, attach.read(), attach.content_type)
                 mail.send()
