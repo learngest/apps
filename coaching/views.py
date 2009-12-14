@@ -238,6 +238,7 @@ def sendmail(request):
     if request.method == 'POST':
         f = MailForm(request.POST)
         if f.is_valid():
+            email_list.append(request.user.email)
             subject = f.cleaned_data['subject']
             message = f.cleaned_data['content']
             from_email = '%s <profs@learngest.com>' % request.user.get_full_name()
