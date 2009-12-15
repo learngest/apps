@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-05 16:10+0100\n"
+"POT-Creation-Date: 2009-12-15 10:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions.py:38 views.py:257
+#: actions.py:39 views.py:276
 msgid "The message has been sent."
 msgstr "Le message a été envoyé."
 
-#: actions.py:41 views.py:260
+#: actions.py:42 views.py:279
 msgid "Error: unable to send message."
 msgstr "Erreur : impossible d'envoyer le message."
 
-#: actions.py:45 actions.py:55 actions.py:63 views.py:232 views.py:264
+#: actions.py:46 actions.py:56 actions.py:64 views.py:248 views.py:286
 #: templates/coaching/sendmail.html:9 templates/coaching/sendmailadmin.html:9
 msgid "Send an email"
 msgstr "Envoyer un mail"
@@ -383,7 +383,8 @@ msgstr "Profil"
 msgid "This group does not exist."
 msgstr "Ce groupe n'existe pas."
 
-#: views.py:61 views.py:123 views.py:173 views.py:219 views.py:307
+#: views.py:61 views.py:123 views.py:173 views.py:219 views.py:240
+#: views.py:329
 msgid "You do not have admin rights on the requested group."
 msgstr "Vous n'êtes pas administrateur du groupe demandé."
 
@@ -446,35 +447,43 @@ msgstr "Déposer un fichier pour le groupe %s"
 msgid "The document has been uploaded correctly."
 msgstr "Le document a été déposé avec succès."
 
-#: views.py:280 views.py:284
-msgid "You do not have professor rights on the requested group."
-msgstr "Vous n'êtes pas professeur du groupe demandé."
-
-#: views.py:302
+#: views.py:235 views.py:324
 msgid "This user does not exist."
 msgstr "Cet utilisateur n'existe pas."
 
-#: views.py:353
+#: views.py:302 views.py:306
+msgid "You do not have professor rights on the requested group."
+msgstr "Vous n'êtes pas professeur du groupe demandé."
+
+#: views.py:334
+msgid "Send an email to this student"
+msgstr "Envoyer un mail à cet étudiant"
+
+#: views.py:339
+msgid "User admin"
+msgstr "Modifier le profil de cet étudiant"
+
+#: views.py:389
 msgid "Exists already."
 msgstr "Existe déjà."
 
-#: views.py:363
+#: views.py:399
 msgid "Saved."
 msgstr "Créé."
 
-#: views.py:377
+#: views.py:413
 msgid "Mail sent."
 msgstr "Mail envoyé."
 
-#: views.py:379
+#: views.py:415
 msgid "Mail error."
 msgstr "Erreur mail."
 
-#: views.py:389 views.py:428 views.py:441 views.py:452 views.py:461
+#: views.py:425 views.py:464 views.py:477 views.py:488 views.py:497
 msgid "Create logins"
 msgstr "Créer les logins"
 
-#: views.py:424
+#: views.py:460
 #, python-format
 msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
@@ -666,61 +675,60 @@ msgstr "oui,non"
 msgid "Upload a file"
 msgstr "Déposer un fichier"
 
-#: templates/coaching/user.html:16
-msgid "Change profile"
-msgstr "Modifier le profil"
-
-#: templates/coaching/user.html:22
+#: templates/coaching/user.html:18
 msgid "This student is currently late."
 msgstr "Cet étudiant est actuellement en retard."
 
-#: templates/coaching/user.html:25
+#: templates/coaching/user.html:21
 msgid "This user account is currently not active."
 msgstr "Le compte de cet étudiant n'est pas actif actuellement."
 
-#: templates/coaching/user.html:28
+#: templates/coaching/user.html:24
 msgid "This user account will close on"
 msgstr "Le compte de cet étudiant fermera le"
 
-#: templates/coaching/user.html:30
+#: templates/coaching/user.html:26
 msgid "Last login:"
 msgstr "Dernière connexion :"
 
-#: templates/coaching/user.html:32
+#: templates/coaching/user.html:28
 msgid "Completed courses:"
 msgstr "Cours validés :"
 
-#: templates/coaching/user.html:32
+#: templates/coaching/user.html:28
 msgid "completed late"
 msgstr "validés en retard"
 
-#: templates/coaching/user.html:34
+#: templates/coaching/user.html:30
 msgid "No courses completed so far."
 msgstr "Pas de cours validés pour le moment."
 
-#: templates/coaching/user.html:36
+#: templates/coaching/user.html:32
 msgid "Uploaded assignments:"
 msgstr "Devoirs rendus :"
 
-#: templates/coaching/user.html:36
+#: templates/coaching/user.html:32
 msgid "download all assignments"
 msgstr "télécharger tous les devoirs"
 
-#: templates/coaching/user.html:37
+#: templates/coaching/user.html:33
 msgid "Currently working on"
 msgstr "Travail en cours :"
 
-#: templates/coaching/user.html:37
+#: templates/coaching/user.html:33
 msgid "completed modules"
 msgstr "modules validés"
 
-#: templates/coaching/user.html:39
+#: templates/coaching/user.html:42
 msgid "Completed courses details"
 msgstr "Détail des cours validés"
 
-#: templates/coaching/user.html:43
+#: templates/coaching/user.html:46
 msgid "This student is not subscribed to any course"
 msgstr "Cet étudiant n'est inscrit à aucun cours."
+
+#~ msgid "Change profile"
+#~ msgstr "Modifier le profil"
 
 #~ msgid "Download works from this student:"
 #~ msgstr "Télécharger les travaux de cet étudiant :"
