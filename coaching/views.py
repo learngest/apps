@@ -226,11 +226,28 @@ def sendmail(request):
         destinataires = destinataires.filter(**filtdict)
         dest_list = [u.get_full_name() for u in destinataires]
         email_list = [u.email for u in destinataires]
+        utilisateur = None
+    if 'uid' in request.GET:
+        try:
+            utilisateur = Utilisateur.objects.get(id=request.GET['uid'])
+        except Utilisateur.DoesNotExist:
+            request.user.message_set.create(
+                    message=_("This user does not exist."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        if not request.user.may_admin_groupe(utilisateur.groupe):
+            request.user.message_set.create(
+                message=_(
+                    "You do not have admin rights on the requested group."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        dest_list = [utilisateur.get_full_name()]
+        email_list = [utilisateur.email]
+        groupe = utilisateur.groupe
     if request.method != 'POST':
         f = MailForm()
         return render_to_response('coaching/sendmail.html',
                             {'title': _('Send an email'),
                              'groupe': groupe,
+                             'utilisateur': utilisateur,
                              'dest_list': dest_list,
                              'form': f,
                             },
@@ -260,7 +277,10 @@ def sendmail(request):
             except:
                 request.user.message_set.create(
                         message=_("Error: unable to send message."))
-            return HttpResponseRedirect(groupe.get_absolute_url())
+            if utilisateur:
+                return HttpResponseRedirect(utilisateur.get_absolute_url())
+            else:
+                return HttpResponseRedirect(groupe.get_absolute_url())
         else:
             return render_to_response('coaching/sendmail.html',
                                 {'title': _('Send an email'),

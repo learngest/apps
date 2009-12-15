@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a> &gt; {% trans "Send an email" %}
+    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a> &gt;{% if utilisateur %} <a href="{{ utilisateur.get_absolute_url }}">{{ utilisateur.get_full_name }}</a> &gt;{% endif %} {% trans "Send an email" %}
 </div>{% endblock %}
 
 {% block content %}
