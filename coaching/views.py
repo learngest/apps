@@ -309,9 +309,23 @@ def user(request, user_id):
                         "You do not have admin rights on the requested group."))
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     us = UserState(utilisateur)
+    actions = []
+    actions_admin = [
+            {'libel':_('Send an email to this student'),
+             'url': '%s?uid=%s' % (
+                urlresolvers.reverse('coaching.views.sendmail'),
+                utilisateur.id)},]
+    actions_staff = [
+            {'libel':_('User admin'),
+             'url': utilisateur.get_admin_url()},]
+    if request.user.statut > settings.PROF:
+        actions.extend(actions_admin)
+        if request.user.statut == settings.STAFF:
+            actions.extend(actions_staff)
     return render_to_response('coaching/user.html',
                               {'title': us.get_full_name,
                                'student': us,
+                               'actions': actions,
                               },
                               context_instance=RequestContext(request))
 

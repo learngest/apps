@@ -11,11 +11,7 @@
 </div>{% endblock %}
 
 {% block content %}
-{% block object-tools %}
-<ul class="object-tools">
-{% if user.is_staff %}<li style="line-height: 1.25"><a href="{{ student.user.get_admin_url }}" class="viewsitelink">{% trans "Change profile" %}</a></li>{% endif%}
-</ul>
-{% endblock %}
+
 <div class="colorbox">
 <p>{{ student.email }}</p>
 {% if student.nb_cours_en_retard %}
@@ -36,6 +32,13 @@
 <p>{% trans "Uploaded assignments:" %} <span class="bold">{{ student.nb_travaux_rendus }} / {{ student.nb_travaux }}</span> {% if student.nb_travaux_rendus %}(<a href="{{ media_url }}{{ workdone }}/{{ student.workdone }}">{% trans "download all assignments" %}</a>){% endif %}</p>
 <p>{% trans "Currently working on" %} <span class="bold">{{ student.cours_courant.titre }}</span> (<span class="bold">{{ student.nb_modules_valides_in_current }}/{{ student.nb_modules_in_current }}</span> {% trans "completed modules" %})</p>
 </div>
+
+<div class="actions">
+    {% for action in actions %}
+    <p><a href="{{ action.url }}">{{ action.libel }}</a></p>
+    {% endfor %}
+</div>
+
 <h2>{% trans "Completed courses details" %}</h2>
 {% for course in student.cours %}
 {% include "coaching/tab_cours.html" %}
