@@ -233,7 +233,7 @@ class UserSubmittedTest(object):
 
     def _noter_qcm(self, q, rep):
         rep = rep[-1]
-        qd = self._set_qd(rep)
+        qd = self._set_qd(q, rep)
         for r in q.reponse_set.all():
             if int(rep) == r.id:
                 self.total += r.points
