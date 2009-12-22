@@ -131,7 +131,7 @@ class UserTest(object):
     def _output_num(self, question):
         return self.output_exa(question)
 
-    def _output_qrm(question):
+    def _output_qrm(self, question):
         if sys.version_info[1]==3:
             reponses = '\n'.join([self.CHECK % (r.id, question.id, r)
                                 for r in question.reponse_set.all()])
@@ -141,7 +141,7 @@ class UserTest(object):
         hidden = self.HID_REP % question.id
         return '\n'.join((question.libel,hidden,reponses))
 
-    def _output_qcm(question):
+    def _output_qcm(self, question):
         if sys.version_info[1]==3:
             reponses = '\n'.join( [self.RADIO % (r.id, question.id, r)
                                 for r in question.reponse_set.all()])
