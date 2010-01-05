@@ -19,7 +19,7 @@
 <h2>{% trans "Your planning for the" %} {{ planning.weeks }} {% trans "next weeks" %}</h2>
 <ul>
 {% for event in planning.events %}
-<li>{{ event.date|date:"d/m/y" }} {{event.event }}</li>
+<li>{{ event.date|date:"d/m/y H:m" }} {{event.event }}</li>
 {% empty %}
 <li>{% trans "Nothing special so far !" %}</li>
 {% endfor %}
