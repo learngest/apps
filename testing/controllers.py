@@ -8,6 +8,8 @@ from django.core.cache import cache
 from testing.models import Question
 from coaching.models import GranuleValide, ModuleValide, Resultat
 
+import finance
+
 class UserGranule(object):
     """
     Controller d'une granule de test pour un utilisateur
@@ -273,7 +275,6 @@ class UserSubmittedTest(object):
         Note le test
         Retourne un tuple (score, score_max, validé ?)
         """
-        import finance
         from learning.controllers import UserCours
         enonces = {}
         for quest,rep in self.request.POST.lists():
@@ -301,6 +302,7 @@ class UserSubmittedTest(object):
         except UnboundLocalError:
             return HttpResponseRedirect('/')
         self.titre = g.titre(self.user.langue)
+        self.get_absolute_url = g.get_absolute_url()
         r = Resultat(utilisateur=self.user, granule=g, score=score)
         r.save()
         self.valide = score >= q.granule.score_min
