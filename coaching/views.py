@@ -127,7 +127,7 @@ def csvperf(request):
             'attachment; filename=groupe-%s.csv' % slugify(groupe.nom)
     writer = csv.writer(response,delimiter=';')
     groupe = AdminGroupe(request.user, groupe)
-    writer.writerow([s.encode("iso-8859-1") for s in [
+    writer.writerow([s.encode("utf-8") for s in [
                     _('Last Name'),
                     _('First Name'),
                     _('Email'),
@@ -141,14 +141,14 @@ def csvperf(request):
                     _('Delays'),]])
     for u in groupe.users():
         writer.writerow([
-            u.user.last_name.encode("iso-8859-1"),
-            u.user.first_name.encode("iso-8859-1"),
-            u.email.encode("iso-8859-1"),
+            u.user.last_name.encode("utf-8"),
+            u.user.first_name.encode("utf-8"),
+            u.email.encode("utf-8"),
             u.last_login,
             u.user.fermeture,
             u.nb_cours_valides(),
             u.nb_travaux_rendus(),
-            u.cours_courant().titre().encode("iso-8859-1"),
+            u.cours_courant().titre().encode("utf-8"),
             u.nb_modules_valides_in_current(),
             u.nb_modules_in_current(),
             u.nb_cours_en_retard(),
