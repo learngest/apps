@@ -9,4 +9,5 @@ urlpatterns = patterns('coaching.views',
     (r'^sendmail/$', 'sendmail',),
     (r'^upload/$', 'add_doc',),
     (r'^csv/$', 'csvperf',),
+    (r'^dashboard/$', 'dashboard',),
 )

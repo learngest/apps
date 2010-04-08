@@ -12,7 +12,8 @@ from django.conf import settings
 
 from coaching.models import Utilisateur, Groupe, Prof, AutresDocs
 from coaching.forms import UtilisateurChangeForm, CreateLoginsForm, MailForm, DocumentForm
-from coaching.controllers import AdminGroupe, UserState, ProfCours, filters
+from coaching.controllers import AdminGroupe, UserState, ProfCours, filters, AdminCours
+from dashboard.planning import Calendrier, Planning
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -78,7 +79,11 @@ def groupe(request, groupe_id):
     actions = [{'libel':_('Download group results'),
                 'url':'%s?id=%s' % (
                     urlresolvers.reverse('coaching.views.csvperf'),
-                    groupe_id)},]
+                    groupe_id)},
+            {'libel':_('See group planning and courses'),
+             'url': '%s?id=%s' % (
+                urlresolvers.reverse('coaching.views.dashboard'),
+                groupe_id)},]
     actions_admin = [
             {'libel':_('Upload a file for this group'),
              'url':'%s?id=%s' % (
@@ -102,6 +107,46 @@ def groupe(request, groupe_id):
                                'filters': filtres,
                               },
                               context_instance=RequestContext(request))
+
+@login_required
+def dashboard(request):
+    """
+    Voir le tableau de bord et le planning d'un groupe
+    """
+    if 'id' in request.GET:
+        try:
+            groupe = Groupe.objects.get(id=request.GET['id'])
+        except Groupe.DoesNotExist:
+            request.user.message_set.create(
+                    message=_("This group does not exist."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        if not request.user.may_admin_groupe(groupe):
+            request.user.message_set.create(
+                message=_(
+                    "You do not have admin rights on the requested group."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    else:
+        request.user.message_set.create(
+                message=_("This group does not exist."))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+
+    cal = Calendrier(request, groupe)
+    planning = Planning(request, groupe)
+    docs = AutresDocs.objects.filter(groupe=groupe,cours=None)
+#    cours = groupe.cours.order_by('coursdugroupe__rang')
+    cours = [AdminCours(request.user, cours, groupe) for cours
+            in groupe.cours.order_by('coursdugroupe__rang')]
+
+    return render_to_response('coaching/group_dashboard.html',
+                              {'title': groupe.nom,
+                               'groupe': groupe,
+                               'cal': cal,
+                               'planning': planning,
+                               'docs': docs,
+                               'cours' : cours,
+                              },
+                              context_instance=RequestContext(request))
+
 
 @login_required
 def csvperf(request):

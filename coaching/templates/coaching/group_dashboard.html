@@ -1,0 +1,36 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{% load adminmedia %}
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/dashboard.css" />
+{% endblock extrastyle %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a> &gt; {% trans "Planning and courses" %}
+</div>{% endblock %}
+
+{% block content %}
+{% include "dashboard/calendar.html" %}
+<h2>{% trans "Planning for the" %} {{ planning.weeks }} {% trans "next weeks" %}</h2>
+<ul>
+{% for event in planning.events %}
+<li>{{ event.date|date:"d/m/y H:i" }} {{event.event }}</li>
+{% empty %}
+<li>{% trans "Nothing special so far !" %}</li>
+{% endfor %}
+</ul>
+{% if docs %}
+<h2>{% trans "Documents to download" %}</h2>
+{% for doc in docs %}
+<p><a href="{{ doc.get_absolute_url }}"><strong>{{ doc.titre }}</strong></a><p>
+{% endfor %}
+{% endif %}
+<h2>{% trans "Courses" %}</h2>
+	{% for course in cours %}
+	{% include "coaching/tab_cours_groupe.html" %}
+	{% empty %}
+	{% trans "This group is not subscribed to any course" %}
+	{% endfor %}
+{% endblock content %}
+

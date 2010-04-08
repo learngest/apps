@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 #from django.core.cache import cache
 from django.conf import settings
 
-from coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone
+from coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone, CoursDuGroupe, Prof, AutresDocs
 from learning.controllers import UserModule, UserCours
 
 class ProfCours(object):
@@ -313,3 +313,69 @@ class UserState(object):
                 settings.WORKDONE_DIR,zipname)
         if os.path.exists(zipfile):
             return zipname
+
+
+class AdminCours(object):
+    """
+    Controller d'un cours pour un administrateur
+    """
+    def __init__(self, user, cours, groupe):
+        self._usermodules = -1
+        self._assignments = -1
+        self._autres_docs = -1
+        self.user = user
+        self.cours = cours
+        self.groupe = groupe
+        cdg = CoursDuGroupe.objects.get(cours=self.cours,groupe=self.groupe)
+        self.debut = cdg.debut
+        self.fin = cdg.fin
+        self._liste_cours = []
+
+    def _get_liste_cours(self):
+        if not self._liste_cours:
+            self._liste_cours = list(
+                    self.groupe.cours.order_by('coursdugroupe__rang'))
+        return self._liste_cours
+
+    liste_cours = property(_get_liste_cours)
+
+    def _get_rang(self):
+        return self.liste_cours.index(self.cours)
+
+    rang = property(_get_rang)
+
+    def profs(self):
+        return [prof.utilisateur for prof in
+                Prof.objects.filter(groupe=self.groupe,cours=self.cours)]
+
+    def titre(self):
+        return self.cours.titre(self.user.langue)
+
+    def modules(self):
+        if self._usermodules == -1:
+            self._usermodules = [UserModule(self.user, m) 
+                    for m in self.cours.liste_modules()]
+        return self._usermodules
+
+    def autres_docs(self):
+        if self._autres_docs == -1:
+            self._autres_docs = AutresDocs.objects.filter(
+                    groupe=self.groupe, cours = self.cours)
+        return self._autres_docs
+
+    def assignments(self):
+        if self._assignments == -1:
+            self._assignments = Work.objects.filter(
+                cours=self.cours,
+                groupe=self.groupe)
+        return self._assignments
+
+    def prec(self):
+        """
+        Renvoie l'objet UserCours précédent
+        """
+        if self.rang > 0:
+            return UserCours(self.user, self.liste_cours[self.rang-1])
+        else:
+            return None
+

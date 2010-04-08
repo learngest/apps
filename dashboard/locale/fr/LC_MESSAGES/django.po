@@ -73,7 +73,7 @@ msgstr "Tous vos groupes"
 
 #: templates/dashboard/etudiant.html:15
 msgid "Your group is"
-msgstr "Vous faite partie du groupe"
+msgstr "Vous faites partie du groupe"
 
 #: templates/dashboard/etudiant.html:17
 msgid "This group is managed by"

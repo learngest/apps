@@ -1,0 +1,44 @@
+{% load i18n %}
+<h3>{{ course.titre }}</h3>
+{% with course.profs as profs %}
+{% if profs %}
+<p>{% trans "Professor" %}{{ profs|pluralize }} :
+{% for prof in profs %}
+<a href="mailto:{{ prof.email }}">{{ prof.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</p>
+{% endif %}
+{% endwith %}
+
+{% for doc in course.autres_docs %}
+<p><a href="{{ doc.get_absolute_url }}"><strong>{{ doc.titre }}</strong></a><p>
+{% endfor %}
+{% if course.modules %}
+<table class="tabcours" width="95%">
+<thead>
+    <tr><th width="40%">{% trans "Modules" %}</th><th width="12%">{% trans "Contents" %}</th><th width="25%">{% trans "Tests" %}</th></tr>
+</thead>
+<tfoot></tfoot>
+<tbody>
+{% for module in course.modules %}
+<tr class="{% cycle odd,even %}">
+    <td>{{ module.titre }}</td>
+    <td>{% for content in module.contents %}
+        <a href="{{ content.get_absolute_url }}" title="{{ content.titre }}">{{ content.long_type|capfirst }}</a>{% if not forloop.last %}<br />{% endif %}{% endfor %}
+    </td>
+    <td>{% for test in module.tests %}
+        <a href="{{ test.get_absolute_url }}" {% if test.date_validation %}class="valide"{% endif %}>{{ test.titre }}</a>{% if not forloop.last %}<br />{% endif %}{% endfor %}
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+<table>
+{% endif %}
+{% if course.assignments %}
+<table class="tabcours" width="95%">
+	<tr><th width="40%">{% trans "Assignments" %}</th></tr>
+{% for assignment in course.assignments %}
+<tr><td>{{ assignment.titre }}</td></tr>
+{% endfor %}
+<table>
+{% endif %}

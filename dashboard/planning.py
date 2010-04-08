@@ -15,10 +15,13 @@ class Calendrier():
     - les dates définies dans le model coaching.Event
     - les dates de remise des devoirs
     """
-    def __init__(self, request):
+    def __init__(self, request, groupe=None):
         self.date = datetime.date.today()
         self.user = request.user
-        self.groupe = request.user.groupe
+        if groupe:
+            self.groupe = groupe
+        else:
+            self.groupe = request.user.groupe
         try:
             self.date = datetime.date(
                 int(request.GET.get('year', self.date.year)),
@@ -116,10 +119,13 @@ class Planning():
     """
     Planning pour les prochaines semaines
     """
-    def __init__(self, request):
+    def __init__(self, request, groupe=None):
         self.date = datetime.date.today()
         self.user = request.user
-        self.groupe = request.user.groupe
+        if groupe:
+            self.groupe = groupe
+        else:
+            self.groupe = request.user.groupe
         self.weeks = int(request.GET.get('weeks', 4))
         self.end = self.date + datetime.timedelta(self.weeks*7)
 
