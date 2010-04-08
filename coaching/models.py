@@ -385,7 +385,7 @@ class AutresDocs(models.Model):
     groupe = models.ForeignKey(Groupe)
     cours = models.ForeignKey(Cours, blank=True, null=True)
     titre = models.CharField(max_length=100)
-    fichier = models.FileField(upload_to=upload_path)
+    fichier = models.FileField(upload_to=upload_path, max_length=255)
 
     class Meta:
         ordering = ['groupe','cours']
