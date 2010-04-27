@@ -104,9 +104,14 @@ class UserCours(object):
         self._date_validation = -1
         self.user = user
         self.cours = cours
-        cdg = CoursDuGroupe.objects.get(cours=self.cours,groupe=self.user.groupe)
-        self.debut = cdg.debut
-        self.fin = cdg.fin
+        try:
+            cdg = CoursDuGroupe.objects.get(
+                    cours=self.cours,groupe=self.user.groupe)
+            self.debut = cdg.debut
+            self.fin = cdg.fin
+        except CoursDuGroupe.DoesNotExist:
+            self.debut = None
+            self.fin = None
         self._liste_cours = []
 
     def _get_liste_cours(self):
