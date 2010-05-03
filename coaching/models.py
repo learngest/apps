@@ -438,6 +438,6 @@ class WorkDone(models.Model):
         unique_together = (('utilisateur', 'work'),)
 
     def __unicode__(self):
-        return u'%s - %s - %s' % (self.utilisateur.login, 
+        return u'%s - %s - %s' % (self.utilisateur.email, 
                 self.work.titre, self.date)
 
