@@ -81,7 +81,7 @@
 			<a href="{{ student.get_absolute_url }}"
 				title="{{ student.email }}">{{ student.get_name }}</a>
 		</td>
-        <td style="text-align: center;">{{ student.last_login|date }}</td>
+        <td style="text-align: center;">{{ student.last_login|date:"Y/m/d" }}</td>
         <td style="text-align: center;">{{ student.nb_cours_valides }}</td>
         <td style="text-align: center;">{{ student.nb_travaux_rendus }}</td>
 		<td style="text-align: center;">{{ student.cours_courant.titre }}</td>
