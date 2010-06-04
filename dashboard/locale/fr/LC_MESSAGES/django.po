@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-27 13:47+0100\n"
+"POT-Creation-Date: 2010-06-04 14:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,49 +16,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: planning.py:29
+#: planning.py:32
 msgid "Requested date is out of range."
 msgstr "La date choisie est invalide."
 
-#: planning.py:62 planning.py:132
+#: planning.py:65 planning.py:138
 #, python-format
 msgid "Deadline for %s"
 msgstr "Date limite de validation du cours %s"
 
-#: planning.py:87
+#: planning.py:90
 msgid "Mo"
 msgstr "Lu"
 
-#: planning.py:87
+#: planning.py:90
 msgid "Tu"
 msgstr "Ma"
 
-#: planning.py:87
+#: planning.py:90
 msgid "We"
 msgstr "Me"
 
-#: planning.py:87
+#: planning.py:90
 msgid "Th"
 msgstr "Je"
 
-#: planning.py:87
+#: planning.py:90
 msgid "Fr"
 msgstr "Ve"
 
-#: planning.py:87
+#: planning.py:90
 msgid "Sa"
 msgstr ""
 
-#: planning.py:87
+#: planning.py:90
 msgid "Su"
 msgstr "Di"
 
-#: planning.py:139
+#: planning.py:145
 #, python-format
 msgid "Deadline for assignment %s"
 msgstr "Date limite de remise du devoir %s"
 
-#: views.py:46 views.py:64 views.py:78 views.py:93
+#: views.py:46 views.py:64 views.py:78 views.py:93 views.py:108
 msgid "dashboard"
 msgstr "tableau de bord"
 
@@ -91,15 +91,19 @@ msgstr "prochaines semaines"
 msgid "Nothing special so far !"
 msgstr "Rien de spécial pour le moment."
 
-#: templates/dashboard/etudiant.html:28
+#: templates/dashboard/etudiant.html:27
+msgid "Link to the virtual classroom"
+msgstr "Lien vers la classe virtuelle"
+
+#: templates/dashboard/etudiant.html:29
 msgid "Documents to download"
 msgstr "Documents à télécharger"
 
-#: templates/dashboard/etudiant.html:33
+#: templates/dashboard/etudiant.html:34
 msgid "Current work"
 msgstr "Travail en cours"
 
-#: templates/dashboard/etudiant.html:34
+#: templates/dashboard/etudiant.html:35
 msgid "See complete courses list"
 msgstr "Voir la liste de tous les cours"
 
