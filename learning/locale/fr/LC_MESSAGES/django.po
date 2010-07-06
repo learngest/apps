@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-25 13:38+0100\n"
+"POT-Creation-Date: 2010-07-06 21:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,27 +16,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:211
+#: controllers.py:240
 #, python-format
 msgid "This course will not open before %s"
 msgstr "Ouverture possible à partir du %s"
 
-#: controllers.py:215
+#: controllers.py:244
 #, python-format
 msgid "<span class=\"red\">Completed late on %s</span>"
 msgstr "<span class=\"red\">Validé en retard le %s</span>"
 
-#: controllers.py:218
+#: controllers.py:247
 #, python-format
 msgid "Completed on %s"
 msgstr "Validé le %s"
 
-#: controllers.py:221
+#: controllers.py:250
 #, python-format
 msgid "<span class=\"red\">Late! Deadline was %s</span>"
 msgstr "<span class=\"red\">En retard ! Devait être validé avant le %s</span>"
 
-#: controllers.py:224
+#: controllers.py:253
 #, python-format
 msgid "Deadline is %s"
 msgstr "À valider pour le %s"
@@ -93,41 +93,41 @@ msgstr "document texte"
 msgid "spreadsheet"
 msgstr "feuille de calcul"
 
-#: views.py:31 views.py:135
+#: views.py:32 views.py:136
 msgid "Requested url is invalid."
 msgstr "L'url demandée est invalide."
 
-#: views.py:38
+#: views.py:39
 msgid "Requested content does not exist"
 msgstr "Le contenu demandé n'existe pas."
 
-#: views.py:42
+#: views.py:43
 msgid "Requested content is not allowed."
 msgstr "Le contenu demandé n'est pas autorisé actuellement."
 
-#: views.py:51
+#: views.py:52
 msgid "Sorry, this content is not available in your prefered language."
 msgstr "Désolé, ce contenu n'est pas disponible dans la langue demandée."
 
-#: views.py:73 views.py:102
+#: views.py:74 views.py:103
 msgid "You are not allowed to browse the requested content."
 msgstr "Vous n'êtes pas autorisé à voir le contenu demandé."
 
-#: views.py:124 templates/learning/liste_cours.html:10
+#: views.py:125 templates/learning/liste_cours.html:10
 msgid "courses list"
 msgstr "liste des cours"
 
-#: views.py:141
+#: views.py:142
 msgid "Requested assignment does not exist"
 msgstr "Le devoir demandé n'existe pas."
 
-#: views.py:145
+#: views.py:146
 msgid "Requested assignment is not allowed"
 msgstr "Le devoir demandé n'est pas autorisé actuellement."
 
 #: templates/learning/assignment.html:9
 #: templates/learning/html_support.html:18
-#: templates/learning/liste_cours.html:10
+#: templates/learning/liste_cours.html:10 templates/learning/stats.html:5
 #: templates/learning/swf_support.html:16
 msgid "Dashboard"
 msgstr "Tableau de bord"
@@ -179,6 +179,22 @@ msgstr "Cacher ce message"
 #: templates/learning/liste_cours.html:17
 msgid "You are not subscribed to any course"
 msgstr "Vous n'êtes inscrit à aucun cours"
+
+#: templates/learning/stats.html:6
+msgid "statistics"
+msgstr "statistiques"
+
+#: templates/learning/stats.html:10
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: templates/learning/stats.html:13
+msgid "Course"
+msgstr "cours"
+
+#: templates/learning/stats.html:14
+msgid "Module"
+msgstr ""
 
 #: templates/learning/tab_cours.html:6
 msgid "Professor"

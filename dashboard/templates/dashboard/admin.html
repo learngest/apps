@@ -13,5 +13,10 @@
 {% block content %}
 <h2>{% trans "Your groups" %}</h2>
 {% include "coaching/tab_groupes.html" %}
+{% if user.is_staff %}
+<h2>{% trans "Statistics" %}</h2>
+<p><a href="{% url stats 'fr' %}">{% trans "Learning DB contents - in French" %}</a></p>
+<p><a href="{% url stats 'en' %}">{% trans "Learning DB contents - in English" %}</a></p>
+{% endif %}
 {% endblock content %}
 

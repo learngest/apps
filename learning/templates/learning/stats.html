@@ -1,0 +1,64 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a>
+	&gt; {% trans "statistics" %}
+</div>{% endblock %}
+
+{% block content %}
+<h2>{% trans "Statistics" %}</h2>
+<table class="tabcours" width="95%">
+<thead>
+	<tr><th>{% trans "Course" %}</th>
+		<th>{% trans "Module" %}</th>
+		<th width="4%">Html</th>
+		<th width="4%">Flash</th>
+		<th width="4%">Pdf</th>
+		<th>Test</th>
+		<th>Questions</th>
+	</tr>
+</thead>
+<tfoot></tfoot>
+<tbody>
+{% for c in cours %}
+	{% for m in c.modules %}
+		{% for g in m.granules %}
+		<tr class="{% cycle odd,even %}">
+			{% if forloop.parentloop.first and forloop.first %}
+			<td>{{ c.title }}</td>
+			{% else %}
+			<td></td>
+			{% endif %}
+			{% if forloop.first %}
+            <td>{{ m.title }}</td>
+			{% if m.htm %}
+			<td style="background: lightgreen; text-align:center;">X</td>
+			{% else %}
+			<td></td>
+			{% endif %}
+			{% if m.swf %}
+			<td style="background: lightgreen; text-align:center;">X</td>
+			{% else %}
+			<td></td>
+			{% endif %}
+			{% if m.pdf %}
+			<td style="background: lightgreen; text-align:center;">X</td>
+			{% else %}
+			<td></td>
+			{% endif %}
+			{% else %}
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			{% endif %}
+			<td>{{ g.title }}</td>
+			<td style="text-align:center;">{{ g.tests }}</td>
+		</tr>
+		{% endfor %}
+	{% endfor %}
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

@@ -8,7 +8,7 @@ import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.template import RequestContext
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -16,6 +16,7 @@ from django.template.defaulttags import include_is_allowed
 
 from learning.models import Cours, Module, Contenu, ModuleTitre
 from coaching.models import Work, WorkDone
+from testing.models import Granule, Question
 from coaching.forms import WorkForm
 from learning.controllers import UserCours, UserModule
 
@@ -232,3 +233,27 @@ def assignment(request, work_id=None):
                                     'form': f,
                                     'work': work,
                                     }, context_instance=RequestContext(request))
+
+@user_passes_test(lambda u: u.is_staff)
+def stats(request, langue='fr'):
+    cours = Cours.objects.all()
+    for c in cours:
+        c.title = c.titre(langue)
+        c.modules = c.liste_modules()
+        for m in c.modules:
+            m.title = m.titre(langue)
+            m.contents = Contenu.objects.filter(
+                module=m,
+                langue=langue)
+            m.htm = m.contents.filter(type='htm')
+            m.swf = m.contents.filter(type='swf')
+            m.pdf = m.contents.filter(type='pdf')
+            m.granules = Granule.objects.filter(module=m)
+            for g in m.granules:
+                g.title = g.titre(langue)
+                g.tests = Question.objects.filter(
+                        granule=g,
+                        langue=langue).count()
+    return render_to_response('learning/stats.html',{
+                                'cours': cours,
+                                }, context_instance=RequestContext(request))
