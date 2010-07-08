@@ -100,7 +100,7 @@ def dashboard_staff(request):
     Tableau de bord staff
     """
     groupes = [AdminGroupe(request.user, groupe)
-                for groupe in Groupe.objects.all()]
+                for groupe in Groupe.objects.exclude(client__nom='templates')]
     if len(groupes)==1:
         return HttpResponseRedirect(groupes[0].get_absolute_url)
     else:
@@ -109,5 +109,3 @@ def dashboard_staff(request):
                                    'groupes': groupes,
                                   },
                                   context_instance=RequestContext(request))
-#    return HttpResponseRedirect(
-#            urlresolvers.reverse('admin:coaching_utilisateur_changelist'))

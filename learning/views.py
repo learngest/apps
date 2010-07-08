@@ -15,7 +15,7 @@ from django.contrib.sites.models import Site
 from django.template.defaulttags import include_is_allowed
 
 from learning.models import Cours, Module, Contenu, ModuleTitre
-from coaching.models import Work, WorkDone
+from coaching.models import Work, WorkDone, Groupe
 from testing.models import Granule, Question
 from coaching.forms import WorkForm
 from learning.controllers import UserCours, UserModule
@@ -236,7 +236,11 @@ def assignment(request, work_id=None):
 
 @user_passes_test(lambda u: u.is_staff)
 def stats(request, langue='fr'):
-    cours = Cours.objects.all()
+    try:
+        template = Groupe.objects.get(nom='template-%s' % langue)
+        cours = template.cours.order_by('coursdugroupe__rang')
+    except Groupe.DoesNotExist:
+        cours = Cours.objects.all()
     for c in cours:
         c.title = c.titre(langue)
         c.modules = c.liste_modules()
