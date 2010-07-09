@@ -33,17 +33,23 @@
 			{% if forloop.first %}
             <td>{{ m.title }}</td>
 			{% if m.htm %}
-			<td style="background: lightgreen; text-align:center;">X</td>
+			<td style="background: lightgreen; text-align:center;">
+				<a href="{{ m.htm.0.get_absolute_url }}">X</a>
+			</td>
 			{% else %}
 			<td></td>
 			{% endif %}
 			{% if m.swf %}
-			<td style="background: lightgreen; text-align:center;">X</td>
+			<td style="background: lightgreen; text-align:center;">
+				<a href="{{ m.swf.0.get_absolute_url }}">X</a>
+			</td>
 			{% else %}
 			<td></td>
 			{% endif %}
 			{% if m.pdf %}
-			<td style="background: lightgreen; text-align:center;">X</td>
+			<td style="background: lightgreen; text-align:center;">
+				<a href="{{ m.pdf.0.get_absolute_url }}">X</a>
+			</td>
 			{% else %}
 			<td></td>
 			{% endif %}

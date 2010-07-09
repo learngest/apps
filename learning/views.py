@@ -258,6 +258,16 @@ def stats(request, langue='fr'):
                 g.tests = Question.objects.filter(
                         granule=g,
                         langue=langue).count()
+            else:
+                if not m.granules:
+                    g = Granule(slug='empty',
+                                module = m,
+                                nbq = 0,
+                                score_min = 0,
+                                rang = 10)
+                    g.title = '--'
+                    g.tests = 0
+                    m.granules = [g]
     return render_to_response('learning/stats.html',{
                                 'cours': cours,
                                 }, context_instance=RequestContext(request))
