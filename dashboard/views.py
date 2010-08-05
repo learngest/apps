@@ -44,6 +44,7 @@ def dashboard_student(request):
 
     return render_to_response('dashboard/etudiant.html',
                               {'title': _('dashboard'),
+                               'here': 'dashboard',
                                'cal': cal,
                                'planning': planning,
                                'course': course,
@@ -62,6 +63,7 @@ def dashboard_admin(request):
     else:
         return render_to_response('dashboard/admin.html',
                                   {'title': _('dashboard'),
+                                   'here': 'dashboard',
                                    'groupes': groupes,
                                   },
                                   context_instance=RequestContext(request))
@@ -76,6 +78,7 @@ def dashboard_prof(request):
     else:
         return render_to_response('dashboard/prof.html',
                                   {'title': _('dashboard'),
+                                   'here': 'dashboard',
                                    'cours': cours,
                                   },
                                   context_instance=RequestContext(request))
@@ -91,6 +94,7 @@ def dashboard_assistant(request):
     else:
         return render_to_response('dashboard/admin.html',
                                   {'title': _('dashboard'),
+                                   'here': 'dashboard',
                                    'groupes': groupes,
                                   },
                                   context_instance=RequestContext(request))
@@ -106,6 +110,7 @@ def dashboard_staff(request):
     else:
         return render_to_response('dashboard/admin.html',
                                   {'title': _('dashboard'),
+                                   'here': 'dashboard',
                                    'groupes': groupes,
                                   },
                                   context_instance=RequestContext(request))
