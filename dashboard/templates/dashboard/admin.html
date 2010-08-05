@@ -1,14 +1,10 @@
 {% extends "base_site.html" %}
 {% load i18n %}
 
-{% block extrastyle %}
+{% block extrahead %}
 {% load adminmedia %}
-<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/dashboard.css" />
-{% endblock extrastyle %}
-
-{% block breadcrumbs %}<div class="breadcrumbs">
-    {% trans "Dashboard" %} {{ breadcrumb }}
-</div>{% endblock %}
+<link rel="stylesheet" type="text/css" href="/static/media/css/dashboard.css" />
+{% endblock extrahead %}
 
 {% block content %}
 <h2>{% trans "Your groups" %}</h2>
