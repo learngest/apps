@@ -3,13 +3,9 @@
 
 {% load cache %}
 {% cache 1800 support %}
-{% block extrastyle %}
-{% load adminmedia %}
-<!-- ie behaviour -->
-<style type="text/css">img {behavior: url("{% admin_media_prefix %}css/pngbehavior.htc");}</style>
-<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/supports.css" />
-{% endblock extrastyle %}
 {% block extrahead %}
+<!-- ie behaviour -->
+<style type="text/css">img {behavior: url("/static/media/css/pngbehavior.htc");}</style>
 <base href="{{ baselink }}" />
 <script type="text/javascript" src="/static/media/js/support.js"></script>
 {% endblock extrahead %}
