@@ -12,6 +12,7 @@
 
 {% block content %}
 {% include "dashboard/calendar.html" %}
+<h1>{{ groupe.nom }}</h1>
 <h2>{% trans "Planning for the" %} {{ planning.weeks }} {% trans "next weeks" %}</h2>
 <ul>
 {% for event in planning.events %}
@@ -26,7 +27,7 @@
 <p><a href="{{ doc.get_absolute_url }}"><strong>{{ doc.titre }}</strong></a><p>
 {% endfor %}
 {% endif %}
-<h2>{% trans "Courses" %}</h2>
+<h2 class="clear">{% trans "Courses" %}</h2>
 	{% for course in cours %}
 	{% include "coaching/tab_cours_groupe.html" %}
 	{% empty %}
