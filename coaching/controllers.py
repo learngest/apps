@@ -220,17 +220,23 @@ class UserState(object):
             else:
                 for uc in ucs:
                     if uc.valide is False:
-                        if uc.debut <= datetime.datetime.now():
+                        if uc.debut:
+                            if uc.debut <= datetime.datetime.now():
+                                self.user.current = uc.cours
+                                if sauve:
+                                    self.user.save()
+                                return uc
+                            else:
+                                ucurrent = uc.prec() or ucs[0]
+                                self.user.current = ucurrent.cours
+                                if sauve:
+                                    self.user.save()
+                                return ucurrent
+                        else:
                             self.user.current = uc.cours
                             if sauve:
                                 self.user.save()
                             return uc
-                        else:
-                            ucurrent = uc.prec() or ucs[0]
-                            self.user.current = ucurrent.cours
-                            if sauve:
-                                self.user.save()
-                            return ucurrent
                 self.user.current = ucs[-1].cours
                 if sauve:
                     self.user.save()

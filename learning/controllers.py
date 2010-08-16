@@ -185,7 +185,7 @@ class UserCours(object):
     valide = property(date_validation)
 
     def valide_en_retard(self):
-        if self.valide:
+        if self.valide and self.fin:
             return self.valide > self.fin
         return False
 
@@ -236,7 +236,7 @@ class UserCours(object):
         - ouvert à partir du
         - rien (si ouvert et commencé)
         """
-        if self.debut > datetime.datetime.now():
+        if self.debut and self.debut > datetime.datetime.now():
             return _("This course will not open before %s") \
                     % self.debut.strftime("%d/%m/%Y")
         if self.valide:
