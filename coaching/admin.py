@@ -11,6 +11,8 @@ from django.conf import settings
 from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work, AutresDocs, Assistants, Prof
 from coaching.actions import send_email
 
+from listes import *
+
 admin.site.unregister(User)
 admin.site.unregister(Group)
 
@@ -20,7 +22,7 @@ admin.site.register(Client, ClientAdmin)
 
 class AssistantFormset(ModelForm):
     utilisateur = forms.ModelChoiceField(label='Assistant',
-            queryset=Utilisateur.objects.filter(statut__gte=settings.ASSISTANT))
+            queryset=Utilisateur.objects.filter(statut__gte=ASSISTANT))
 
     class Meta:
         model = Assistants
@@ -45,7 +47,7 @@ class GroupeForm(forms.ModelForm):
         super(GroupeForm, self).__init__(*args, **kwargs)
         w = self.fields['administrateur'].widget
         w.choices = [(u.pk, u.email)
-            for u in Utilisateur.objects.filter(statut__gte=settings.ADMIN)]
+            for u in Utilisateur.objects.filter(statut__gte=ADMIN)]
 
 class GroupeAdmin(admin.ModelAdmin):
     form = GroupeForm
@@ -243,7 +245,7 @@ class ProfForm(forms.ModelForm):
         super(ProfForm, self).__init__(*args, **kwargs)
         w = self.fields['utilisateur'].widget
         w.choices = [(u.pk, u.email)
-            for u in Utilisateur.objects.filter(statut__gte=settings.PROF)]
+            for u in Utilisateur.objects.filter(statut__gte=PROF)]
 
 class ProfAdmin(admin.ModelAdmin):
     form = ProfForm

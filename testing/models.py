@@ -5,6 +5,8 @@ from django.conf import settings
 
 from learning.models import Module
 
+from listes import *
+
 class Granule(models.Model):
     """
     Une granule de test.
@@ -38,7 +40,7 @@ class GranuleTitre(models.Model):
     Titre d'une granule dans la langue choisie
     """
     granule = models.ForeignKey(Granule)
-    langue = models.CharField(max_length=5, choices=settings.LANGUAGES)
+    langue = models.CharField(max_length=5, choices=LANGUAGES)
     titre = models.CharField(max_length=100)
 
     class Meta:
@@ -67,9 +69,9 @@ class Question(models.Model):
     """
     enonce = models.ForeignKey(Enonce)
     granule = models.ForeignKey(Granule)
-    langue = models.CharField(max_length=5, choices=settings.LANGUAGES)
+    langue = models.CharField(max_length=5, choices=LANGUAGES)
     typq = models.CharField(max_length=3, 
-            choices=settings.LISTE_TYPQ, default='exa')
+            choices=LISTE_TYPQ, default='exa')
     libel = models.TextField() 
 
     def __unicode__(self):

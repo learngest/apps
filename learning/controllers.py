@@ -11,6 +11,8 @@ from learning.models import Contenu
 from testing.models import Granule
 from testing.controllers import UserGranule
 
+from listes import *
+
 class UserModule(object):
     """
     Controller d'un module pour un utilisateur
@@ -64,7 +66,7 @@ class UserModule(object):
         """
         Renvoie True si le module est ouvert
         """
-        if self.user.statut == settings.STAFF:
+        if self.user.statut == STAFF:
             return True
         if not self.cours():
             return False
@@ -209,7 +211,7 @@ class UserCours(object):
         - ce cours est le premier pour le groupe
         - le cours précédent est validé et la date d'ouverture est passée
         """
-        if self.user.statut > settings.ASSISTANT:
+        if self.user.statut > ASSISTANT:
             return True
         if self.user.groupe.is_open:
             return True

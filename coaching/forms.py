@@ -7,6 +7,8 @@ from django.conf import settings
 
 from coaching.models import Utilisateur, AutresDocs
 
+from listes import *
+
 class UtilisateurChangeForm(forms.ModelForm):
     """
     Modif de son propre profil par un Utilisateur
@@ -76,7 +78,7 @@ class CreateLoginsForm(forms.Form):
 
     source = forms.FileField(label=_('Source file'))
     groupe = forms.ChoiceField(label=_('Group'))
-    langue = forms.ChoiceField(choices=settings.LANGUAGES,
+    langue = forms.ChoiceField(choices=LANGUAGES,
                                 label=_('Preferred language'))
     fermeture = forms.DateTimeField(required=False, label=_('Valid till'))
     envoi_mail = forms.ChoiceField(choices=((0,_('No')),(1,_('Yes'))), 

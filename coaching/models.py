@@ -14,6 +14,8 @@ from email_auth.views import user_logged_in
 from learning.models import Cours, Module
 from testing.models import Granule
 
+from listes import *
+
 def set_language(sender, **kwargs):
     """
     Récup le signal user_logged_in envoyé par email_auth
@@ -181,12 +183,12 @@ class Utilisateur(User):
     fermeture = models.DateTimeField(_("Expiration date"),
         blank=True, null=True,
         help_text=_("Account is valid till this date. Account is valid forever if empty."))
-    langue = models.CharField(max_length=5, choices=settings.LANGUAGES, 
+    langue = models.CharField(max_length=5, choices=LANGUAGES, 
         default='fr',
         help_text=_(
         "User's prefered language for interface, messages and contents, required."))
 
-    statut = models.IntegerField(choices=settings.LISTE_STATUTS, default=0,
+    statut = models.IntegerField(choices=LISTE_STATUTS, default=0,
         help_text=_("User's status, required."))
 
     groupe = models.ForeignKey(Groupe, 

@@ -4,6 +4,8 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
+from listes import *
+
 class Module(models.Model):
     """
     Le modèle de base Module.
@@ -45,7 +47,7 @@ class ModuleTitre(models.Model):
     Titre d'un module dans la langue choisie
     """
     module = models.ForeignKey(Module)
-    langue = models.CharField(max_length=5, choices=settings.LANGUAGES)
+    langue = models.CharField(max_length=5, choices=LANGUAGES)
     titre = models.CharField(max_length=100)
 
     class Meta:
@@ -93,7 +95,7 @@ class CoursTitre(models.Model):
     Titre d'un cours dans la langue choisie
     """
     cours = models.ForeignKey(Cours)
-    langue = models.CharField(max_length=5, choices=settings.LANGUAGES)
+    langue = models.CharField(max_length=5, choices=LANGUAGES)
     titre = models.CharField(max_length=100)
 
     class Meta:
@@ -142,8 +144,8 @@ class Contenu(models.Model):
     Les modules sont formés de Contenus dans différentes langues.
     """
     ressource = models.CharField(max_length=50)
-    langue = models.CharField(max_length=5, choices=settings.LANGUAGES)
-    type = models.CharField(max_length=3, choices=settings.LISTE_TYPES, 
+    langue = models.CharField(max_length=5, choices=LANGUAGES)
+    type = models.CharField(max_length=3, choices=LISTE_TYPES, 
             default='htm')
     titre = models.CharField(max_length=100)
     module = models.ForeignKey(Module)

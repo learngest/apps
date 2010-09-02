@@ -15,6 +15,8 @@ from coaching.forms import UtilisateurChangeForm, CreateLoginsForm, MailForm, Do
 from coaching.controllers import AdminGroupe, UserState, ProfCours, filters, AdminCours
 from dashboard.planning import Calendrier, Planning
 
+from listes import *
+
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
 @login_required
@@ -99,9 +101,9 @@ def groupe(request, groupe_id):
     actions_staff = [
             {'libel':_('Group admin'),
              'url': groupe.get_admin_url},]
-    if request.user.statut > settings.PROF:
+    if request.user.statut > PROF:
         actions.extend(actions_admin)
-        if request.user.statut == settings.STAFF:
+        if request.user.statut == STAFF:
             actions.extend(actions_staff)
     return render_to_response('coaching/groupe.html',
                               {'title': groupe.nom,
@@ -386,9 +388,9 @@ def user(request, user_id):
     actions_staff = [
             {'libel':_('User admin'),
              'url': utilisateur.get_admin_url()},]
-    if request.user.statut > settings.PROF:
+    if request.user.statut > PROF:
         actions.extend(actions_admin)
-        if request.user.statut == settings.STAFF:
+        if request.user.statut == STAFF:
             actions.extend(actions_staff)
     return render_to_response('coaching/user.html',
                               {'title': us.get_full_name,
