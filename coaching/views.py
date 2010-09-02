@@ -2,7 +2,7 @@
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils.translation import ugettext as _
+from django.utils.translation import activate, ugettext as _
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -31,6 +31,7 @@ def profile(request):
         if form.is_valid():
             form.save()
             request.session['django_language'] = request.user.langue
+            activate(request.user.langue)
             request.user.message_set.create(
                     message=_("Changes saved successfully."))
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
