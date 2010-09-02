@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-06 21:20+0200\n"
+"POT-Creation-Date: 2010-09-02 14:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,30 +59,29 @@ msgstr "Di"
 msgid "Deadline for assignment %s"
 msgstr "Date limite de remise du devoir %s"
 
-#: views.py:46 views.py:64 views.py:78 views.py:93 views.py:108
+#: views.py:46 views.py:65 views.py:80 views.py:96 views.py:112
 msgid "dashboard"
 msgstr "tableau de bord"
 
-#: templates/dashboard/admin.html:10 templates/dashboard/etudiant.html:10
-#: templates/dashboard/prof.html:10
-msgid "Dashboard"
-msgstr "Tableau de bord"
-
-#: templates/dashboard/admin.html:14
+#: templates/dashboard/admin.html:10
 msgid "Your groups"
 msgstr "Tous vos groupes"
 
-#: templates/dashboard/admin.html:17
+#: templates/dashboard/admin.html:13
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: templates/dashboard/admin.html:18
+#: templates/dashboard/admin.html:14
 msgid "Learning DB contents - in French"
 msgstr "Base de données de contenus - en français"
 
-#: templates/dashboard/admin.html:19
+#: templates/dashboard/admin.html:15
 msgid "Learning DB contents - in English"
 msgstr "Base de données de contenus - en anglais"
+
+#: templates/dashboard/etudiant.html:10 templates/dashboard/prof.html:10
+msgid "Dashboard"
+msgstr "Tableau de bord"
 
 #: templates/dashboard/etudiant.html:15
 msgid "Your group is"

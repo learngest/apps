@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-06 21:18+0200\n"
+"POT-Creation-Date: 2010-09-02 14:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -126,7 +127,7 @@ msgid "Requested assignment is not allowed"
 msgstr "Le devoir demandé n'est pas autorisé actuellement."
 
 #: templates/learning/assignment.html:9
-#: templates/learning/html_support.html:18
+#: templates/learning/html_support.html:14
 #: templates/learning/liste_cours.html:10 templates/learning/stats.html:5
 #: templates/learning/swf_support.html:16
 msgid "Dashboard"
@@ -164,7 +165,7 @@ msgstr ", la signature est"
 msgid "Save"
 msgstr "Sauver"
 
-#: templates/learning/html_support.html:23
+#: templates/learning/html_support.html:19
 msgid ""
 "Click on the sections (sub)titles to show or hide their contents. Click on "
 "the chapter's title to show or hide the outline."
@@ -172,7 +173,7 @@ msgstr ""
 "Cliquer sur les titres et sous-titres de section pour montrer ou cacher leur "
 "contenu. Cliquer sur le titre du chapitre pour montrer ou cacher le plan."
 
-#: templates/learning/html_support.html:23
+#: templates/learning/html_support.html:19
 msgid "Hide this"
 msgstr "Cacher ce message"
 

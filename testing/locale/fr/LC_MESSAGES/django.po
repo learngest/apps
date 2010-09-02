@@ -8,20 +8,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-24 11:27+0100\n"
+"POT-Creation-Date: 2010-09-02 14:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:106
+#: controllers.py:108
 msgid "We are sorry, this content is not available in your preferred language."
 msgstr ""
 "Nous sommes désolés, ce test n'est pas disponible dans la langue demandée."
 
-#: controllers.py:173 controllers.py:247 controllers.py:268
+#: controllers.py:175 controllers.py:249 controllers.py:270
 msgid "nothing"
 msgstr "aucune réponse"
 
@@ -41,7 +42,7 @@ msgstr "Vous n'êtes pas autorisé à faire le test demandé."
 msgid "grade"
 msgstr "notation"
 
-#: views.py:59
+#: views.py:60
 msgid "test"
 msgstr ""
 

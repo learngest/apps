@@ -8,23 +8,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-05 18:59+0200\n"
+"POT-Creation-Date: 2010-09-02 14:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions.py:39 views.py:321
+#: actions.py:39 views.py:324
 msgid "The message has been sent."
 msgstr "Le message a été envoyé."
 
-#: actions.py:42 views.py:324
+#: actions.py:42 views.py:327
 msgid "Error: unable to send message."
 msgstr "Erreur : impossible d'envoyer le message."
 
-#: actions.py:46 actions.py:56 actions.py:64 views.py:293 views.py:331
+#: actions.py:46 actions.py:56 actions.py:64 views.py:296 views.py:334
 #: templates/coaching/sendmail.html:9 templates/coaching/sendmailadmin.html:9
 msgid "Send an email"
 msgstr "Envoyer un mail"
@@ -38,11 +39,11 @@ msgid "Group courses"
 msgstr "Cours de ce groupe"
 
 #: admin.py:65 admin.py:207 templates/coaching/cours.html:45
-#: templates/coaching/groupe.html:60
+#: templates/coaching/groupe.html:56
 msgid "Name"
 msgstr "Nom"
 
-#: admin.py:103 views.py:178 templates/coaching/cours.html:46
+#: admin.py:103 views.py:181 templates/coaching/cours.html:46
 #: templates/coaching/create_logins2.html:40
 msgid "Email"
 msgstr ""
@@ -67,7 +68,7 @@ msgstr "Login"
 msgid "A user with that username already exists."
 msgstr "Un utilisateur avec ce login existe déjà."
 
-#: admin.py:177 templates/coaching/change_profile.html:22
+#: admin.py:177 templates/coaching/change_profile.html:21
 msgid "Identity"
 msgstr "Informations personnelles"
 
@@ -87,13 +88,13 @@ msgstr "Dates importantes"
 msgid "Groups"
 msgstr "Groupes"
 
-#: admin.py:194 views.py:179 templates/coaching/cours.html:47
-#: templates/coaching/groupe.html:61
+#: admin.py:194 views.py:182 templates/coaching/cours.html:47
+#: templates/coaching/groupe.html:57
 msgid "Last login"
 msgstr "Dernier login"
 
-#: admin.py:200 forms.py:78 templates/coaching/change_profile.html:18
-#: templates/coaching/change_profile.html:19
+#: admin.py:200 forms.py:78 templates/coaching/change_profile.html:17
+#: templates/coaching/change_profile.html:18
 #: templates/coaching/create_logins.html:26
 #: templates/coaching/create_logins2.html:15
 #: templates/coaching/create_logins2.html:17
@@ -146,7 +147,7 @@ msgstr "Fichier source"
 msgid "Preferred language"
 msgstr "Langue préférée"
 
-#: forms.py:81 views.py:180 templates/coaching/change_profile.html:29
+#: forms.py:81 views.py:183 templates/coaching/change_profile.html:28
 #: templates/coaching/create_logins2.html:27
 #: templates/coaching/create_logins3.html:26
 msgid "Valid till"
@@ -155,12 +156,12 @@ msgstr "Valide jusqu'au"
 #: forms.py:82 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: forms.py:82 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: forms.py:83 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
@@ -276,7 +277,7 @@ msgstr "Cours des groupes"
 msgid "professor"
 msgstr "professeur"
 
-#: models.py:181 templates/coaching/change_profile.html:27
+#: models.py:181 templates/coaching/change_profile.html:26
 msgid "Expiration date"
 msgstr "Validité"
 
@@ -372,162 +373,162 @@ msgstr "Devoir"
 msgid "Assignments"
 msgstr "Devoirs"
 
-#: views.py:35
+#: views.py:36
 msgid "Changes saved successfully."
 msgstr "Modifications sauvegardées avec succès."
 
-#: views.py:44
+#: views.py:46
 msgid "Change account"
 msgstr "Profil"
 
-#: views.py:57 views.py:121 views.py:130 views.py:163 views.py:213
-#: views.py:259
+#: views.py:60 views.py:124 views.py:133 views.py:166 views.py:216
+#: views.py:262
 msgid "This group does not exist."
 msgstr "Ce groupe n'existe pas."
 
-#: views.py:62 views.py:126 views.py:168 views.py:218 views.py:264
-#: views.py:285 views.py:374
+#: views.py:65 views.py:129 views.py:171 views.py:221 views.py:267
+#: views.py:288 views.py:377
 msgid "You do not have admin rights on the requested group."
 msgstr "Vous n'êtes pas administrateur du groupe demandé."
 
-#: views.py:79
+#: views.py:82
 msgid "Download group results"
 msgstr "Télécharger les résultats du groupe"
 
-#: views.py:83
+#: views.py:86
 msgid "See group planning and courses"
 msgstr "Voir le planning et les cours du groupe"
 
-#: views.py:88
+#: views.py:91
 msgid "Upload a file for this group"
 msgstr "Déposer un fichier pour ce groupe"
 
-#: views.py:92
+#: views.py:95
 msgid "Send an email to selected students"
 msgstr "Envoyer un mail aux étudiants sélectionnés"
 
-#: views.py:97
+#: views.py:100
 msgid "Group admin"
 msgstr "Modifier le groupe"
 
-#: views.py:176 templates/coaching/change_profile.html:23
+#: views.py:179 templates/coaching/change_profile.html:22
 msgid "Last Name"
 msgstr "Nom"
 
-#: views.py:177 templates/coaching/change_profile.html:24
+#: views.py:180 templates/coaching/change_profile.html:23
 msgid "First Name"
 msgstr "Prénom"
 
-#: views.py:181
+#: views.py:184
 #, python-format
 msgid "Completed courses / %d"
 msgstr "Cours validés / %d"
 
-#: views.py:182
+#: views.py:185
 #, python-format
 msgid "Uploaded works / %d"
 msgstr "Travaux rendus / %d"
 
-#: views.py:183 templates/coaching/groupe.html:69
+#: views.py:186 templates/coaching/groupe.html:65
 msgid "Current course"
 msgstr "Cours courant"
 
-#: views.py:184
+#: views.py:187
 msgid "Validated modules in current course"
 msgstr "Modules validés dans le cours courant"
 
-#: views.py:185
+#: views.py:188
 msgid "# modules in current course"
 msgstr "Nb modules dans le cours courant"
 
-#: views.py:186
+#: views.py:189
 msgid "Delays"
 msgstr "Retards"
 
-#: views.py:223 views.py:243
+#: views.py:226 views.py:246
 #, python-format
 msgid "Upload a file for %s"
 msgstr "Déposer un fichier pour le groupe %s"
 
-#: views.py:239
+#: views.py:242
 msgid "The document has been uploaded correctly."
 msgstr "Le document a été déposé avec succès."
 
-#: views.py:280 views.py:369
+#: views.py:283 views.py:372
 msgid "This user does not exist."
 msgstr "Cet utilisateur n'existe pas."
 
-#: views.py:347 views.py:351
+#: views.py:350 views.py:354
 msgid "You do not have professor rights on the requested group."
 msgstr "Vous n'êtes pas professeur du groupe demandé."
 
-#: views.py:379
+#: views.py:382
 msgid "Send an email to this student"
 msgstr "Envoyer un mail à cet étudiant"
 
-#: views.py:384
+#: views.py:387
 msgid "User admin"
 msgstr "Modifier le profil de cet étudiant"
 
-#: views.py:434
+#: views.py:437
 msgid "Exists already."
 msgstr "Existe déjà."
 
-#: views.py:444
+#: views.py:447
 msgid "Saved."
 msgstr "Créé."
 
-#: views.py:458
+#: views.py:461
 msgid "Mail sent."
 msgstr "Mail envoyé."
 
-#: views.py:460
+#: views.py:463
 msgid "Mail error."
 msgstr "Erreur mail."
 
-#: views.py:470 views.py:509 views.py:522 views.py:533 views.py:542
+#: views.py:473 views.py:512 views.py:525 views.py:536 views.py:545
 msgid "Create logins"
 msgstr "Créer les logins"
 
-#: views.py:505
+#: views.py:508
 #, python-format
 msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
 
-#: templates/coaching/change_profile.html:6 templates/coaching/cours.html:15
+#: templates/coaching/change_profile.html:5 templates/coaching/cours.html:15
 #: templates/coaching/group_dashboard.html:10
-#: templates/coaching/groupe.html:15 templates/coaching/sendmail.html:9
+#: templates/coaching/groupe.html:11 templates/coaching/sendmail.html:9
 #: templates/coaching/sendmailadmin.html:9 templates/coaching/upload.html:9
 #: templates/coaching/user.html:10
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: templates/coaching/change_profile.html:6
+#: templates/coaching/change_profile.html:5
 msgid "change account"
 msgstr "profil"
 
-#: templates/coaching/change_profile.html:12
+#: templates/coaching/change_profile.html:11
 msgid "Credentials"
 msgstr "Informations de connexion"
 
-#: templates/coaching/change_profile.html:31
+#: templates/coaching/change_profile.html:30
 msgid "No expiration date"
 msgstr "Validité permanente"
 
-#: templates/coaching/change_profile.html:35
+#: templates/coaching/change_profile.html:34
 msgid "Language"
 msgstr "Langue"
 
-#: templates/coaching/change_profile.html:38
+#: templates/coaching/change_profile.html:37
 #: templates/coaching/create_logins.html:45
 msgid "Save"
 msgstr "Sauver"
 
-#: templates/coaching/cours.html:23 templates/coaching/groupe.html:27
+#: templates/coaching/cours.html:23 templates/coaching/groupe.html:23
 msgid "Download works from this group:"
 msgstr "Télécharger les travaux de ce groupe :"
 
-#: templates/coaching/cours.html:65 templates/coaching/groupe.html:98
+#: templates/coaching/cours.html:65 templates/coaching/groupe.html:94
 msgid "This group is empty."
 msgstr "Ce groupe est vide."
 
@@ -613,23 +614,23 @@ msgstr "Cours"
 msgid "This group is not subscribed to any course"
 msgstr "Ce groupe n'est inscrit à aucun cours."
 
-#: templates/coaching/groupe.html:36
+#: templates/coaching/groupe.html:32
 msgid "Filter (Current course - # validated modules):"
 msgstr "Sélection (Cours courant - Nb de modules validés) :"
 
-#: templates/coaching/groupe.html:63
+#: templates/coaching/groupe.html:59
 msgid "Completed <br />courses"
 msgstr "Cours<br />validés"
 
-#: templates/coaching/groupe.html:66
+#: templates/coaching/groupe.html:62
 msgid "Uploaded<br />works"
 msgstr "Travaux<br />rendus"
 
-#: templates/coaching/groupe.html:71
+#: templates/coaching/groupe.html:67
 msgid "Validated modules<br />in current course"
 msgstr "Modules validés<br />dans le cours courant"
 
-#: templates/coaching/groupe.html:73
+#: templates/coaching/groupe.html:69
 msgid "State"
 msgstr "État"
 
@@ -771,4 +772,3 @@ msgstr "Détail des cours validés"
 #: templates/coaching/user.html:46
 msgid "This student is not subscribed to any course"
 msgstr "Cet étudiant n'est inscrit à aucun cours."
-
