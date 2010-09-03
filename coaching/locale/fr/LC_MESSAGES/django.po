@@ -706,8 +706,8 @@ msgid "You do not manage any group at the moment."
 msgstr "Vous n'administrez aucun groupe actuellement."
 
 #: templates/coaching/tab_groupes.html:4
-msgid "Open ?"
-msgstr "Cours ouverts ?"
+msgid "Open"
+msgstr "Cours ouverts"
 
 #: templates/coaching/tab_groupes.html:4
 msgid "Demo"
