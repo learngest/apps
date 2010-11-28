@@ -186,7 +186,9 @@ def assignment(request, work_id=None):
                                         settings.WORKDONE_DIR,zfichier),
                                         'w',zipfile.ZIP_DEFLATED)
                     zf.write(os.path.join(settings.MEDIA_ROOT,
-                                    settings.WORKDONE_DIR,fichier))
+                                    settings.WORKDONE_DIR,fichier),
+                             os.path.join('g%d-%s' % (request.user.groupe.id,
+                                 work.cours.slug),fichier))
                     zf.close()
                     # login zipfile
                     zfichier = ''.join(('g%d' % request.user.groupe.id,'-', 
@@ -203,7 +205,9 @@ def assignment(request, work_id=None):
                                         settings.WORKDONE_DIR,zfichier),
                                         'w',zipfile.ZIP_DEFLATED)
                     zf.write(os.path.join(settings.MEDIA_ROOT,
-                            settings.WORKDONE_DIR,fichier))
+                            settings.WORKDONE_DIR,fichier),
+                            os.path.join('g%d-%s' % (request.user.groupe.id,
+                                request.user.username),fichier))
                     zf.close()
                     request.user.nb_travaux_rendus += 1
                     # cours validé ?
