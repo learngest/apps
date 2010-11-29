@@ -173,8 +173,8 @@ def assignment(request, work_id=None):
                             signature=signature)
                     wd.fichier.save(fichier, content, save=True)
                     # groupe-cours zipfile
-                    zfichier = 'g%d-%s.zip' % (request.user.groupe.id,
-                            work.cours.slug)
+                    slug = str(work.cours.slug).encode('ascii')
+                    zfichier = 'g%d-%s.zip' % (request.user.groupe.id, slug)
                     try:
                         zf = zipfile.ZipFile(
                             os.path.join(settings.MEDIA_ROOT,
@@ -188,12 +188,11 @@ def assignment(request, work_id=None):
                     zf.write(os.path.join(settings.MEDIA_ROOT,
                                     settings.WORKDONE_DIR,fichier),
                              os.path.join('g%d-%s' % (request.user.groupe.id,
-                                 work.cours.slug),fichier))
+                                 slug),fichier))
                     zf.close()
                     # login zipfile
-                    zfichier = ''.join(('g%d' % request.user.groupe.id,'-', 
-                                        request.user.username,
-                                        '.zip'))
+                    username = str(request.user.username).encode('ascii')
+                    zfichier = 'g%d-%s.zip' % (request.user.groupe.id, username)
                     try:
                         zf = zipfile.ZipFile(
                             os.path.join(settings.MEDIA_ROOT,
@@ -207,7 +206,7 @@ def assignment(request, work_id=None):
                     zf.write(os.path.join(settings.MEDIA_ROOT,
                             settings.WORKDONE_DIR,fichier),
                             os.path.join('g%d-%s' % (request.user.groupe.id,
-                                request.user.username),fichier))
+                                username),fichier))
                     zf.close()
                     request.user.nb_travaux_rendus += 1
                     # cours validé ?
