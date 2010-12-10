@@ -69,14 +69,14 @@ class AdminGroupe(object):
 
     def users(self):
         """
-        Return groups users, as list of dict
+        Return active groups users, as list of dict
         """
         if self._users == -1:
             lookup = {'groupe': self.groupe,}
             if self.selection:
                 lookup.update(self.selection)
             self._users = [UserState(u) for u in
-                    Utilisateur.objects.filter(**lookup)]
+                    Utilisateur.objects.filter(is_active=1).filter(**lookup)]
         return self._users
 
     def filtres(self):
