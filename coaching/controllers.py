@@ -8,6 +8,7 @@ from django.conf import settings
 
 from coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone, CoursDuGroupe, Prof, AutresDocs
 from learning.controllers import UserModule, UserCours
+from learning.models import Cours
 
 class ProfCours(object):
     """
@@ -66,6 +67,8 @@ class AdminGroupe(object):
         self.nb_logins = Utilisateur.objects.filter(groupe=groupe).count()
         self.nb_cours = self.groupe.cours.count()
         self.nb_works = Work.objects.filter(groupe=self.groupe).count()
+        self._courant = -1
+        self._nb_users_pb = -1
 
     def users(self):
         """
@@ -107,6 +110,39 @@ class AdminGroupe(object):
                 lworkdone.append(zipname)
         return lworkdone
 
+    def courant(self):
+        """
+        Renvoie l'objet cours courant
+        """
+        if self._courant==-1:
+            curdate = datetime.datetime.now()
+            self._courant = None
+            for cdg in CoursDuGroupe.objects.filter(groupe=self.groupe):
+                if cdg.debut and cdg.debut <= curdate:
+                    if cdg.fin and cdg.fin >= curdate:
+                        self._courant = cdg
+                        break
+            if self._courant:
+                try:
+                    self._courant = Cours.objects.get(id=cdg.cours.id)
+                    self._courant.titre = self._courant.titre(self.admin.langue)
+                except Cours.DoesNotExist:
+                    self._courant = "Not found"
+        return self._courant
+
+    def nb_users_pb(self):
+        """
+        Renvoie le nb d'utilisateurs qui sont en retard
+        et n'ont pas travaillé depuis au moins une semaine
+        """
+        if self._nb_users_pb==-1:
+            datelimite = datetime.datetime.now()-datetime.timedelta(7)
+            self._nb_users_pb = Utilisateur.objects.filter(
+                    groupe=self.groupe,
+                    nb_actuel__gt=0,
+                    last_login__lt=datelimite,
+                    ).count()
+        return self._nb_users_pb
 
 class UserState(object):
     """
