@@ -58,10 +58,10 @@ class DocumentForm(forms.ModelForm):
     def clean_fichier(self):
         if self.cleaned_data['fichier']:
             filelen = float(self.cleaned_data['fichier'].size) / 1024
-            if filelen > 1024:
+            if filelen > 2048:
                 filelen = filelen / 1024
                 raise forms.ValidationError(
-                    _('Maximum size allowed is 1 Mo, this file is %.2f Mo' % filelen))
+                    _('Maximum size allowed is 2 Mo, this file is %.2f Mo' % filelen))
         return self.cleaned_data['fichier']
 
     class Meta:
@@ -102,10 +102,10 @@ class WorkForm(forms.Form):
                 raise forms.ValidationError(
                     _('Filetype should be .doc, .docx, .xls, .xslx, .pdf or .zip'))
             filelen = float(self.cleaned_data['fichier'].size) / 1024
-            if filelen > 1024:
+            if filelen > 2048:
                 filelen = filelen / 1024
                 raise forms.ValidationError(
-                    _('Maximum size allowed is 1 Mo, this file is %.2f Mo' % filelen))
+                    _('Maximum size allowed is 2 Mo, this file is %.2f Mo' % filelen))
         return self.cleaned_data['fichier']
 
 class MailForm(forms.Form):
@@ -120,7 +120,7 @@ class MailForm(forms.Form):
     def clean_attach(self):
         if self.cleaned_data['attach']:
             filelen = float(self.cleaned_data['attach'],size) / 1024
-            if filelen > 1024:
+            if filelen > 2048:
                 raise forms.ValidationError(
                     _('Maximum size allowed is 1 Mo, this file is %.2f Mo' % filelen))
         return self.cleaned_data['attach']
