@@ -114,6 +114,14 @@ class UtilisateurAdminForm(ModelForm):
 #        exclude = ('password', 'email')
         exclude = ('password', 'username')
 
+    def clean_email(self):
+        self.email = self.cleaned_data["email"]
+        try:
+            Utilisateur.objects.get(email=self.email)
+        except Utilisateur.DoesNotExist:
+            return self.email
+        raise forms.ValidationError(_("A user with that email already exists."))
+
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
         password2 = self.cleaned_data["password2"]
@@ -123,7 +131,8 @@ class UtilisateurAdminForm(ModelForm):
 
     def save(self, commit=True):
         user = super(UtilisateurAdminForm, self).save(commit=False)
-#        user.email = user.username
+        # do not change username to reflect email
+#        user.username = self.username
         if self.cleaned_data["password1"]:
             user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -152,7 +161,11 @@ class UtilisateurCreationForm(ModelForm):
         try:
             Utilisateur.objects.get(email=self.email)
         except Utilisateur.DoesNotExist:
-            return self.email.split('@')[0][:30]
+            username = self.email.split('@')[0][:30]
+            try:
+                Utilisateur.objects.get(username=username)
+            except Utilisateur.DoesNotExist:
+                return username
         raise forms.ValidationError(_("A user with that username already exists."))
 
     def clean_password2(self):
