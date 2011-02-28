@@ -24,7 +24,6 @@ def profile(request):
     """
     Modifier le compte Utilisateur.
     Les champs que l'Utilisateur peut changer sont :
-    - email
     - password
     - langue
     """

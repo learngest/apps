@@ -13,7 +13,6 @@ class UtilisateurChangeForm(forms.ModelForm):
     """
     Modif de son propre profil par un Utilisateur
     Les champs que l'Utilisateur peut changer sont :
-    - email
     - password
     - langue
     """
@@ -41,7 +40,6 @@ class UtilisateurChangeForm(forms.ModelForm):
         password1 = self.cleaned_data.get('new_password1')
         if password1: 
             self.instance.set_password(password1)
-        self.instance.email = self.cleaned_data.get('email')
         self.instance.langue = self.cleaned_data.get('langue')
         if commit:
             self.instance.save()
@@ -49,7 +47,7 @@ class UtilisateurChangeForm(forms.ModelForm):
 
     class Meta:
         model = Utilisateur
-        fields = ('email', 'langue',)
+        fields = ('langue',)
 
 class DocumentForm(forms.ModelForm):
     """
