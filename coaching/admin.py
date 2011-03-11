@@ -110,16 +110,14 @@ class UtilisateurAdminForm(ModelForm):
 
     class Meta:
         model = Utilisateur
-#        exclude = ('password', 'email')
         exclude = ('password', 'username')
 
     def clean_email(self):
         self.email = self.cleaned_data["email"]
-        try:
-            Utilisateur.objects.get(email=self.email)
-        except Utilisateur.DoesNotExist:
-            return self.email
-        raise forms.ValidationError(_("A user with that email already exists."))
+        user = super(UtilisateurAdminForm, self).save(commit=False)
+        if Utilisateur.objects.filter( email=self.email).exclude(username=user.username).count():
+            raise forms.ValidationError(_("A user with that email already exists."))
+        return self.email
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
