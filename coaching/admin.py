@@ -137,7 +137,7 @@ class UtilisateurAdminForm(ModelForm):
         return user
 
 class UtilisateurCreationForm(ModelForm):
-    username = forms.EmailField(label=_("Username"), max_length=75)
+    username = forms.EmailField(label=_("Email"), max_length=75)
     password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
     password2 = forms.CharField(label=_("Password confirmation"), widget=forms.PasswordInput)
 
@@ -155,7 +155,7 @@ class UtilisateurCreationForm(ModelForm):
                 Utilisateur.objects.get(username=username)
             except Utilisateur.DoesNotExist:
                 return username
-        raise forms.ValidationError(_("A user with that username already exists."))
+        raise forms.ValidationError(_("A user with that email already exists."))
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
