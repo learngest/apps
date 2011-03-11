@@ -103,7 +103,6 @@ class CoursDuGroupeAdmin(admin.ModelAdmin):
 
 class UtilisateurAdminForm(ModelForm):
     email = forms.EmailField(label=_("Email"), max_length=75)
-#    username = forms.EmailField(label=_("Username"), max_length=75)
     password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput,
             required=False)
     password2 = forms.CharField(label=_("Password confirmation"), 
@@ -131,8 +130,6 @@ class UtilisateurAdminForm(ModelForm):
 
     def save(self, commit=True):
         user = super(UtilisateurAdminForm, self).save(commit=False)
-        # do not change username to reflect email
-#        user.username = self.username
         if self.cleaned_data["password1"]:
             user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -147,14 +144,6 @@ class UtilisateurCreationForm(ModelForm):
     class Meta:
         model = Utilisateur
         fields = ("username",)
-
-#    def clean_username(self):
-#        username = self.cleaned_data["username"].lower()
-#        try:
-#            Utilisateur.objects.get(username=username)
-#        except Utilisateur.DoesNotExist:
-#            return username
-#        raise forms.ValidationError(_("A user with that username already exists."))
 
     def clean_username(self):
         self.email = self.cleaned_data["username"].lower()
@@ -177,7 +166,6 @@ class UtilisateurCreationForm(ModelForm):
 
     def save(self, commit=True):
         user = super(UtilisateurCreationForm, self).save(commit=False)
-#        user.email = user.username
         user.email = self.email
         user.set_password(self.cleaned_data["password1"])
         if commit:
