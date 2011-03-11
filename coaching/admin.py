@@ -192,13 +192,13 @@ class UtilisateurAdmin(UserAdmin):
     search_fields = ('email', 'last_name',)
     actions = ['send_an_email']
 
-    def lookup_allowed(self, lookup):
+    def lookup_allowed(self, lookup, *args, **kwargs):
         """
         see http://www.hoboes.com/Mimsy/hacks/fixing-django-124s-suspiciousoperation-filtering/
         """
         if lookup.startswith(('groupe',)):
             return True
-        return super(UtilisateurAdmin, self).lookup_allowed(lookup)
+        return super(UtilisateurAdmin, self).lookup_allowed(lookup, *args, **kwargs)
 
     def derniere_cnx(self, obj):
         return obj.last_login.strftime('%Y-%m-%d')
