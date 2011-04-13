@@ -4,6 +4,7 @@ import sys
 
 from django.utils.translation import ugettext as _
 from django.core.cache import cache
+from django.http import HttpResponseRedirect
 
 from testing.models import Question
 from coaching.models import GranuleValide, ModuleValide, Resultat
