@@ -2,6 +2,7 @@
 
 from django.contrib import admin
 from testing.models import Granule, GranuleTitre, Enonce, Question, Reponse
+from testing.models import Examen, ExamCas, ExamEnonce, ExamQuestion, ExamReponse
 
 class GranuleAdmin(admin.ModelAdmin):
     ordering = ['slug'] 
@@ -46,7 +47,7 @@ admin.site.register(ExamEnonce, ExamEnonceAdmin)
 class ExamQuestionAdmin(admin.ModelAdmin):
     search_fields = ['libel']
     list_display = ('id','libel')
-    list_filter = ('langue','granule')
+    list_filter = ('langue','examen')
 admin.site.register(ExamQuestion, ExamQuestionAdmin)
 
 class ExamReponseAdmin(admin.ModelAdmin):
