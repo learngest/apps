@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-02 14:08+0200\n"
+"POT-Creation-Date: 2011-06-21 06:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:108
+#: controllers.py:109
 msgid "We are sorry, this content is not available in your preferred language."
 msgstr ""
 "Nous sommes désolés, ce test n'est pas disponible dans la langue demandée."
 
-#: controllers.py:175 controllers.py:249 controllers.py:270
+#: controllers.py:176 controllers.py:250 controllers.py:271
 msgid "nothing"
 msgstr "aucune réponse"
+
+#: models.py:120
+msgid "Case study for exams"
+msgstr "Etude de cas pour les examens"
+
+#: models.py:121
+msgid "Case studies for exams"
+msgstr "Etudes de cas pour les examens"
+
+#: models.py:133
+msgid "Case study question text"
+msgstr "Enonce de question de cas"
+
+#: models.py:134
+msgid "Case study question texts"
+msgstr "Enonces de questions de cas"
+
+#: models.py:156
+msgid "Case study question"
+msgstr "Question de cas"
+
+#: models.py:157
+msgid "Case study questions"
+msgstr "Questions de cas"
+
+#: models.py:173
+msgid "Case study question answer"
+msgstr "Réponse des questions des cas"
+
+#: models.py:174
+msgid "Case study question answers"
+msgstr "Réponses des questions de cas"
 
 #: views.py:26
 msgid "Requested url is invalid."
