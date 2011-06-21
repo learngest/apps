@@ -8,7 +8,9 @@ from django.conf import settings
 
 from coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone, CoursDuGroupe, Prof, AutresDocs
 from learning.controllers import UserModule, UserCours
+from testing.controllers import UserExam
 from learning.models import Cours
+from testing.models import Examen
 
 class ProfCours(object):
     """
@@ -157,9 +159,17 @@ class UserState(object):
         self.get_absolute_url = user.get_absolute_url()
         self.last_login = user.last_login
         self._state = None
+        self._exams = []
         self._cours = []
         self._nb_cours = None
         self._nb_travaux = None
+
+    def exams(self):
+        if not self._exams:
+            self._exams = [UserExam(self.user, e)
+                for e in Examen.objects.filter(
+                    groupe=self.user.groupe).order_by('cours')]
+        return self._exams
 
     def cours(self):
         if not self._cours:

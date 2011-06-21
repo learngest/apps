@@ -10,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
 
 from dashboard.planning import Calendrier, Planning
-from learning.controllers import UserCours
 from coaching.controllers import AdminGroupe, UserState
 from coaching.models import Groupe, Prof, AutresDocs
 
@@ -38,9 +37,8 @@ def dashboard_student(request):
     planning = Planning(request)
     us = UserState(request.user)
     course = us.cours_courant(recalcul=True)
-    #course = UserCours(request.user, request.user.current)
+    exams = us.exams()
     docs = AutresDocs.objects.filter(groupe=request.user.groupe,cours=None)
-
 
     return render_to_response('dashboard/etudiant.html',
                               {'title': _('dashboard'),
@@ -49,6 +47,7 @@ def dashboard_student(request):
                                'planning': planning,
                                'course': course,
                                'docs': docs,
+                               'exams': exams,
                               },
                               context_instance=RequestContext(request))
 

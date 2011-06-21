@@ -6,8 +6,9 @@ from django.utils.translation import ugettext as _
 from django.core.cache import cache
 from django.http import HttpResponseRedirect
 
-from testing.models import Question
-from coaching.models import GranuleValide, ModuleValide, Resultat
+from testing.models import Question, ExamCas
+from coaching.models import GranuleValide, ModuleValide, Resultat, CoursDuGroupe
+from coaching.models import ExamScore
 
 import finance
 
@@ -356,3 +357,63 @@ class UserSubmittedTest(object):
 
         self.enonces = enonces.values()
         return 
+
+class UserExam(object):
+    """
+    Controller d'un exam pour un utilisateur
+    """
+    def __init__(self, user, exam):
+        self.user = user
+        self.exam = exam
+        self.titre = self.exam.titre
+        self.debut = self.exam.debut
+        self.fin = self.exam.fin
+        if not (self.debut and self.fin):
+            if self.exam.cours:
+                try:
+                    cdg = CoursDuGroupe.objects.get(
+                            cours=self.exam.cours,groupe=self.user.groupe)
+                    self.debut = self.debut or cdg.debut
+                    self.fin = self.fin or cdg.fin
+                except CoursDuGroupe.DoesNotExist:
+                    pass
+
+    def score(self):
+        """
+        Le score obtenu à l'examen, en pourcentage
+        False si pas encore tenté
+        """
+        try:
+            resultat = ExamScore.objects.get(
+                    utilisateur=self.user, examen=self.exam)
+            return resultat.score
+        except ExamScore.DoesNotExist:
+            return False
+
+    def cas(self):
+        """
+        Retourne un cas pour cet examen ou
+        False s'il est déjà tenté ou si non trouvé
+        """
+        if self.score():
+            return False
+        else:
+            try:
+                return ExamCas.objects.filter(examen=self.exam).order_by('?')[0]
+            except IndexError:
+                return False
+
+    def is_open(self):
+        """
+        Un examen est ouvert si la date courant est entre début et fin
+        et s'il n'a pas déjà été tenté.
+        """
+        import datetime
+        now = datetime.datetime.now()
+        if self.score():
+            return False
+        if self.debut and now < self.debut:
+            return False
+        if self.fin and now > self.fin:
+            return False
+        return True
