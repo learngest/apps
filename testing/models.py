@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from learning.models import Module, Cours
 
@@ -114,6 +115,11 @@ class ExamCas(models.Model):
     titre = models.CharField(max_length=100)
     ressource = models.CharField(max_length=50)
 
+    class Meta:
+        ordering = ['examen']
+        verbose_name = _("Case study for exams")
+        verbose_name_plural = _("Case studies for exams")
+
     def __unicode__(self):
         return self.titre
 
@@ -122,6 +128,10 @@ class ExamEnonce(models.Model):
     Un énoncé pour un ensemble de questions dans un examen.
     """
     libel = models.TextField() 
+
+    class Meta:
+        verbose_name = _("Case study question text")
+        verbose_name_plural = _("Case study question texts")
 
     def __unicode__(self):
         return self.libel
@@ -141,6 +151,11 @@ class ExamQuestion(models.Model):
             choices=LISTE_TYPQ, default='exa')
     libel = models.TextField() 
 
+    class Meta:
+        ordering = ['examen']
+        verbose_name = _("Case study question")
+        verbose_name_plural = _("Case study questions")
+
     def __unicode__(self):
         return self.libel
 
@@ -152,6 +167,11 @@ class ExamReponse(models.Model):
     question = models.ForeignKey(ExamQuestion)
     points = models.IntegerField()
     valeur = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ['question']
+        verbose_name = _("Case study question answer")
+        verbose_name_plural = _("Case study question answers")
 
     def __unicode__(self):
         return self.valeur
