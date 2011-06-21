@@ -31,3 +31,34 @@ class ReponseAdmin(admin.ModelAdmin):
     list_display = ('id','question','points','valeur')
 admin.site.register(Reponse, ReponseAdmin)
 
+class ExamCasAdmin(admin.ModelAdmin):
+    list_display = ('examen','ressource','titre')
+    list_per_page = 30
+    search_fields = ('titre',)
+    ordering = ['examen'] 
+admin.site.register(ExamCas, ExamCasAdmin)
+
+class ExamEnonceAdmin(admin.ModelAdmin):
+    search_fields = ['libel']
+    list_display = ('id','libel')
+admin.site.register(ExamEnonce, ExamEnonceAdmin)
+
+class ExamQuestionAdmin(admin.ModelAdmin):
+    search_fields = ['libel']
+    list_display = ('id','libel')
+    list_filter = ('langue','granule')
+admin.site.register(ExamQuestion, ExamQuestionAdmin)
+
+class ExamReponseAdmin(admin.ModelAdmin):
+    list_display = ('id','question','points','valeur')
+admin.site.register(ExamReponse, ExamReponseAdmin)
+
+class ExamenAdmin(admin.ModelAdmin):
+    fieldsets = (
+            (None, {'fields': ('groupe','cours',)}),
+            (None, {'fields': ('titre','debut','fin',)}),
+    )
+    list_display = ('groupe','cours','titre','debut','fin',)
+    list_display_links = ('titre',)
+    list_filter = ('groupe','cours',)
+admin.site.register(Examen, ExamenAdmin)

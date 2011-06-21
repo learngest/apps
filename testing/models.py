@@ -3,7 +3,7 @@
 from django.db import models
 from django.conf import settings
 
-from learning.models import Module
+from learning.models import Module, Cours
 
 from listes import *
 
@@ -83,6 +83,73 @@ class Reponse(models.Model):
     Il y a une réponse par question sauf pour les QCM et les QRM.
     """
     question = models.ForeignKey(Question)
+    points = models.IntegerField()
+    valeur = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.valeur
+
+class Examen(models.Model):
+    """
+    Modèle des examens
+    Rattaché à un cours ou à rien du tout
+    """
+    groupe = models.ForeignKey('coaching.Groupe')
+    cours = models.ForeignKey(Cours, blank=True, null=True)
+    titre = models.CharField(max_length=100)
+    debut = models.DateTimeField(blank=True, null=True)
+    fin = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['groupe','cours']
+
+    def __unicode__(self):
+        return self.titre
+
+class ExamCas(models.Model):
+    """
+    Texte d'un cas d'examen
+    """
+    examen = models.ForeignKey(Examen)
+    titre = models.CharField(max_length=100)
+    ressource = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.titre
+
+class ExamEnonce(models.Model):
+    """
+    Un énoncé pour un ensemble de questions dans un examen.
+    """
+    libel = models.TextField() 
+
+    def __unicode__(self):
+        return self.libel
+
+class ExamQuestion(models.Model):
+    """
+    Le modèle de base Question.
+
+    Une question a un énoncé (Enonce).
+    Une question se rattache à une granule.
+    Elle est formulée dans une langue.
+    """
+    enonce = models.ForeignKey(ExamEnonce)
+    examen = models.ForeignKey(ExamCas)
+    langue = models.CharField(max_length=5, choices=LANGUAGES)
+    typq = models.CharField(max_length=3, 
+            choices=LISTE_TYPQ, default='exa')
+    libel = models.TextField() 
+
+    def __unicode__(self):
+        return self.libel
+
+class ExamReponse(models.Model):
+    """
+    Le modèle de base Reponse.
+    Il y a une réponse par question sauf pour les QCM et les QRM.
+    """
+    question = models.ForeignKey(ExamQuestion)
     points = models.IntegerField()
     valeur = models.CharField(max_length=255)
 
