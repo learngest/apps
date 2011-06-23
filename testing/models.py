@@ -146,7 +146,7 @@ class ExamQuestion(models.Model):
     Le modèle de base Question.
 
     Une question a un énoncé (Enonce).
-    Une question se rattache à une granule.
+    Une question se rattache à un cas.
     Elle est formulée dans une langue.
     """
     enonce = models.ForeignKey(ExamEnonce)
