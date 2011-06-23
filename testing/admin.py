@@ -33,10 +33,11 @@ class ReponseAdmin(admin.ModelAdmin):
 admin.site.register(Reponse, ReponseAdmin)
 
 class ExamCasAdmin(admin.ModelAdmin):
-    list_display = ('examen','ressource','titre')
+    list_display = ('id','slug','examen','ressource')
+    list_display_links = ('slug',)
     list_per_page = 30
-    search_fields = ('titre',)
-    ordering = ['examen'] 
+    search_fields = ('titre', 'slug',)
+    ordering = ['examen','slug']
 admin.site.register(ExamCas, ExamCasAdmin)
 
 class ExamEnonceAdmin(admin.ModelAdmin):

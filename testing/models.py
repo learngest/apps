@@ -113,6 +113,7 @@ class ExamCas(models.Model):
     """
     examen = models.ForeignKey(Examen)
     titre = models.CharField(max_length=100)
+    slug = models.SlugField()
     ressource = models.CharField(max_length=50)
 
     class Meta:
