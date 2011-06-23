@@ -12,7 +12,7 @@ from django.contrib.auth.models import User, UserManager
 
 from email_auth.views import user_logged_in
 from learning.models import Cours, Module
-from testing.models import Granule
+from testing.models import Granule, Examen
 
 from listes import *
 
@@ -366,6 +366,26 @@ class CoursValide(CommonResultat):
             if not self.date:
                 self.date = datetime.datetime.now()
         super(CoursValide, self).save(force_insert, force_update)
+
+class ExamScore(CommonResultat):
+    """
+    Stocke les scores aux examens
+    """
+    examen = models.ForeignKey(Examen)
+    score = models.IntegerField()
+
+    class Meta:
+        unique_together = (('utilisateur','examen'),)
+
+    def __unicode__(self):
+        return u"%s - %s - %s - %s" % (self.utilisateur,
+                self.examen, self.date, self.score)
+
+    def save(self, force_insert=False, force_update=False):
+        if not self.id:
+            if not self.date:
+                self.date = datetime.datetime.now()
+        super(ExamScore, self).save(force_insert, force_update)
 
 def upload_path(instance, filename):
     import os.path

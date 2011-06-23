@@ -484,3 +484,155 @@ class UserCase(object):
                                 for r in question.reponse_set.all()])
         hidden = HID_REP % question.id
         return '\n'.join((question.libel,hidden,reponses))
+
+class UserSubmittedCase(object):
+    """
+    Controller des réponses à un cas
+    """
+    def __init__(self, request):
+        self.user = request.user
+        self.request = request
+        self.max = 0
+        self.total = 0
+        self.valide = False
+
+    def _clean(self, astring, bad=(' ','%')):
+        for badchar in bad:
+            astring = astring.replace(badchar,'')
+        return astring
+
+    def _set_qd(self, q, rep):
+        qd = {}
+        qd['libel'] = q.libel.replace("<REPONSE>","...")
+        qd['reponse'] = rep or _('nothing')
+        return qd
+
+    def _noter_exa(self, q, rep):
+        rep = rep[-1]
+        qd = self._set_qd(q, rep)
+        r = q.examreponse_set.all()[0]
+        self.max += r.points
+        if rep:
+            rep = self._clean(rep).replace(',','.').rstrip('0')
+            r.valeur = self._clean(r.valeur).replace(',','.').rstrip('0')
+            if rep == r.valeur:
+                qd['points'] = r.points
+                self.total += r.points
+            else:
+                qd['points'] = '0'
+        else:
+            qd['points'] = '0'
+        return qd
+
+    def _noter_num(self, q, rep):
+        rep = rep[-1]
+        qd = self._set_qd(q, rep)
+        r = q.reponse_set.all()[0]
+        self.max += r.points
+        # seuls les chiffres avant le séparateur décimal sont significatifs
+        rep = rep.replace('%','')
+        rep = rep.replace(',','.').strip()
+        r.valeur = r.valeur.replace(',','.').strip()
+        if rep.startswith(r.valeur.split('.')[0]):
+            qd['points'] = r.points
+            self.total += r.points
+        else:
+            qd['points'] = '0'
+        return qd
+
+    def _noter_rnd(self, q, rep):
+        rep = rep[-1]
+        qd = self._set_qd(q, rep)
+        r = q.reponse_set.all()[0]
+        self.max += r.points
+        phrase, dico = q.libel.split(" % ")
+        dico = ''.join(('dic',str(q.id)))
+        dico = eval(self.request.POST[dico])
+        qd['libel'] = eval(phrase) % dico
+        for k,v in dico.items():
+            locals()[k] = v
+        r.valeur = '%f' % eval(r.valeur)
+        if rep:
+            rep = self._clean(rep).replace(',','.').rstrip('0')
+            r.valeur = self._clean(r.valeur).replace(',','.').rstrip('0')
+            # on teste sur 5 chiffres significatifs max + le point décimal
+            if rep[:6] == r.valeur[:6]:
+                qd['points'] = r.points
+                self.total += r.points
+            else:
+                qd['points'] = '0'
+        else:
+            qd['points'] = '0'
+        return qd
+
+    def _noter_qcm(self, q, rep):
+        rep = rep[-1]
+        qd = self._set_qd(q, rep)
+        for r in q.reponse_set.all():
+            if int(rep) == r.id:
+                self.total += r.points
+                qd['points'] = r.points
+                qd['reponse'] = r.valeur
+            if r.points > 0:
+                self.max += r.points
+        # si pas de réponse
+        if not 'points' in qd:
+            qd['points'] = 0
+            qd['reponse'] = _('nothing')
+        return qd
+
+    def _noter_qrm(self, q, rep):
+        qd = {}
+        qd['libel'] = q.libel.replace("<REPONSE>","...")
+        qd['reponse'] = ''
+        for r in q.reponse_set.all():
+            for rr in rep:
+                if int(rr) == r.id:
+                    self.total += r.points
+                    qd['points'] = qd.get('points',0) + r.points
+                    if qd['reponse']:
+                        qd['reponse'] = '; '.join((qd['reponse'],r.valeur))
+                    else:
+                        qd['reponse'] = r.valeur
+            if r.points > 0:
+                self.max += r.points
+        # si pas de réponse
+        if not 'points' in qd:
+            qd['points'] = 0
+            qd['reponse'] = _('nothing')
+        return qd
+
+    def noter(self):
+        """
+        Note le cas
+        """
+        enonces = {}
+        for quest,rep in self.request.POST.lists():
+            if not quest.startswith('rep'):
+                continue
+            try:
+                q = ExamQuestion.objects.get(id=quest.replace('rep',''))
+            except ExamQuestion.DoesNotExist:
+                continue
+            enonces.setdefault(q.enonce.id,{})
+            enonces[q.enonce.id]['libel'] = q.enonce.libel
+            if not 'questions' in enonces[q.enonce.id]:
+                enonces[q.enonce.id]['questions'] = []
+            enonces[q.enonce.id]['questions'].append(
+                    getattr(self, "_noter_%s" % q.typq)(q, rep))
+
+        if self.total < 0:
+            self.total = 0
+        try:
+            self.score = round(float(self.total)/self.max*100)
+        except ZeroDivisionError:
+            self.score = 0
+        try:
+            cas = q.examen
+        except UnboundLocalError:
+            return HttpResponseRedirect('/')
+        self.titre = cas.titre
+        r = ExamScore(utilisateur=self.user, examen=cas.examen, score=self.score)
+        r.save()
+        self.enonces = enonces.values()
+        return
