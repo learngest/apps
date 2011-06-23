@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-21 06:18+0200\n"
+"POT-Creation-Date: 2011-06-23 10:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,76 +17,99 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: controllers.py:109
+#: controllers.py:110
 msgid "We are sorry, this content is not available in your preferred language."
 msgstr ""
 "Nous sommes désolés, ce test n'est pas disponible dans la langue demandée."
 
-#: controllers.py:176 controllers.py:250 controllers.py:271
+#: controllers.py:177 controllers.py:251 controllers.py:272 controllers.py:507
+#: controllers.py:581 controllers.py:602
 msgid "nothing"
 msgstr "aucune réponse"
 
-#: models.py:120
+#: controllers.py:440
+msgid "Hmm, no questions for this case study."
+msgstr "Hmm, pas de questions pour ce cas."
+
+#: models.py:121
 msgid "Case study for exams"
 msgstr "Etude de cas pour les examens"
 
-#: models.py:121
+#: models.py:122
 msgid "Case studies for exams"
 msgstr "Etudes de cas pour les examens"
 
-#: models.py:133
+#: models.py:138
 msgid "Case study question text"
 msgstr "Enonce de question de cas"
 
-#: models.py:134
+#: models.py:139
 msgid "Case study question texts"
 msgstr "Enonces de questions de cas"
 
-#: models.py:156
+#: models.py:161
 msgid "Case study question"
 msgstr "Question de cas"
 
-#: models.py:157
+#: models.py:162
 msgid "Case study questions"
 msgstr "Questions de cas"
 
-#: models.py:173
+#: models.py:178
 msgid "Case study question answer"
 msgstr "Réponse des questions des cas"
 
-#: models.py:174
+#: models.py:179
 msgid "Case study question answers"
 msgstr "Réponses des questions de cas"
 
-#: views.py:26
+#: views.py:28 views.py:75
 msgid "Requested url is invalid."
 msgstr "L'URL demandée est invalide."
 
-#: views.py:33
+#: views.py:35 views.py:81
 msgid "Requested test does not exist"
 msgstr "Le test demandé n'existe pas"
 
-#: views.py:37
+#: views.py:39
 msgid "Requested test is not allowed."
 msgstr "Vous n'êtes pas autorisé à faire le test demandé."
 
-#: views.py:52 templates/testing/noter.html:15
+#: views.py:54 views.py:102 templates/testing/noter.html:15
+#: templates/testing/noter_cas.html:15
 msgid "grade"
 msgstr "notation"
 
-#: views.py:60
+#: views.py:62
 msgid "test"
 msgstr ""
 
-#: templates/testing/noter.html:15 templates/testing/test.html:15
+#: views.py:85
+msgid "Requested exam is closed."
+msgstr "L'examen demandé est fermé."
+
+#: views.py:96
+msgid "You are not allowed to browse the requested content."
+msgstr "Vous n'êtes pas autorisé à visualiser ce contenu"
+
+#: templates/testing/cas.html:15 templates/testing/noter.html:15
+#: templates/testing/noter_cas.html:15 templates/testing/test.html:15
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: templates/testing/noter.html:24
+#: templates/testing/cas.html:15 templates/testing/noter_cas.html:15
+msgid "Exam"
+msgstr "Examen"
+
+#: templates/testing/cas.html:29
+msgid "Submit your answers"
+msgstr "Valider vos réponses"
+
+#: templates/testing/noter.html:24 templates/testing/noter_cas.html:24
 msgid "You answered"
 msgstr "Vous avez répondu"
 
-#: templates/testing/noter.html:29
+#: templates/testing/noter.html:29 templates/testing/noter_cas.html:29
 msgid "Final score"
 msgstr "Score final"
 
@@ -94,7 +117,7 @@ msgstr "Score final"
 msgid "Congratulations, you succeeded !"
 msgstr "Bravo, vous avez réussi ce test !"
 
-#: templates/testing/noter.html:31
+#: templates/testing/noter.html:31 templates/testing/noter_cas.html:30
 msgid "Back to your dashboard"
 msgstr "Retour au tableau de bord"
 

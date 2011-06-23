@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-02 14:05+0200\n"
+"POT-Creation-Date: 2011-06-23 11:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,66 +59,86 @@ msgstr "Di"
 msgid "Deadline for assignment %s"
 msgstr "Date limite de remise du devoir %s"
 
-#: views.py:46 views.py:65 views.py:80 views.py:96 views.py:112
+#: views.py:44 views.py:64 views.py:79 views.py:95 views.py:111
 msgid "dashboard"
 msgstr "tableau de bord"
 
-#: templates/dashboard/admin.html:10
+#: templates/dashboard/admin.html:9
 msgid "Your groups"
 msgstr "Tous vos groupes"
 
-#: templates/dashboard/admin.html:13
+#: templates/dashboard/admin.html:12
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: templates/dashboard/admin.html:14
+#: templates/dashboard/admin.html:13
 msgid "Learning DB contents - in French"
 msgstr "Base de données de contenus - en français"
 
-#: templates/dashboard/admin.html:15
+#: templates/dashboard/admin.html:14
 msgid "Learning DB contents - in English"
 msgstr "Base de données de contenus - en anglais"
 
-#: templates/dashboard/etudiant.html:10 templates/dashboard/prof.html:10
+#: templates/dashboard/etudiant.html:9 templates/dashboard/prof.html:9
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: templates/dashboard/etudiant.html:15
+#: templates/dashboard/etudiant.html:14
 msgid "Your group is"
 msgstr "Vous faites partie du groupe"
 
-#: templates/dashboard/etudiant.html:17
+#: templates/dashboard/etudiant.html:16
 msgid "This group is managed by"
 msgstr "Le responsable du groupe est"
 
-#: templates/dashboard/etudiant.html:19
+#: templates/dashboard/etudiant.html:18
 msgid "Your planning for the"
 msgstr "Planning des"
 
-#: templates/dashboard/etudiant.html:19
+#: templates/dashboard/etudiant.html:18
 msgid "next weeks"
 msgstr "prochaines semaines"
 
-#: templates/dashboard/etudiant.html:24
+#: templates/dashboard/etudiant.html:23
 msgid "Nothing special so far !"
 msgstr "Rien de spécial pour le moment."
 
-#: templates/dashboard/etudiant.html:27
+#: templates/dashboard/etudiant.html:26
 msgid "Link to the virtual classroom"
 msgstr "Lien vers la classe virtuelle"
 
-#: templates/dashboard/etudiant.html:29
+#: templates/dashboard/etudiant.html:28
+msgid "Exams"
+msgstr "Examens"
+
+#: templates/dashboard/etudiant.html:31
+msgid "Exam"
+msgstr "Examen"
+
+#: templates/dashboard/etudiant.html:31
+msgid "Opened on"
+msgstr "Ouvert le"
+
+#: templates/dashboard/etudiant.html:31
+msgid "Closed on"
+msgstr "Fermé le"
+
+#: templates/dashboard/etudiant.html:31
+msgid "Score"
+msgstr ""
+
+#: templates/dashboard/etudiant.html:59
 msgid "Documents to download"
 msgstr "Documents à télécharger"
 
-#: templates/dashboard/etudiant.html:34
+#: templates/dashboard/etudiant.html:64
 msgid "Current work"
 msgstr "Travail en cours"
 
-#: templates/dashboard/etudiant.html:35
+#: templates/dashboard/etudiant.html:65
 msgid "See complete courses list"
 msgstr "Voir la liste de tous les cours"
 
-#: templates/dashboard/prof.html:14
+#: templates/dashboard/prof.html:13
 msgid "Your courses"
 msgstr "Tous vos cours"
