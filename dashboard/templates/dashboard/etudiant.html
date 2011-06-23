@@ -28,7 +28,7 @@
 <h2>{% trans "Exams" %}</h2>
 <table class="tabcours" width="95%">
 <thead>
-    <tr><th width="50%">{% trans "Exam" %}</th><th width="35%">{% trans "Opened on" %}</th><th width="25%">{% trans "Closed on" %}</th></tr>
+    <tr><th width="40%">{% trans "Exam" %}</th><th style="text-align: center;">{% trans "Opened on" %}</th><th style="text-align: center;">{% trans "Closed on" %}</th><th style="text-align: center;">{% trans "Score" %}</th></tr>
 </thead>
 <tfoot></tfoot>
 <tbody>
@@ -41,8 +41,15 @@
         {{ exam.titre }}
         {% endif %}
     </td>
-    <td>{{ exam.debut|date:"d/m/Y" }}</td>
-    <td>{{ exam.fin|date:"d/m/Y" }}</td>
+    <td style="text-align: center;">{{ exam.debut|date:"d/m/Y" }}</td>
+    <td style="text-align: center;">{{ exam.fin|date:"d/m/Y" }}</td>
+    <td style="text-align: center;">
+        {% if exam.score %}
+        {{ exam.score }} %
+        {% else %}
+        &nbsp;
+        {% endif %}
+    </td>
 </tr>
 {% endfor %}
 </tbody>
