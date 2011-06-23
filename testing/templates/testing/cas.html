@@ -1,0 +1,31 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{% load adminmedia %}
+<!-- ie behaviour -->
+<style type="text/css">img {behavior: url("{% admin_media_prefix %}css/pngbehavior.htc");}</style>
+<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/tests.css" />
+{% endblock extrastyle %}
+{% block extrahead %}
+<base href="{{ baselink }}" />
+{% endblock extrahead %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt;  {% trans "Exam" %} &gt; {{ test.titre }} {{ breadcrumb }}
+</div>{% endblock %}
+
+{% block content %}
+{{ cas.texte|safe }}
+<form method="post">
+	{% for enonce in cas.enonces %}
+	<fieldset class="module enonce">
+		<p>{{ enonce.libel|safe }}</p>
+		{% for question in enonce.questions %}
+			<p>{{ question|safe }}</p>
+		{% endfor %}
+	</fieldset>
+	{% endfor%}
+	<input type="submit" name="submit" value="{% trans "Submit your answers" %}" />
+</form>
+{% endblock content %}

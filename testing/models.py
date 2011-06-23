@@ -124,6 +124,10 @@ class ExamCas(models.Model):
     def __unicode__(self):
         return self.titre
 
+    @models.permalink
+    def get_absolute_url(self):
+        return('testing.views.cas', [str(self.id)])
+
 class ExamEnonce(models.Model):
     """
     Un énoncé pour un ensemble de questions dans un examen.

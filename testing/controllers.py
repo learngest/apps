@@ -6,11 +6,17 @@ from django.utils.translation import ugettext as _
 from django.core.cache import cache
 from django.http import HttpResponseRedirect
 
-from testing.models import Question, ExamCas
+from testing.models import Question, ExamCas, ExamQuestion
 from coaching.models import GranuleValide, ModuleValide, Resultat, CoursDuGroupe
 from coaching.models import ExamScore
 
 import finance
+
+REP = " <input type=\"text\" size=\"15\" name=\"rep%d\" /> "
+HID_DICT = "<input type=\"hidden\" value=\"%s\" name=\"dic%d\" />"
+HID_REP = "<br /><input type=\"hidden\" value=\"0\" name=\"rep%d\" />"
+RADIO = "<br /><input type=\"radio\" value=\"%s\" name=\"rep%d\" />&nbsp;%s"
+CHECK = "<br /><input type=\"checkbox\" value=\"%s\" name=\"rep%d\" />&nbsp;%s"
 
 class UserGranule(object):
     """
@@ -81,12 +87,6 @@ class UserTest(object):
     Controller d'un test pour un utilisateur et
     une granule donnés
     """
-    REP = " <input type=\"text\" size=\"15\" name=\"rep%d\" /> "
-    HID_DICT = "<input type=\"hidden\" value=\"%s\" name=\"dic%d\" />"
-    HID_REP = "<br /><input type=\"hidden\" value=\"0\" name=\"rep%d\" />"
-    RADIO = "<br /><input type=\"radio\" value=\"%s\" name=\"rep%d\" />&nbsp;%s"
-    CHECK = "<br /><input type=\"checkbox\" value=\"%s\" name=\"rep%d\" />&nbsp;%s"
-
     def __init__(self, user, granule, langue):
         self.user = user
         self.granule = granule
@@ -124,12 +124,12 @@ class UserTest(object):
         phrase = eval(phrase)
         dico = eval(dico)
         phrase = phrase % dico
-        rep = self.REP % question.id
-        hidden = self.HID_DICT % (dico,question.id)
+        rep = REP % question.id
+        hidden = HID_DICT % (dico,question.id)
         return " ".join((phrase,rep,hidden))
 
     def _output_exa(self, question):
-        rep = self.REP % question.id
+        rep = REP % question.id
         return question.libel.replace("<REPONSE>",rep)
 
     def _output_num(self, question):
@@ -137,22 +137,22 @@ class UserTest(object):
 
     def _output_qrm(self, question):
         if sys.version_info[1]==3:
-            reponses = '\n'.join([self.CHECK % (r.id, question.id, r)
+            reponses = '\n'.join([CHECK % (r.id, question.id, r)
                                 for r in question.reponse_set.all()])
         else:
-            reponses = '\n'.join([self.CHECK % (r.id, question.id, r.valeur)
+            reponses = '\n'.join([CHECK % (r.id, question.id, r.valeur)
                                 for r in question.reponse_set.all()])
-        hidden = self.HID_REP % question.id
+        hidden = HID_REP % question.id
         return '\n'.join((question.libel,hidden,reponses))
 
     def _output_qcm(self, question):
         if sys.version_info[1]==3:
-            reponses = '\n'.join( [self.RADIO % (r.id, question.id, r)
+            reponses = '\n'.join( [RADIO % (r.id, question.id, r)
                                 for r in question.reponse_set.all()])
         else:
-            reponses = '\n'.join( [self.RADIO % (r.id, question.id, r.valeur)
+            reponses = '\n'.join( [RADIO % (r.id, question.id, r.valeur)
                                 for r in question.reponse_set.all()])
-        hidden = self.HID_REP % question.id
+        hidden = HID_REP % question.id
         return '\n'.join((question.libel,hidden,reponses))
 
 class UserSubmittedTest(object):
@@ -417,3 +417,70 @@ class UserExam(object):
         if self.fin and now > self.fin:
             return False
         return True
+
+class UserCase(object):
+    """
+    Controller d'un cas d'examen pour un user
+    """
+    def __init__(self, user, cas):
+        self.user = user
+        self.cas = cas
+        self.titre = self.cas.titre
+        self.texte = self.cas.texte
+        self.enonces = self._enonces()
+
+    def _enonces(self):
+        """
+        Retourne le code html des énoncés du cas, avec leurs questions
+        """
+        questions = \
+            ExamQuestion.objects.filter(examen=self.cas)
+        if not questions:
+            self.user.message_set.create(
+                message=_('Hmm, no questions for this case study.'))
+        enonces = {}
+        for q in questions:
+            enonces.setdefault(q.enonce.id,{})
+            enonces[q.enonce.id]['libel'] = q.enonce.libel
+            if not 'questions' in enonces[q.enonce.id]:
+                enonces[q.enonce.id]['questions'] = []
+            enonces[q.enonce.id]['questions'].append(
+                    getattr(self, "_output_%s" % q.typq)(q))
+        return enonces.values()
+
+    def _output_rnd(self, question):
+        import random
+        phrase, dico = question.libel.split(" % ")
+        phrase = eval(phrase)
+        dico = eval(dico)
+        phrase = phrase % dico
+        rep = REP % question.id
+        hidden = HID_DICT % (dico,question.id)
+        return " ".join((phrase,rep,hidden))
+
+    def _output_exa(self, question):
+        rep = REP % question.id
+        return question.libel.replace("<REPONSE>",rep)
+
+    def _output_num(self, question):
+        return self.output_exa(question)
+
+    def _output_qrm(self, question):
+        if sys.version_info[1]==3:
+            reponses = '\n'.join([CHECK % (r.id, question.id, r)
+                                for r in question.reponse_set.all()])
+        else:
+            reponses = '\n'.join([CHECK % (r.id, question.id, r.valeur)
+                                for r in question.reponse_set.all()])
+        hidden = HID_REP % question.id
+        return '\n'.join((question.libel,hidden,reponses))
+
+    def _output_qcm(self, question):
+        if sys.version_info[1]==3:
+            reponses = '\n'.join( [RADIO % (r.id, question.id, r)
+                                for r in question.reponse_set.all()])
+        else:
+            reponses = '\n'.join( [RADIO % (r.id, question.id, r.valeur)
+                                for r in question.reponse_set.all()])
+        hidden = HID_REP % question.id
+        return '\n'.join((question.libel,hidden,reponses))
