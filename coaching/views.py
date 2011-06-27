@@ -14,6 +14,7 @@ from coaching.models import Utilisateur, Groupe, Prof, AutresDocs
 from coaching.forms import UtilisateurChangeForm, CreateLoginsForm, MailForm, DocumentForm
 from coaching.controllers import AdminGroupe, UserState, ProfCours, filters, AdminCours
 from dashboard.planning import Calendrier, Planning
+from testing.models import Examen
 
 from listes import *
 
@@ -109,6 +110,36 @@ def groupe(request, groupe_id):
                                'actions': actions,
                                'groupe': groupe,
                                'filters': filtres,
+                              },
+                              context_instance=RequestContext(request))
+
+@login_required
+def examresults(request, exam_id=None):
+    """
+    Affiche les résultats à un examen
+    """
+    try:
+        examen = Examen.objects.get(id=exam_id)
+    except Examen.DoesNotExist:
+        request.user.message_set.create(
+                message=_("This exam does not exist."))
+        return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    if not request.user.may_see_groupe(examen.groupe):
+            request.user.message_set.create(
+                    message=_(
+                        "You do not have admin rights on the requested group."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+    groupe = AdminGroupe(request.user, examen.groupe)
+    for user in groupe.users():
+        user.score = user.resultat(examen)
+    actions = [{'libel':_('Download group results'),
+                'url':'%s?id=%s' % (
+                    urlresolvers.reverse('coaching.views.csvperf'),
+                    examen.groupe_id)},]
+    return render_to_response('coaching/resultats.html',
+                              {'title': examen.titre,
+                               'actions': actions,
+                               'groupe': groupe,
                               },
                               context_instance=RequestContext(request))
 

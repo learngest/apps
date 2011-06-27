@@ -1,0 +1,63 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+{% load adminmedia %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/static/media/js/jquery-1.1.3.1.pack.js"></script>
+<script type="text/javascript" src="/static/media/js/jquery.tablesorter.js"></script>
+{% endblock %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">
+    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a> &gt; {{ title }}
+</div>{% endblock %}
+
+{% block content %}
+
+<div class="actions">
+    {% for action in actions %}
+    <p><a href="{{ action.url }}">{{ action.libel }}</a></p>
+    {% endfor %}
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+			$("#lista").tablesorter({
+				widgets: ['zebra']
+			});
+		var c = [[2,0],[5,0],[1,0]];
+        $("#lista").trigger("sorton",[c]);
+        return false;
+})
+</script>
+<table id="lista" class="tabcours" width="100%">
+    <thead>
+		<tr>
+            <th>{% trans "Name" %}</th>
+            <th style="text-align: center;">{% trans "Last login" %}</th>
+            <th style="text-align:center;">{% trans "Result" %}</th>
+        </tr>
+    </thead>
+    <tfoot></tfoot>
+    <tbody>
+	{% for student in groupe.users %}
+    <tr>
+		<td>
+			<a href="{{ student.get_absolute_url }}"
+				title="{{ student.email }}">{{ student.get_name }}</a>
+		</td>
+        <td style="text-align: center;">{{ student.last_login|date:"Y/m/d" }}</td>
+        <td style="text-align: center;">
+            {% if student.score %}
+            {{ student.score }}
+            {% else %}
+            &nbsp;
+            {% endif %}
+        </td>
+    </tr>
+	{% empty %}
+	<tr><td colspan="8">{% trans "This group is empty." %}</td></tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock content %}
+

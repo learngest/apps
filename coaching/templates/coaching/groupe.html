@@ -62,6 +62,12 @@
                 {% trans "Uploaded<br />works" %}
                 / {{ groupe.nb_works }}
             </th>
+            <!--
+            <th style="text-align:center;">
+                {% trans "Exams<br />attempts" %}
+                / {{ groupe.nb_exams }}
+            </th>
+            -->
             <th style="text-align:center;">{% trans "Current course" %}</th>
             <th style="text-align:center;">
                 {% trans "Validated modules<br />in current course" %}
@@ -80,6 +86,9 @@
         <td style="text-align: center;">{{ student.last_login|date:"Y/m/d" }}</td>
         <td style="text-align: center;">{{ student.nb_cours_valides }}</td>
         <td style="text-align: center;">{{ student.nb_travaux_rendus }}</td>
+        <!--
+        <td style="text-align: center;">{{ student.nb_exams_tentes }}</td>
+        -->
 		<td style="text-align: center;">{{ student.cours_courant.titre }}</td>
         <td style="text-align: center;">
             {{ student.nb_modules_valides_in_current }}

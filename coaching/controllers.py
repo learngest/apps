@@ -69,6 +69,7 @@ class AdminGroupe(object):
         self.nb_logins = Utilisateur.objects.filter(groupe=groupe).count()
         self.nb_cours = self.groupe.cours.count()
         self.nb_works = Work.objects.filter(groupe=self.groupe).count()
+        self.nb_exams = Examen.objects.filter(groupe=self.groupe).count()
         self._courant = -1
         self._nb_users_pb = -1
 
@@ -170,6 +171,11 @@ class UserState(object):
                 for e in Examen.objects.filter(
                     groupe=self.user.groupe).order_by('cours')]
         return self._exams
+
+    def resultat(self, exam=None):
+        if exam:
+            return UserExam(self.user, exam).score()
+        return None
 
     def cours(self):
         if not self._cours:

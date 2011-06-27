@@ -107,6 +107,11 @@ class Examen(models.Model):
     def __unicode__(self):
         return self.titre
 
+    def get_results_url(self):
+        from django.core import urlresolvers
+        return urlresolvers.reverse('coaching.views.examresults',
+                args=(str(self.id),))
+
 class ExamCas(models.Model):
     """
     Texte d'un cas d'examen
