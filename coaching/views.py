@@ -378,6 +378,7 @@ def user(request, user_id):
                         "You do not have admin rights on the requested group."))
             return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     us = UserState(utilisateur)
+    exams = us.exams()
     actions = []
     actions_admin = [
             {'libel':_('Send an email to this student'),
@@ -395,6 +396,7 @@ def user(request, user_id):
                               {'title': us.get_full_name,
                                'student': us,
                                'actions': actions,
+                               'exams': exams,
                               },
                               context_instance=RequestContext(request))
 
