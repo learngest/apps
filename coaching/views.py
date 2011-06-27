@@ -168,9 +168,9 @@ def dashboard(request):
     cal = Calendrier(request, groupe)
     planning = Planning(request, groupe)
     docs = AutresDocs.objects.filter(groupe=groupe,cours=None)
-#    cours = groupe.cours.order_by('coursdugroupe__rang')
     cours = [AdminCours(request.user, cours, groupe) for cours
             in groupe.cours.order_by('coursdugroupe__rang')]
+    exams = Examen.objects.filter(groupe=groupe)
 
     return render_to_response('coaching/group_dashboard.html',
                               {'title': groupe.nom,
@@ -179,6 +179,7 @@ def dashboard(request):
                                'planning': planning,
                                'docs': docs,
                                'cours' : cours,
+                               'exams' : exams,
                               },
                               context_instance=RequestContext(request))
 

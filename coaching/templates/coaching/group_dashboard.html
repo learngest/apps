@@ -26,6 +26,24 @@
 <p><a href="{{ doc.get_absolute_url }}"><strong>{{ doc.titre }}</strong></a><p>
 {% endfor %}
 {% endif %}
+{% if exams %}
+<h2 class="clear">{% trans "Exams" %}</h2>
+<table class="tabcours" width="95%">
+<thead>
+    <tr><th width="40%">{% trans "Exam" %}</th><th style="text-align: center;">{% trans "Opened on" %}</th><th style="text-align: center;">{% trans "Closed on" %}</th></tr>
+</thead>
+<tfoot></tfoot>
+<tbody>
+{% for exam in exams %}
+<tr class="{% cycle odd,even %}">
+    <td><a href="{{ exam.get_results_url }}">{{ exam.titre }}</a></td>
+    <td style="text-align: center;">{{ exam.debut|date:"d/m/Y" }}</td>
+    <td style="text-align: center;">{{ exam.fin|date:"d/m/Y" }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
 <h2 class="clear">{% trans "Courses" %}</h2>
 	{% for course in cours %}
 	{% include "coaching/tab_cours_groupe.html" %}
