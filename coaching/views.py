@@ -206,22 +206,24 @@ def csvperf(request):
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = \
             'attachment; filename=groupe-%s.csv' % slugify(groupe.nom)
+    examens = Examen.objects.filter(groupe=groupe)
     writer = csv.writer(response,delimiter=';')
     groupe = AdminGroupe(request.user, groupe)
-    writer.writerow([s.encode("utf-8") for s in [
-                    _('Last Name'),
-                    _('First Name'),
-                    _('Email'),
-                    _('Last login'),
-                    _('Valid till'),
-                    _('Completed courses / %d') % groupe.nb_cours,
-                    _('Uploaded works / %d') % groupe.nb_works,
-                    _('Current course'),
-                    _('Validated modules in current course'),
-                    _('# modules in current course'),
-                    _('Delays'),]])
+    headers = [ _('Last Name'),
+            _('First Name'),
+            _('Email'),
+            _('Last login'),
+            _('Valid till'),
+            _('Completed courses / %d') % groupe.nb_cours,
+            _('Uploaded works / %d') % groupe.nb_works,
+            _('Current course'),
+            _('Validated modules in current course'),
+            _('# modules in current course'),
+            _('Delays'),]
+    headers.extend([exam.titre for exam in examens])
+    writer.writerow([s.encode("utf-8") for s in headers])
     for u in groupe.users():
-        writer.writerow([
+        line = [
             u.user.last_name.encode("utf-8"),
             u.user.first_name.encode("utf-8"),
             u.email.encode("utf-8"),
@@ -233,7 +235,9 @@ def csvperf(request):
             u.nb_modules_valides_in_current(),
             u.nb_modules_in_current(),
             u.nb_cours_en_retard(),
-            ])
+            ]
+        line.extend([u.resultat(exam) for exam in examens])
+        writer.writerow(line)
     return response
 
 @login_required
