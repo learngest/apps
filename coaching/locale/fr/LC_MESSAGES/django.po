@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-17 17:25+0100\n"
+"POT-Creation-Date: 2011-06-29 05:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions.py:39 views.py:326
+#: actions.py:39 views.py:361
 msgid "The message has been sent."
 msgstr "Le message a été envoyé."
 
-#: actions.py:42 views.py:329
+#: actions.py:42 views.py:364
 msgid "Error: unable to send message."
 msgstr "Erreur : impossible d'envoyer le message."
 
-#: actions.py:46 actions.py:56 actions.py:64 views.py:298 views.py:336
+#: actions.py:46 actions.py:56 actions.py:64 views.py:333 views.py:371
 #: templates/coaching/sendmail.html:9 templates/coaching/sendmailadmin.html:9
 msgid "Send an email"
 msgstr "Envoyer un mail"
@@ -38,62 +38,59 @@ msgstr "Assistants pour ce groupe"
 msgid "Group courses"
 msgstr "Cours de ce groupe"
 
-#: admin.py:67 admin.py:209 templates/coaching/cours.html:45
-#: templates/coaching/groupe.html:56
+#: admin.py:67 admin.py:216 templates/coaching/cours.html:45
+#: templates/coaching/groupe.html:56 templates/coaching/resultats.html:35
 msgid "Name"
 msgstr "Nom"
 
-#: admin.py:105 views.py:183 templates/coaching/cours.html:46
+#: admin.py:105 admin.py:138 views.py:214
+#: templates/coaching/change_profile.html:12 templates/coaching/cours.html:46
 #: templates/coaching/create_logins2.html:40
 msgid "Email"
 msgstr ""
 
-#: admin.py:107 admin.py:135 templates/coaching/create_logins3.html:40
+#: admin.py:106 admin.py:139 templates/coaching/create_logins3.html:40
 msgid "Password"
 msgstr "Mot de passe"
 
-#: admin.py:109 admin.py:136
+#: admin.py:108 admin.py:140
 msgid "Password confirmation"
 msgstr "Confirmation du mot de passe"
 
-#: admin.py:121 admin.py:162 forms.py:37
+#: admin.py:119 admin.py:156
+msgid "A user with that email already exists."
+msgstr "Un utilisateur avec ce login existe déjà."
+
+#: admin.py:126 admin.py:162 forms.py:36
 msgid "The two password fields didn't match."
 msgstr "Les deux mots de passe ne concordent pas."
 
-#: admin.py:134
-msgid "Username"
-msgstr "Login"
-
-#: admin.py:156
-msgid "A user with that username already exists."
-msgstr "Un utilisateur avec ce login existe déjà."
-
-#: admin.py:179 templates/coaching/change_profile.html:21
+#: admin.py:178 templates/coaching/change_profile.html:21
 msgid "Identity"
 msgstr "Informations personnelles"
 
-#: admin.py:181
+#: admin.py:180
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: admin.py:182
+#: admin.py:181
 msgid "Permissions"
 msgstr ""
 
-#: admin.py:183
+#: admin.py:182
 msgid "Important dates"
 msgstr "Dates importantes"
 
-#: admin.py:184
+#: admin.py:183
 msgid "Groups"
 msgstr "Groupes"
 
-#: admin.py:196 views.py:184 templates/coaching/cours.html:47
-#: templates/coaching/groupe.html:57
+#: admin.py:203 views.py:215 templates/coaching/cours.html:47
+#: templates/coaching/groupe.html:57 templates/coaching/resultats.html:36
 msgid "Last login"
 msgstr "Dernier login"
 
-#: admin.py:202 forms.py:80 templates/coaching/change_profile.html:17
+#: admin.py:209 forms.py:78 templates/coaching/change_profile.html:17
 #: templates/coaching/change_profile.html:18
 #: templates/coaching/create_logins.html:26
 #: templates/coaching/create_logins2.html:15
@@ -104,89 +101,93 @@ msgstr "Dernier login"
 msgid "Group"
 msgstr "Groupe"
 
-#: admin.py:215
+#: admin.py:222
 msgid "Completed courses"
 msgstr "Cours validés"
 
-#: admin.py:220 templates/coaching/cours.html:49
+#: admin.py:227 templates/coaching/cours.html:49
 msgid "Validated modules"
 msgstr "Mod. validés"
 
-#: admin.py:226
+#: admin.py:233
 msgid "Uploaded assignments"
 msgstr "Devoirs rendus"
 
-#: controllers.py:38
+#: controllers.py:40
 #, python-format
 msgid "%(titre)s - %(nb)s or less"
 msgstr "%(titre)s - %(nb)s ou moins"
 
-#: controllers.py:42
+#: controllers.py:44
 msgid "Everything"
 msgstr "Tous"
 
-#: forms.py:23
+#: forms.py:22
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: forms.py:28
+#: forms.py:27
 msgid "New password confirmation"
 msgstr "Confirmation du nouveau mot de passe"
 
-#: forms.py:64 forms.py:108 forms.py:125
-#, python-format
-msgid "Maximum size allowed is 1 Mo, this file is %.2f Mo"
-msgstr "La taille maximum permise est 1 Mo, ce fichier pèse %2.f Mo"
+#: forms.py:62 forms.py:106
+msgid "Maximum size allowed is 2 Mo, this file is %.2f Mo"
+msgstr "La taille maximum permise est 2 Mo, ce fichier pèse %2.f Mo"
 
-#: forms.py:79 templates/coaching/create_logins2.html:10
+#: forms.py:77 templates/coaching/create_logins2.html:10
 msgid "Source file"
 msgstr "Fichier source"
 
-#: forms.py:82 templates/coaching/create_logins2.html:24
+#: forms.py:80 templates/coaching/create_logins2.html:24
 #: templates/coaching/create_logins3.html:23
 msgid "Preferred language"
 msgstr "Langue préférée"
 
-#: forms.py:83 views.py:185 templates/coaching/change_profile.html:28
+#: forms.py:81 views.py:216 templates/coaching/change_profile.html:28
 #: templates/coaching/create_logins2.html:27
 #: templates/coaching/create_logins3.html:26
 msgid "Valid till"
 msgstr "Valide jusqu'au"
 
-#: forms.py:84 templates/coaching/create_logins2.html:30
+#: forms.py:82 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
 msgid "No"
 msgstr "Non"
 
-#: forms.py:84 templates/coaching/create_logins2.html:30
+#: forms.py:82 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
 msgid "Yes"
 msgstr "Oui"
 
-#: forms.py:85 templates/coaching/create_logins2.html:30
+#: forms.py:83 templates/coaching/create_logins2.html:30
 #: templates/coaching/create_logins3.html:29
 msgid "Send credentials by mail"
 msgstr "Envoi des informations par mail"
 
-#: forms.py:91
+#: forms.py:89
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: forms.py:103
+#: forms.py:101
 msgid "Filetype should be .doc, .docx, .xls, .xslx, .pdf or .zip"
 msgstr "Le type du fichier doit être .doc, .docx, .xls, .xlsx, .pdf ou .zip"
 
-#: forms.py:115
+#: forms.py:113
 msgid "Subject"
 msgstr "Sujet"
 
-#: forms.py:116
+#: forms.py:114
 msgid "Text"
 msgstr "Texte du mail"
 
-#: forms.py:118
+#: forms.py:116
 msgid "Attach a file"
 msgstr "Joindre un fichier"
+
+#: forms.py:123
+#, python-format
+msgid "Maximum size allowed is 1 Mo, this file is %.2f Mo"
+msgstr "La taille maximum permise est 1 Mo, ce fichier pèse %2.f Mo"
 
 #: models.py:38
 msgid "Customer name, required."
@@ -352,23 +353,23 @@ msgstr "Description de l'évènement, requis."
 msgid "Event"
 msgstr "Évènement"
 
-#: models.py:394
+#: models.py:414
 msgid "Additional document"
 msgstr "Document supplémentaire"
 
-#: models.py:395
+#: models.py:415
 msgid "Additional documents"
 msgstr "Documents supplémentaires"
 
-#: models.py:411
+#: models.py:431
 msgid "Directions"
 msgstr "Instructions"
 
-#: models.py:418
+#: models.py:438
 msgid "Assignment"
 msgstr "Devoir"
 
-#: models.py:419 templates/coaching/tab_cours.html:56
+#: models.py:439 templates/coaching/tab_cours.html:56
 #: templates/coaching/tab_cours_groupe.html:39
 msgid "Assignments"
 msgstr "Devoirs"
@@ -381,17 +382,17 @@ msgstr "Modifications sauvegardées avec succès."
 msgid "Change account"
 msgstr "Profil"
 
-#: views.py:62 views.py:126 views.py:135 views.py:168 views.py:218
-#: views.py:264
+#: views.py:62 views.py:156 views.py:165 views.py:199 views.py:253
+#: views.py:299
 msgid "This group does not exist."
 msgstr "Ce groupe n'existe pas."
 
-#: views.py:67 views.py:131 views.py:173 views.py:223 views.py:269
-#: views.py:290 views.py:379
+#: views.py:67 views.py:130 views.py:161 views.py:204 views.py:258
+#: views.py:304 views.py:325 views.py:414
 msgid "You do not have admin rights on the requested group."
 msgstr "Vous n'êtes pas administrateur du groupe demandé."
 
-#: views.py:84
+#: views.py:84 views.py:135
 msgid "Download group results"
 msgstr "Télécharger les résultats du groupe"
 
@@ -411,95 +412,99 @@ msgstr "Envoyer un mail aux étudiants sélectionnés"
 msgid "Group admin"
 msgstr "Modifier le groupe"
 
-#: views.py:181 templates/coaching/change_profile.html:22
+#: views.py:125
+msgid "This exam does not exist."
+msgstr "Cet examen n'existe pas."
+
+#: views.py:212 templates/coaching/change_profile.html:22
 msgid "Last Name"
 msgstr "Nom"
 
-#: views.py:182 templates/coaching/change_profile.html:23
+#: views.py:213 templates/coaching/change_profile.html:23
 msgid "First Name"
 msgstr "Prénom"
 
-#: views.py:186
+#: views.py:217
 #, python-format
 msgid "Completed courses / %d"
 msgstr "Cours validés / %d"
 
-#: views.py:187
+#: views.py:218
 #, python-format
 msgid "Uploaded works / %d"
 msgstr "Travaux rendus / %d"
 
-#: views.py:188 templates/coaching/groupe.html:65
+#: views.py:219 templates/coaching/groupe.html:71
 msgid "Current course"
 msgstr "Cours courant"
 
-#: views.py:189
+#: views.py:220
 msgid "Validated modules in current course"
 msgstr "Modules validés dans le cours courant"
 
-#: views.py:190
+#: views.py:221
 msgid "# modules in current course"
 msgstr "Nb modules dans le cours courant"
 
-#: views.py:191
+#: views.py:222
 msgid "Delays"
 msgstr "Retards"
 
-#: views.py:228 views.py:248
+#: views.py:263 views.py:283
 #, python-format
 msgid "Upload a file for %s"
 msgstr "Déposer un fichier pour le groupe %s"
 
-#: views.py:244
+#: views.py:279
 msgid "The document has been uploaded correctly."
 msgstr "Le document a été déposé avec succès."
 
-#: views.py:285 views.py:374
+#: views.py:320 views.py:409
 msgid "This user does not exist."
 msgstr "Cet utilisateur n'existe pas."
 
-#: views.py:352 views.py:356
+#: views.py:387 views.py:391
 msgid "You do not have professor rights on the requested group."
 msgstr "Vous n'êtes pas professeur du groupe demandé."
 
-#: views.py:384
+#: views.py:420
 msgid "Send an email to this student"
 msgstr "Envoyer un mail à cet étudiant"
 
-#: views.py:389
+#: views.py:425
 msgid "User admin"
 msgstr "Modifier le profil de cet étudiant"
 
-#: views.py:439
+#: views.py:476
 msgid "Exists already."
 msgstr "Existe déjà."
 
-#: views.py:449
+#: views.py:486
 msgid "Saved."
 msgstr "Créé."
 
-#: views.py:463
+#: views.py:500
 msgid "Mail sent."
 msgstr "Mail envoyé."
 
-#: views.py:465
+#: views.py:502
 msgid "Mail error."
 msgstr "Erreur mail."
 
-#: views.py:475 views.py:514 views.py:527 views.py:538 views.py:547
+#: views.py:512 views.py:551 views.py:564 views.py:575 views.py:584
 msgid "Create logins"
 msgstr "Créer les logins"
 
-#: views.py:510
+#: views.py:547
 #, python-format
 msgid "Invalid file content : %s"
 msgstr "Contenu de fichier invalide : %s"
 
 #: templates/coaching/change_profile.html:5 templates/coaching/cours.html:15
 #: templates/coaching/group_dashboard.html:10
-#: templates/coaching/groupe.html:11 templates/coaching/sendmail.html:9
-#: templates/coaching/sendmailadmin.html:9 templates/coaching/upload.html:9
-#: templates/coaching/user.html:10
+#: templates/coaching/groupe.html:11 templates/coaching/resultats.html:11
+#: templates/coaching/sendmail.html:9 templates/coaching/sendmailadmin.html:9
+#: templates/coaching/upload.html:9 templates/coaching/user.html:10
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -528,7 +533,8 @@ msgstr "Sauver"
 msgid "Download works from this group:"
 msgstr "Télécharger les travaux de ce groupe :"
 
-#: templates/coaching/cours.html:65 templates/coaching/groupe.html:94
+#: templates/coaching/cours.html:65 templates/coaching/groupe.html:103
+#: templates/coaching/resultats.html:58
 msgid "This group is empty."
 msgstr "Ce groupe est vide."
 
@@ -606,11 +612,27 @@ msgstr "Rien de spécial pour le moment"
 msgid "Documents to download"
 msgstr "Documents à télécharger"
 
-#: templates/coaching/group_dashboard.html:29
+#: templates/coaching/group_dashboard.html:30 templates/coaching/user.html:43
+msgid "Exams"
+msgstr "Examens"
+
+#: templates/coaching/group_dashboard.html:33 templates/coaching/user.html:46
+msgid "Exam"
+msgstr "Examen"
+
+#: templates/coaching/group_dashboard.html:33 templates/coaching/user.html:46
+msgid "Opened on"
+msgstr "Ouvert le"
+
+#: templates/coaching/group_dashboard.html:33 templates/coaching/user.html:46
+msgid "Closed on"
+msgstr "Fermé le"
+
+#: templates/coaching/group_dashboard.html:47
 msgid "Courses"
 msgstr "Cours"
 
-#: templates/coaching/group_dashboard.html:33
+#: templates/coaching/group_dashboard.html:51
 msgid "This group is not subscribed to any course"
 msgstr "Ce groupe n'est inscrit à aucun cours."
 
@@ -627,10 +649,14 @@ msgid "Uploaded<br />works"
 msgstr "Travaux<br />rendus"
 
 #: templates/coaching/groupe.html:67
+msgid "Exams<br />attempts"
+msgstr "Examens<br />tentés"
+
+#: templates/coaching/groupe.html:73
 msgid "Validated modules<br />in current course"
 msgstr "Modules validés<br />dans le cours courant"
 
-#: templates/coaching/groupe.html:69
+#: templates/coaching/groupe.html:75
 msgid "State"
 msgstr "État"
 
@@ -649,6 +675,10 @@ msgstr "À"
 #: templates/coaching/mailform.html:14
 msgid "Message"
 msgstr ""
+
+#: templates/coaching/resultats.html:37
+msgid "Result"
+msgstr "Résultat"
 
 #: templates/coaching/sendmail.html:15
 #: templates/coaching/sendmailadmin.html:20 templates/coaching/upload.html:33
@@ -773,10 +803,17 @@ msgstr "Travail en cours :"
 msgid "completed modules"
 msgstr "modules validés"
 
-#: templates/coaching/user.html:42
+#: templates/coaching/user.html:46
+msgid "Score"
+msgstr ""
+
+#: templates/coaching/user.html:74
 msgid "Completed courses details"
 msgstr "Détail des cours validés"
 
-#: templates/coaching/user.html:46
+#: templates/coaching/user.html:78
 msgid "This student is not subscribed to any course"
 msgstr "Cet étudiant n'est inscrit à aucun cours."
+
+#~ msgid "Username"
+#~ msgstr "Login"
