@@ -6,6 +6,7 @@ from django.utils.translation import activate, ugettext as _
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.template import RequestContext
 from django.template.loader import render_to_string
+from django.template.defaultfilters import slugify
 from django.core import urlresolvers
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
@@ -233,12 +234,14 @@ def add_doc(request):
         f = DocumentForm(request.POST, request.FILES)
         if f.is_valid():
             fichier = request.FILES['fichier']
+            filename, extension = fichier.name.rsplit('.',1)
+            filename = '.'.join((slugify(filename), extension))
             doc = AutresDocs(
                     groupe=groupe,
                     cours=f.cleaned_data['cours'],
                     titre=f.cleaned_data['titre'],
-                    fichier=fichier.name)
-            doc.fichier.save(fichier.name, fichier, save=True)
+                    fichier=filename)
+            doc.fichier.save(filename, fichier, save=True)
             request.user.message_set.create(
                     message=_("The document has been uploaded correctly."))
             return HttpResponseRedirect(groupe.get_absolute_url())
