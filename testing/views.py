@@ -98,11 +98,16 @@ def cas(request, cas_id=None):
     if request.method == 'POST':
         exam = UserSubmittedCase(request)
         exam.noter()
-        return render_to_response('testing/noter_cas.html',{
-                                    'title' : _("grade"),
-                                    'exam' : exam,
-                                    'baselink' : base,
-                                    }, context_instance=RequestContext(request))
+        if cas.examen.display_note:
+            return render_to_response('testing/noter_cas.html',{
+                                        'title' : _("grade"),
+                                        'exam' : exam,
+                                        'baselink' : base,
+                                        }, context_instance=RequestContext(request))
+        else:
+            request.user.message_set.create(
+                    message=_("Your answers have been saved."))
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
     try:
         cas.texte = open(support_path).read()
     except IOError:

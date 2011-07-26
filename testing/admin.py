@@ -58,9 +58,9 @@ admin.site.register(ExamReponse, ExamReponseAdmin)
 class ExamenAdmin(admin.ModelAdmin):
     fieldsets = (
             (None, {'fields': ('groupe','cours',)}),
-            (None, {'fields': ('titre','debut','fin',)}),
+            (None, {'fields': ('titre','debut','fin','display_note')}),
     )
-    list_display = ('groupe','cours','titre','debut','fin',)
+    list_display = ('groupe','cours','titre','debut','fin','display_note',)
     list_display_links = ('titre',)
     list_filter = ('groupe','cours',)
 admin.site.register(Examen, ExamenAdmin)

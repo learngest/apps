@@ -100,6 +100,9 @@ class Examen(models.Model):
     titre = models.CharField(max_length=100)
     debut = models.DateTimeField(blank=True, null=True)
     fin = models.DateTimeField(blank=True, null=True)
+    display_note = models.BooleanField(
+            verbose_name=_("Display score to student upon exam answers validation"),
+            default=False)
 
     class Meta:
         ordering = ['groupe','cours']
