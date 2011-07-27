@@ -101,7 +101,7 @@ class Examen(models.Model):
     debut = models.DateTimeField(blank=True, null=True)
     fin = models.DateTimeField(blank=True, null=True)
     display_note = models.BooleanField(
-            verbose_name=_("Display score to student upon exam answers validation"),
+            verbose_name=_("Display score to student"),
             default=False)
 
     class Meta:
