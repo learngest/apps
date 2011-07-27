@@ -365,6 +365,7 @@ class UserExam(object):
     def __init__(self, user, exam):
         self.user = user
         self.exam = exam
+        self.display_note = self.exam.display_note
         self.titre = self.exam.titre
         self.debut = self.exam.debut
         self.fin = self.exam.fin
@@ -409,11 +410,23 @@ class UserExam(object):
         Retourne un cas pour cet examen ou
         False s'il est déjà tenté ou si non trouvé
         """
-        if self.valide():
-            return False
-        else:
+        try:
+            resultat = ExamScore.objects.get(
+                    utilisateur=self.user, examen=self.exam)
+            if resultat.valide:
+                return False
+            else:
+                return resultat.cas
+        except ExamScore.DoesNotExist:
+            print "recherche d'un cas"
             try:
-                return ExamCas.objects.filter(examen=self.exam).order_by('?')[0]
+                c = ExamCas.objects.filter(examen=self.exam).order_by('?')[0]
+                r = ExamScore(utilisateur=self.user,
+                        examen=self.exam,
+                        cas=c,
+                        valide=False)
+                r.save()
+                return c
             except IndexError:
                 return False
 
@@ -646,7 +659,13 @@ class UserSubmittedCase(object):
         except UnboundLocalError:
             return HttpResponseRedirect('/')
         self.titre = cas.titre
-        r = ExamScore(utilisateur=self.user, examen=cas.examen, score=self.score, valide=True)
+        try:
+            r = ExamScore.objects.get(
+                    utilisateur=self.user, examen=cas.examen)
+            r.score = self.score
+            r.valide = True
+        except ExamScore.DoesNotExist:
+            r = ExamScore(utilisateur=self.user, examen=cas.examen, score=self.score, valide=True)
         r.save()
         self.enonces = enonces.values()
         return

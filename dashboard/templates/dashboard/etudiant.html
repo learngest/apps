@@ -44,8 +44,12 @@
     <td style="text-align: center;">{{ exam.debut|date:"d/m/Y" }}</td>
     <td style="text-align: center;">{{ exam.fin|date:"d/m/Y" }}</td>
     <td style="text-align: center;">
-        {% if exam.score %}
-        {{ exam.score }} %
+        {% if exam.valide %}
+            {% if exam.display_note %}
+            {{ exam.score }} %
+            {% else %}
+            N/A
+            {% endif %}
         {% else %}
         &nbsp;
         {% endif %}

@@ -12,7 +12,7 @@ from django.contrib.auth.models import User, UserManager
 
 from email_auth.views import user_logged_in
 from learning.models import Cours, Module
-from testing.models import Granule, Examen
+from testing.models import Granule, Examen, ExamCas
 
 from listes import *
 
@@ -372,7 +372,8 @@ class ExamScore(CommonResultat):
     Stocke les scores aux examens
     """
     examen = models.ForeignKey(Examen)
-    score = models.IntegerField()
+    cas = models.ForeignKey(ExamCas)
+    score = models.IntegerField(null=True, blank=True)
     valide = models.BooleanField(default=False)
 
     class Meta:
