@@ -373,6 +373,7 @@ class ExamScore(CommonResultat):
     """
     examen = models.ForeignKey(Examen)
     score = models.IntegerField()
+    valide = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (('utilisateur','examen'),)

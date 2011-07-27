@@ -378,6 +378,17 @@ class UserExam(object):
                 except CoursDuGroupe.DoesNotExist:
                     pass
 
+    def valide(self):
+        """
+        True si l'examen a été validé au travers d'un cas
+        """
+        try:
+            resultat = ExamScore.objects.get(
+                    utilisateur=self.user, examen=self.exam)
+            return resultat.valide
+        except ExamScore.DoesNotExist:
+            return False
+
     def score(self):
         """
         Le score obtenu à l'examen, en pourcentage
@@ -386,7 +397,10 @@ class UserExam(object):
         try:
             resultat = ExamScore.objects.get(
                     utilisateur=self.user, examen=self.exam)
-            return resultat.score
+            if resultat.valide:
+                return resultat.score
+            else:
+                return False
         except ExamScore.DoesNotExist:
             return False
 
@@ -395,7 +409,7 @@ class UserExam(object):
         Retourne un cas pour cet examen ou
         False s'il est déjà tenté ou si non trouvé
         """
-        if self.score():
+        if self.valide():
             return False
         else:
             try:
@@ -410,7 +424,7 @@ class UserExam(object):
         """
         import datetime
         now = datetime.datetime.now()
-        if self.score():
+        if self.valide():
             return False
         if self.debut and now < self.debut:
             return False
@@ -632,7 +646,7 @@ class UserSubmittedCase(object):
         except UnboundLocalError:
             return HttpResponseRedirect('/')
         self.titre = cas.titre
-        r = ExamScore(utilisateur=self.user, examen=cas.examen, score=self.score)
+        r = ExamScore(utilisateur=self.user, examen=cas.examen, score=self.score, valide=True)
         r.save()
         self.enonces = enonces.values()
         return
