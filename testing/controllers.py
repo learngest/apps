@@ -461,17 +461,21 @@ class UserCase(object):
         Retourne le code html des énoncés du cas, avec leurs questions
         """
         questions = \
-            ExamQuestion.objects.filter(examen=self.cas)
+            ExamQuestion.objects.filter(examen=self.cas).order_by('id')
         if not questions:
             self.user.message_set.create(
                 message=_('Hmm, no questions for this case study.'))
         enonces = {}
+        enonce_id = -1
+        rank = 0
         for q in questions:
-            enonces.setdefault(q.enonce.id,{})
-            enonces[q.enonce.id]['libel'] = q.enonce.libel
-            if not 'questions' in enonces[q.enonce.id]:
-                enonces[q.enonce.id]['questions'] = []
-            enonces[q.enonce.id]['questions'].append(
+            if not q.enonce.id==enonce_id:
+                rank += 1
+                enonce_id = q.enonce.id
+                enonces.setdefault(rank,{})
+                enonces[rank]['libel'] = q.enonce.libel
+                enonces[rank]['questions'] = []
+            enonces[rank]['questions'].append(
                     getattr(self, "_output_%s" % q.typq)(q))
         return enonces.values()
 
