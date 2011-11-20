@@ -60,6 +60,11 @@ class Enonce(models.Model):
     def __unicode__(self):
         return self.libel
 
+    def get_admin_url(self):
+        from django.core import urlresolvers
+        return urlresolvers.reverse('admin:testing_enonce_change',
+                args=(str(self.id),))
+
 class Question(models.Model):
     """
     Le modèle de base Question.
@@ -78,6 +83,11 @@ class Question(models.Model):
     def __unicode__(self):
         return self.libel
 
+    def get_admin_url(self):
+        from django.core import urlresolvers
+        return urlresolvers.reverse('admin:testing_question_change',
+                args=(str(self.id),))
+
 class Reponse(models.Model):
     """
     Le modèle de base Reponse.
@@ -89,6 +99,9 @@ class Reponse(models.Model):
 
     def __unicode__(self):
         return self.valeur
+
+    def enonce(self):
+        return self.question.enonce
 
 class Examen(models.Model):
     """
@@ -188,4 +201,3 @@ class ExamReponse(models.Model):
 
     def __unicode__(self):
         return self.valeur
-
