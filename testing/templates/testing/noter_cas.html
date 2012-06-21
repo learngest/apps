@@ -12,7 +12,7 @@
 {% endblock extrahead %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; {% trans "Exam" %} &gt; {{ exam.titre }} &gt; {% trans "grade" %} {{ breadcrumb }}
+    <a href="{% url apps.dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; {% trans "Exam" %} &gt; {{ exam.titre }} &gt; {% trans "grade" %} {{ breadcrumb }}
 </div>{% endblock %}
 
 {% block content %}
@@ -27,6 +27,6 @@
 	{% endfor%}
 	<div class="infomsg">
         <p>{% trans "Final score" %} {{ exam.total }} / {{ exam.max }}  ({{ exam.score|floatformat:0 }} %).</p>
-        <p><a href="{% url dashboard.views.dashboard %}">{% trans "Back to your dashboard" %}</a></p>
+        <p><a href="{% url apps.dashboard.views.dashboard %}">{% trans "Back to your dashboard" %}</a></p>
 	</div>
 {% endblock content %}

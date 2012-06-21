@@ -9,9 +9,9 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
 
-from dashboard.planning import Calendrier, Planning
-from coaching.controllers import AdminGroupe, UserState
-from coaching.models import Groupe, Prof, AutresDocs
+from apps.dashboard.planning import Calendrier, Planning
+from apps.coaching.controllers import AdminGroupe, UserState
+from apps.coaching.models import Groupe, Prof, AutresDocs
 
 @login_required
 def dashboard(request):
@@ -24,7 +24,7 @@ def dashboard(request):
     - assistant
     - etudiant
     """
-    curmod = sys.modules['dashboard.views']
+    curmod = sys.modules['apps.dashboard.views']
     fonction = "dashboard_%s" % request.user.get_statut_display()
     return getattr(curmod, 
             fonction, dashboard_student)(request)

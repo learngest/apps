@@ -14,7 +14,7 @@
 {% endblock extrahead %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt;  test : {{ test.titre }} {{ breadcrumb }}
+    <a href="{% url apps.dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt;  test : {{ test.titre }} {{ breadcrumb }}
 </div>{% endblock %}
 
 {% block content %}

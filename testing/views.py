@@ -11,10 +11,10 @@ from django.template import RequestContext, loader
 from django.template.defaulttags import include_is_allowed
 from django.conf import settings
 
-from testing.models import Granule, ExamCas
-from testing.controllers import UserTest, UserSubmittedTest
-from testing.controllers import UserExam, UserCase, UserSubmittedCase
-from learning.controllers import UserModule
+from apps.testing.models import Granule, ExamCas
+from apps.testing.controllers import UserTest, UserSubmittedTest
+from apps.testing.controllers import UserExam, UserCase, UserSubmittedCase
+from apps.learning.controllers import UserModule
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -41,7 +41,7 @@ def test(request, granule_id=None):
     site_id = getattr(settings, 'SITE_ID', 1)
     site = Site.objects.get(id=site_id)
     base = ''.join(('http://', site.domain))
-    contents_prefix = getattr(settings, 'CONTENTS_PREFIX', 'contents')
+    contents_prefix = getattr(settings, 'LG_CONTENTS_PREFIX', 'contents')
     suffixe = os.path.join( contents_prefix,
                             granule.module.slug,
                             'imgtests/')
@@ -87,10 +87,10 @@ def cas(request, cas_id=None):
     site_id = getattr(settings, 'SITE_ID', 1)
     site = Site.objects.get(id=site_id)
     base = ''.join(('http://', site.domain))
-    contents_prefix = getattr(settings, 'CONTENTS_PREFIX', 'contents')
-    suffixe = os.path.join(contents_prefix, 'cas', cas.slug, cas.ressource)
-    base = os.path.join(base, suffixe)
-    support_path = os.path.join(settings.PROJECT_PATH, suffixe)
+    contents_prefix = getattr(settings, 'LG_CONTENTS_PREFIX', 'contents')
+    suffixe = os.path.join('cas', cas.slug, cas.ressource)
+    support_path = os.path.join(settings.LG_CONTENTS_ROOT, suffixe)
+    base = os.path.join(base, contents_prefix, suffixe)
     if not include_is_allowed(support_path):
         request.user.message_set.create(
                 message=_("You are not allowed to browse the requested content."))

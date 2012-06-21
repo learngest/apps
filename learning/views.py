@@ -14,11 +14,11 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.template.defaulttags import include_is_allowed
 
-from learning.models import Cours, Module, Contenu, ModuleTitre
-from coaching.models import Work, WorkDone, Groupe
-from testing.models import Granule, Question
-from coaching.forms import WorkForm
-from learning.controllers import UserCours, UserModule
+from apps.learning.models import Cours, Module, Contenu, ModuleTitre
+from apps.coaching.models import Work, WorkDone, Groupe
+from apps.testing.models import Granule, Question
+from apps.coaching.forms import WorkForm
+from apps.learning.controllers import UserCours, UserModule
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -53,8 +53,8 @@ def support(request, contenu_id=None):
     site_id = getattr(settings, 'SITE_ID', 1)
     site = Site.objects.get(id=site_id)
     base = ''.join(('http://', site.domain))
-    contents_prefix = getattr(settings, 'CONTENTS_PREFIX', 'contents')
-    curmod = sys.modules['learning.views']
+    contents_prefix = getattr(settings, 'LG_CONTENTS_PREFIX', 'contents')
+    curmod = sys.modules['apps.learning.views']
     fonction = 'render_%s' % contenu.type
     return getattr(curmod, 
             fonction, render_any)(request, contenu, base, contents_prefix)
@@ -63,12 +63,11 @@ def render_htm(request, c, base, contents_prefix):
     """
     Render html support
     """
-    suffixe = os.path.join( contents_prefix,
-                            c.module.slug,
+    suffixe = os.path.join(c.module.slug,
                             c.langue,
                             c.ressource)
-    support_path = os.path.join(settings.PROJECT_PATH, suffixe)
-    base = os.path.join(base, suffixe)
+    support_path = os.path.join(settings.LG_CONTENTS_ROOT, suffixe)
+    base = os.path.join(base, contents_prefix, suffixe)
     if not include_is_allowed(support_path):
         request.user.message_set.create(
                 message=_("You are not allowed to browse the requested content."))
@@ -91,13 +90,11 @@ def render_swf(request, c, base, contents_prefix):
     """
     Render swf (flash) support
     """
-    suffixe = os.path.join( contents_prefix,
-                            c.module.slug,
+    suffixe = os.path.join(c.module.slug,
                             c.langue,
-                            'flash',
                             c.ressource)
-    support_path = os.path.join(settings.PROJECT_PATH, suffixe)
-    base = os.path.join(base, suffixe)
+    support_path = os.path.join(settings.LG_CONTENTS_ROOT, suffixe)
+    base = os.path.join(base, contents_prefix, suffixe)
     if not include_is_allowed(support_path):
         request.user.message_set.create(
                 message=_("You are not allowed to browse the requested content."))
@@ -178,15 +175,15 @@ def assignment(request, work_id=None):
                     try:
                         zf = zipfile.ZipFile(
                             os.path.join(settings.MEDIA_ROOT,
-                                        settings.WORKDONE_DIR,zfichier),
+                                        settings.LG_WORKDONE_DIR,zfichier),
                                         'a',zipfile.ZIP_DEFLATED)
                     except IOError:
                         zf = zipfile.ZipFile(
                             os.path.join(settings.MEDIA_ROOT,
-                                        settings.WORKDONE_DIR,zfichier),
+                                        settings.LG_WORKDONE_DIR,zfichier),
                                         'w',zipfile.ZIP_DEFLATED)
                     zf.write(os.path.join(settings.MEDIA_ROOT,
-                                    settings.WORKDONE_DIR,fichier))
+                                    settings.LG_WORKDONE_DIR,fichier))
                     zf.close()
                     # login zipfile
                     zfichier = ''.join(('g%d' % request.user.groupe.id,'-', 
@@ -195,15 +192,15 @@ def assignment(request, work_id=None):
                     try:
                         zf = zipfile.ZipFile(
                             os.path.join(settings.MEDIA_ROOT,
-                                        settings.WORKDONE_DIR,zfichier),
+                                        settings.LG_WORKDONE_DIR,zfichier),
                                         'a',zipfile.ZIP_DEFLATED)
                     except IOError:
                         zf = zipfile.ZipFile(
                             os.path.join(settings.MEDIA_ROOT,
-                                        settings.WORKDONE_DIR,zfichier),
+                                        settings.LG_WORKDONE_DIR,zfichier),
                                         'w',zipfile.ZIP_DEFLATED)
                     zf.write(os.path.join(settings.MEDIA_ROOT,
-                            settings.WORKDONE_DIR,fichier))
+                            settings.LG_WORKDONE_DIR,fichier))
                     zf.close()
                     request.user.nb_travaux_rendus += 1
                     # cours validé ?

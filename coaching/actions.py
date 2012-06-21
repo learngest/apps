@@ -7,7 +7,7 @@ from django.core.mail import send_mail, EmailMessage
 from django.contrib.admin import helpers
 from django.conf import settings
 
-from coaching.forms import MailForm
+from apps.coaching.forms import MailForm
 
 def send_email(modeladmin, request, queryset):
     """

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a> &gt; {% trans "Upload a file" %}
+    <a href="{% url apps.dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ groupe.get_absolute_url }}">{{ groupe.nom }}</a> &gt; {% trans "Upload a file" %}
 </div>{% endblock %}
 
 {% block content %}

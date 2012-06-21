@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; {{ cours.groupe.nom }} - {{ cours.titre }}
+    <a href="{% url apps.dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; {{ cours.groupe.nom }} - {{ cours.titre }}
 </div>{% endblock %}
 
 {% block content %}

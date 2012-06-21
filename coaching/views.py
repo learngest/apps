@@ -11,13 +11,13 @@ from django.core import urlresolvers
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
-from coaching.models import Utilisateur, Groupe, Prof, AutresDocs
-from coaching.forms import UtilisateurChangeForm, CreateLoginsForm, MailForm, DocumentForm
-from coaching.controllers import AdminGroupe, UserState, ProfCours, filters, AdminCours
-from dashboard.planning import Calendrier, Planning
-from testing.models import Examen
+from apps.coaching.models import Utilisateur, Groupe, Prof, AutresDocs
+from apps.coaching.forms import UtilisateurChangeForm, CreateLoginsForm, MailForm, DocumentForm
+from apps.coaching.controllers import AdminGroupe, UserState, ProfCours, filters, AdminCours
+from apps.dashboard.planning import Calendrier, Planning
+from apps.testing.models import Examen
 
-from listes import *
+from masters.listes import *
 
 LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
 
@@ -84,20 +84,20 @@ def groupe(request, groupe_id):
         groupe = groupe_complet
     actions = [{'libel':_('Download group results'),
                 'url':'%s?id=%s' % (
-                    urlresolvers.reverse('coaching.views.csvperf'),
+                    urlresolvers.reverse('apps.coaching.views.csvperf'),
                     groupe_id)},
             {'libel':_('See group planning and courses'),
              'url': '%s?id=%s' % (
-                urlresolvers.reverse('coaching.views.dashboard'),
+                urlresolvers.reverse('apps.coaching.views.dashboard'),
                 groupe_id)},]
     actions_admin = [
             {'libel':_('Upload a file for this group'),
              'url':'%s?id=%s' % (
-                 urlresolvers.reverse('coaching.views.add_doc'),
+                 urlresolvers.reverse('apps.coaching.views.add_doc'),
                  groupe_id)},
             {'libel':_('Send an email to selected students'),
              'url': '%s?id=%s&%s' % (
-                urlresolvers.reverse('coaching.views.sendmail'),
+                urlresolvers.reverse('apps.coaching.views.sendmail'),
                 groupe_id, filtraw)},]
     actions_staff = [
             {'libel':_('Group admin'),
@@ -135,7 +135,7 @@ def examresults(request, exam_id=None):
         user.score = user.resultat(examen)
     actions = [{'libel':_('Download group results'),
                 'url':'%s?id=%s' % (
-                    urlresolvers.reverse('coaching.views.csvperf'),
+                    urlresolvers.reverse('apps.coaching.views.csvperf'),
                     examen.groupe_id)},]
     return render_to_response('coaching/resultats.html',
                               {'title': examen.titre,
@@ -422,7 +422,7 @@ def user(request, user_id):
     actions_admin = [
             {'libel':_('Send an email to this student'),
              'url': '%s?uid=%s' % (
-                urlresolvers.reverse('coaching.views.sendmail'),
+                urlresolvers.reverse('apps.coaching.views.sendmail'),
                 utilisateur.id)},]
     actions_staff = [
             {'libel':_('User admin'),

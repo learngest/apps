@@ -8,10 +8,10 @@ from django import forms
 from django.forms import ModelForm
 from django.conf import settings
 
-from coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work, AutresDocs, Assistants, Prof
-from coaching.actions import send_email
+from apps.coaching.models import Client, Groupe, Utilisateur, CoursDuGroupe, Event, Work, AutresDocs, Assistants, Prof
+from apps.coaching.actions import send_email
 
-from listes import *
+from masters.listes import *
 
 admin.site.unregister(User)
 admin.site.unregister(Group)

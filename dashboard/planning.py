@@ -5,7 +5,7 @@ import calendar
 from operator import itemgetter
 
 from django.utils.translation import ugettext as _
-from coaching.models import CoursDuGroupe, Event, Work 
+from apps.coaching.models import CoursDuGroupe, Event, Work 
 
 class Calendrier():
     """

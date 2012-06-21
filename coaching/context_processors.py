@@ -9,5 +9,5 @@ def media_urls(request):
     """
     return {
         'media_url': settings.MEDIA_URL,
-        'workdone': settings.WORKDONE_DIR,
+        'workdone': settings.LG_WORKDONE_DIR,
     }

@@ -6,12 +6,12 @@ from django.utils.translation import ugettext as _
 from django.core.cache import cache
 from django.conf import settings
 
-from coaching.models import CoursDuGroupe, Work, WorkDone, AutresDocs, Prof
-from learning.models import Contenu
-from testing.models import Granule
-from testing.controllers import UserGranule
+from apps.coaching.models import CoursDuGroupe, Work, WorkDone, AutresDocs, Prof
+from apps.learning.models import Contenu
+from apps.testing.models import Granule
+from apps.testing.controllers import UserGranule
 
-from listes import *
+from masters.listes import *
 
 class UserModule(object):
     """

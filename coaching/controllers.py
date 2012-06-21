@@ -6,11 +6,11 @@ from django.utils.translation import ugettext as _
 #from django.core.cache import cache
 from django.conf import settings
 
-from coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone, CoursDuGroupe, Prof, AutresDocs
-from learning.controllers import UserModule, UserCours
-from testing.controllers import UserExam
-from learning.models import Cours
-from testing.models import Examen
+from apps.coaching.models import Utilisateur, ModuleValide, Resultat, Work, WorkDone, CoursDuGroupe, Prof, AutresDocs
+from apps.learning.controllers import UserModule, UserCours
+from apps.testing.controllers import UserExam
+from apps.learning.models import Cours
+from apps.testing.models import Examen
 
 class ProfCours(object):
     """
@@ -108,7 +108,7 @@ class AdminGroupe(object):
         for c in self.groupe.cours.all():
             zipname = 'g%d-%s.zip' % (self.groupe.id, c.slug)
             zipfile = os.path.join(settings.MEDIA_ROOT,
-                    settings.WORKDONE_DIR,zipname)
+                    settings.LG_WORKDONE_DIR,zipname)
             if os.path.exists(zipfile):
                 lworkdone.append(zipname)
         return lworkdone
@@ -368,7 +368,7 @@ class UserState(object):
         import os.path
         zipname = 'g%d-%s.zip' % (self.user.groupe.id, self.user.username)
         zipfile = os.path.join(settings.MEDIA_ROOT,
-                settings.WORKDONE_DIR,zipname)
+                settings.LG_WORKDONE_DIR,zipname)
         if os.path.exists(zipfile):
             return zipname
 

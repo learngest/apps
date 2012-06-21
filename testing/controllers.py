@@ -6,11 +6,11 @@ from django.utils.translation import ugettext as _
 from django.core.cache import cache
 from django.http import HttpResponseRedirect
 
-from testing.models import Question, ExamCas, ExamQuestion
-from coaching.models import GranuleValide, ModuleValide, Resultat, CoursDuGroupe
-from coaching.models import ExamScore
+from apps.testing.models import Question, ExamCas, ExamQuestion
+from apps.coaching.models import GranuleValide, ModuleValide, Resultat, CoursDuGroupe
+from apps.coaching.models import ExamScore
 
-import finance
+import apps.testing.finance as finance
 
 REP = " <input type=\"text\" size=\"15\" name=\"rep%d\" /> "
 HID_DICT = "<input type=\"hidden\" value=\"%s\" name=\"dic%d\" />"
@@ -277,7 +277,7 @@ class UserSubmittedTest(object):
         Note le test
         Retourne un tuple (score, score_max, validé ?)
         """
-        from learning.controllers import UserCours
+        from apps.learning.controllers import UserCours
         enonces = {}
         for quest,rep in self.request.POST.lists():
             if not quest.startswith('rep'):

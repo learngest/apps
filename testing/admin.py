@@ -3,8 +3,8 @@
 from django.contrib import admin
 from django import forms
 from django.forms import ModelForm, Textarea
-from testing.models import Granule, GranuleTitre, Enonce, Question, Reponse
-from testing.models import Examen, ExamCas, ExamEnonce, ExamQuestion, ExamReponse
+from apps.testing.models import Granule, GranuleTitre, Enonce, Question, Reponse
+from apps.testing.models import Examen, ExamCas, ExamEnonce, ExamQuestion, ExamReponse
 
 class GranuleAdmin(admin.ModelAdmin):
     ordering = ['slug'] 

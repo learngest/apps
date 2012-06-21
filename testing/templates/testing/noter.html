@@ -12,7 +12,7 @@
 {% endblock extrahead %}
 
 {% block breadcrumbs %}<div class="breadcrumbs">
-    <a href="{% url dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ test.get_absolute_url }}">test : {{ test.titre }}</a> &gt; {% trans "grade" %} {{ breadcrumb }}
+    <a href="{% url apps.dashboard.views.dashboard %}">{% trans "Dashboard" %}</a> &gt; <a href="{{ test.get_absolute_url }}">test : {{ test.titre }}</a> &gt; {% trans "grade" %} {{ breadcrumb }}
 </div>{% endblock %}
 
 {% block content %}
@@ -28,7 +28,7 @@
 	<div class="infomsg">
 		<p>{% trans "Final score" %} {{ test.total }} / {{ test.max }}.</p>
 		{% if test.valide %}
-        <p>{% trans "Congratulations, you succeeded !" %} <a href="{% url dashboard.views.dashboard %}">{% trans "Back to your dashboard" %}</a></p>
+        <p>{% trans "Congratulations, you succeeded !" %} <a href="{% url apps.dashboard.views.dashboard %}">{% trans "Back to your dashboard" %}</a></p>
 		{% else %}
         <p>{% trans "Your score is too low, please try again." %} <a href="{{ test.get_absolute_url }}">{% trans "Try again now" %}</a></p>
 		{% endif %}

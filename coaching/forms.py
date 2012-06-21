@@ -5,9 +5,9 @@ from django.utils.translation import ugettext as _
 from django.contrib.admin import widgets
 from django.conf import settings
 
-from coaching.models import Utilisateur, AutresDocs
+from apps.coaching.models import Utilisateur, AutresDocs
 
-from listes import *
+from masters.listes import *
 
 class UtilisateurChangeForm(forms.ModelForm):
     """

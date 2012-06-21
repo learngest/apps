@@ -11,10 +11,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, UserManager
 
 from email_auth.views import user_logged_in
-from learning.models import Cours, Module
-from testing.models import Granule, Examen, ExamCas
+from apps.learning.models import Cours, Module
+from apps.testing.models import Granule, Examen, ExamCas
 
-from listes import *
+from masters.listes import *
 
 def set_language(sender, **kwargs):
     """
@@ -106,7 +106,7 @@ class Groupe(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return('coaching.views.groupe', [str(self.id)])
+        return('apps.coaching.views.groupe', [str(self.id)])
 
 class CoursDuGroupe(models.Model):
     """
@@ -174,7 +174,7 @@ class Prof(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return('coaching.views.cours', [str(self.id)])
+        return('apps.coaching.views.cours', [str(self.id)])
 
 class Utilisateur(User):
     """
@@ -259,7 +259,7 @@ class Utilisateur(User):
 
     @models.permalink
     def get_absolute_url(self):
-        return('coaching.views.user', [str(self.id)])
+        return('apps.coaching.views.user', [str(self.id)])
 
 class Event(models.Model):
     """
@@ -445,7 +445,7 @@ class Work(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return('learning.views.assignment', [str(self.id)])
+        return('apps.learning.views.assignment', [str(self.id)])
 
 class WorkDone(models.Model):
     """
@@ -455,7 +455,7 @@ class WorkDone(models.Model):
     utilisateur = models.ForeignKey(Utilisateur)
     work = models.ForeignKey(Work)
     date = models.DateTimeField()
-    fichier = models.FileField(upload_to=settings.WORKDONE_DIR)
+    fichier = models.FileField(upload_to=settings.LG_WORKDONE_DIR)
     signature = models.CharField(max_length=54)
 
     class Meta:

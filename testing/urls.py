@@ -2,7 +2,7 @@
 
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('testing.views',
+urlpatterns = patterns('apps.testing.views',
     (r'^cas/(?P<cas_id>\d+)/$', 'cas',),
     (r'^(?P<granule_id>\d+)/$', 'test',),
 #    (r'^noter/$', 'noter',),

@@ -4,9 +4,9 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from learning.models import Module, Cours
+from apps.learning.models import Module, Cours
 
-from listes import *
+from masters.listes import *
 
 class Granule(models.Model):
     """
@@ -34,7 +34,7 @@ class Granule(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return('testing.views.test', [str(self.id)])
+        return('apps.testing.views.test', [str(self.id)])
 
 class GranuleTitre(models.Model):
     """
@@ -125,7 +125,7 @@ class Examen(models.Model):
 
     def get_results_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('coaching.views.examresults',
+        return urlresolvers.reverse('apps.coaching.views.examresults',
                 args=(str(self.id),))
 
 class ExamCas(models.Model):
@@ -147,7 +147,7 @@ class ExamCas(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return('testing.views.cas', [str(self.id)])
+        return('apps.testing.views.cas', [str(self.id)])
 
 class ExamEnonce(models.Model):
     """
