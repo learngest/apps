@@ -92,7 +92,9 @@ def render_swf(request, c, base, contents_prefix):
     """
     suffixe = os.path.join(c.module.slug,
                             c.langue,
+                            'flash',
                             c.ressource)
+    support = os.path.join(contents_prefix, suffixe)
     support_path = os.path.join(settings.LG_CONTENTS_ROOT, suffixe)
     base = os.path.join(base, contents_prefix, suffixe)
     if not include_is_allowed(support_path):
@@ -104,7 +106,7 @@ def render_swf(request, c, base, contents_prefix):
                                 'baselink': base,
                                 'contents_prefix': contents_prefix,
                                 'breadcrumb': c.module.titre(c.langue),
-                                'support' : suffixe,
+                                'support' : support,
                                 }, context_instance=RequestContext(request))
 
 def render_any(request, c, base, contents_prefix):
