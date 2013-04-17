@@ -57,6 +57,9 @@ def dashboard_admin(request):
     """
     groupes = [AdminGroupe(request.user, groupe) 
             for groupe in Groupe.objects.filter(administrateur=request.user)]
+    # The admin may also be assistant for some groups
+    groupes.extend([AdminGroupe(request.user, groupe)
+            for groupe in Groupe.objects.filter(assistant=request.user)])
     if len(groupes)==1:
         return HttpResponseRedirect(groupes[0].get_absolute_url)
     else:
